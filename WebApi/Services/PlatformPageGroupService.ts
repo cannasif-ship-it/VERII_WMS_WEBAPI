@@ -35,48 +35,84 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
   }
 
   async getById(id: number): Promise<ApiResponse<PlatformPageGroupDto>> {
-    const response = await api.get<ApiResponse<PlatformPageGroupDto>>(`/${id}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformPageGroupDto>>(`/${id}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+    }
   }
 
   async create(createDto: CreatePlatformPageGroupDto): Promise<ApiResponse<PlatformPageGroupDto>> {
-    const response = await api.post<ApiResponse<PlatformPageGroupDto>>('/', createDto);
-    return response.data;
+    try {
+      const response = await api.post<ApiResponse<PlatformPageGroupDto>>('/', createDto);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+    }
   }
 
   async update(id: number, updateDto: UpdatePlatformPageGroupDto): Promise<ApiResponse<PlatformPageGroupDto>> {
-    const response = await api.put<ApiResponse<PlatformPageGroupDto>>(`/${id}`, updateDto);
-    return response.data;
+    try {
+      const response = await api.put<ApiResponse<PlatformPageGroupDto>>(`/${id}`, updateDto);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+    }
   }
 
   async softDelete(id: number): Promise<ApiResponse<boolean>> {
-    const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
-    return response.data;
+    try {
+      const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error, 'PlatformPageGroupService');
+    }
   }
 
   async exists(id: number): Promise<ApiResponse<boolean>> {
-    const response = await api.get<ApiResponse<boolean>>(`/${id}/exists`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<boolean>>(`/${id}/exists`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error, 'PlatformPageGroupService');
+    }
   }
 
   async getByGroupCode(groupCode: string): Promise<ApiResponse<PlatformPageGroupDto[]>> {
-    const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-group-code/${encodeURIComponent(groupCode)}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-group-code/${encodeURIComponent(groupCode)}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+    }
   }
 
   async getByMenuHeaderId(menuHeaderId: number): Promise<ApiResponse<PlatformPageGroupDto[]>> {
-    const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-header-id/${menuHeaderId}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-header-id/${menuHeaderId}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+    }
   }
 
   async getByMenuLineId(menuLineId: number): Promise<ApiResponse<PlatformPageGroupDto[]>> {
-    const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-line-id/${menuLineId}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-line-id/${menuLineId}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+    }
   }
 
   async getPageGroupsGroupByGroupCode(): Promise<ApiResponse<PlatformPageGroupDto[]>> {
-    const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>('/group-by-group-code');
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>('/group-by-group-code');
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+    }
   }
 }
 

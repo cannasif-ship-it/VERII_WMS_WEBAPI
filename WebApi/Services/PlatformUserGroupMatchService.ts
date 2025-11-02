@@ -35,38 +35,66 @@ export class PlatformUserGroupMatchService implements IPlatformUserGroupMatchSer
   }
 
   async getById(id: number): Promise<ApiResponse<PlatformUserGroupMatchDto>> {
-    const response = await api.get<ApiResponse<PlatformUserGroupMatchDto>>(`/${id}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformUserGroupMatchDto>>(`/${id}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformUserGroupMatchDto>(error);
+    }
   }
 
   async create(createDto: CreatePlatformUserGroupMatchDto): Promise<ApiResponse<PlatformUserGroupMatchDto>> {
-    const response = await api.post<ApiResponse<PlatformUserGroupMatchDto>>('/', createDto);
-    return response.data;
+    try {
+      const response = await api.post<ApiResponse<PlatformUserGroupMatchDto>>('/', createDto);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformUserGroupMatchDto>(error);
+    }
   }
 
   async update(id: number, updateDto: UpdatePlatformUserGroupMatchDto): Promise<ApiResponse<PlatformUserGroupMatchDto>> {
-    const response = await api.put<ApiResponse<PlatformUserGroupMatchDto>>(`/${id}`, updateDto);
-    return response.data;
+    try {
+      const response = await api.put<ApiResponse<PlatformUserGroupMatchDto>>(`/${id}`, updateDto);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformUserGroupMatchDto>(error);
+    }
   }
 
   async softDelete(id: number): Promise<ApiResponse<boolean>> {
-    const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
-    return response.data;
+    try {
+      const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
   }
 
   async exists(id: number): Promise<ApiResponse<boolean>> {
-    const response = await api.get<ApiResponse<boolean>>(`/${id}/exists`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<boolean>>(`/${id}/exists`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
   }
 
   async getByUserId(userId: number): Promise<ApiResponse<PlatformUserGroupMatchDto[]>> {
-    const response = await api.get<ApiResponse<PlatformUserGroupMatchDto[]>>(`/by-user-id/${userId}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformUserGroupMatchDto[]>>(`/by-user-id/${userId}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformUserGroupMatchDto[]>(error);
+    }
   }
 
   async getByGroupCode(groupCode: string): Promise<ApiResponse<PlatformUserGroupMatchDto[]>> {
-    const response = await api.get<ApiResponse<PlatformUserGroupMatchDto[]>>(`/by-group-code/${encodeURIComponent(groupCode)}`);
-    return response.data;
+    try {
+      const response = await api.get<ApiResponse<PlatformUserGroupMatchDto[]>>(`/by-group-code/${encodeURIComponent(groupCode)}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PlatformUserGroupMatchDto[]>(error);
+    }
   }
 }
 
