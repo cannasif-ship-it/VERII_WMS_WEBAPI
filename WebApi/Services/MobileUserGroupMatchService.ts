@@ -31,11 +31,10 @@ export class MobileUserGroupMatchService {
      */
     async getAll(): Promise<ApiResponse<MobileUserGroupMatchDto[]>> {
         try {
-            const response = await this.api.get('/api/mobileusergroupmatch');
+            const response = await this.api.get<ApiResponse<MobileUserGroupMatchDto[]>>('/api/mobileusergroupmatch');
             return response.data;
         } catch (error) {
-            console.error('Mobil kullan�c� grup e�le�tirmeleri getirilirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto[]>(error);
         }
     }
 
@@ -46,10 +45,9 @@ export class MobileUserGroupMatchService {
      */
     async getById(id: number): Promise<ApiResponse<MobileUserGroupMatchDto>> {
         try {
-            const response = await this.api.get(`/api/mobileusergroupmatch/${id}`);
+            const response = await this.api.get<ApiResponse<MobileUserGroupMatchDto>>(`/api/mobileusergroupmatch/${id}`);
             return response.data;
-        } catch (error) {   
-            console.error('Mobil kullan�c� grup e�le�tirmesi getirilirken hata olu�tu:', error);
+        } catch (error) {
             return ApiResponseErrorHelper.create<MobileUserGroupMatchDto>(error);
         }
     }
@@ -61,11 +59,10 @@ export class MobileUserGroupMatchService {
      */
     async getByUserId(userId: number): Promise<ApiResponse<MobileUserGroupMatchDto[]>> {
         try {
-            const response = await this.api.get(`/api/mobileusergroupmatch/user/${userId}`);
+            const response = await this.api.get<ApiResponse<MobileUserGroupMatchDto[]>>(`/api/mobileusergroupmatch/user/${userId}`);
             return response.data;
         } catch (error) {
-            console.error('Kullan�c�ya ait mobil grup e�le�tirmeleri getirilirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto[]>(error);
         }
     }
 
@@ -76,11 +73,10 @@ export class MobileUserGroupMatchService {
      */
     async getByGroupCode(groupCode: string): Promise<ApiResponse<MobileUserGroupMatchDto[]>> {
         try {
-            const response = await this.api.get(`/api/mobileusergroupmatch/group/${groupCode}`);
+            const response = await this.api.get<ApiResponse<MobileUserGroupMatchDto[]>>(`/api/mobileusergroupmatch/group/${groupCode}`);
             return response.data;
         } catch (error) {
-            console.error('Gruba ait mobil kullan�c� e�le�tirmeleri getirilirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto[]>(error);
         }
     }
 
@@ -91,11 +87,10 @@ export class MobileUserGroupMatchService {
      */
     async create(createDto: CreateMobileUserGroupMatchDto): Promise<ApiResponse<MobileUserGroupMatchDto>> {
         try {
-            const response = await this.api.post('/api/mobileusergroupmatch', createDto);
+            const response = await this.api.post<ApiResponse<MobileUserGroupMatchDto>>('/api/mobileusergroupmatch', createDto);
             return response.data;
         } catch (error) {
-            console.error('Mobil kullan�c� grup e�le�tirmesi olu�turulurken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto>(error);
         }
     }
 
@@ -107,11 +102,10 @@ export class MobileUserGroupMatchService {
      */
     async update(id: number, updateDto: UpdateMobileUserGroupMatchDto): Promise<ApiResponse<MobileUserGroupMatchDto>> {
         try {
-            const response = await this.api.put(`/api/mobileusergroupmatch/${id}`, updateDto);
+            const response = await this.api.put<ApiResponse<MobileUserGroupMatchDto>>(`/api/mobileusergroupmatch/${id}`, updateDto);
             return response.data;
         } catch (error) {
-            console.error('Mobil kullan�c� grup e�le�tirmesi g�ncellenirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto>(error);
         }
     }
 
@@ -122,11 +116,10 @@ export class MobileUserGroupMatchService {
      */
     async softDelete(id: number): Promise<ApiResponse<boolean>> {
         try {
-            const response = await this.api.delete(`/api/mobileusergroupmatch/${id}`);
+            const response = await this.api.delete<ApiResponse<boolean>>(`/api/mobileusergroupmatch/${id}`);
             return response.data;
         } catch (error) {
-            console.error('Mobil kullan�c� grup e�le�tirmesi silinirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<boolean>(error);
         }
     }
 
@@ -136,21 +129,13 @@ export class MobileUserGroupMatchService {
      */
     async getActive(): Promise<ApiResponse<MobileUserGroupMatchDto[]>> {
         try {
-            const response = await this.api.get('/api/mobileusergroupmatch/active');
+            const response = await this.api.get<ApiResponse<MobileUserGroupMatchDto[]>>('/api/mobileusergroupmatch/active');
             return response.data;
         } catch (error) {
-            console.error('Aktif mobil kullan�c� grup e�le�tirmeleri getirilirken hata olu�tu:', error);
-            return ApiResponseErrorHelper.create(error);
+            return ApiResponseErrorHelper.create<MobileUserGroupMatchDto[]>(error);
         }
     }
 
-    /**
-     * Sayfalanm�� mobil kullan�c� grup e�le�tirmelerini getirir
-     * @param page Sayfa numaras�
-     * @param pageSize Sayfa boyutu
-     * @param searchTerm Arama terimi
-     * @returns Sayfalanm�� mobil kullan�c� grup e�le�tirme listesi
-     */
     async getPaginated(page: number = 1, pageSize: number = 10, searchTerm?: string): Promise<ApiResponse<{
         data: MobileUserGroupMatchDto[];
         totalCount: number;

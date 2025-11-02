@@ -25,9 +25,10 @@ api.interceptors.request.use((config : AxiosRequestConfig) => {
 });
 
 export class GrImportLService implements IGrImportLService {
+  
   async getAll(): Promise<ApiResponse<GrImportLDto[]>> {
     try {
-      const response = await api.get('/');
+      const response = await api.get<ApiResponse<GrImportLDto[]>>('/');
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<GrImportLDto[]>(error);

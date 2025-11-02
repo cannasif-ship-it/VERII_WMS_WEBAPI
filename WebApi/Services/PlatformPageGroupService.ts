@@ -30,7 +30,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get('/');
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error);
     }
   }
 
@@ -39,7 +39,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<PlatformPageGroupDto>>(`/${id}`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error);
     }
   }
 
@@ -48,7 +48,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.post<ApiResponse<PlatformPageGroupDto>>('/', createDto);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error);
     }
   }
 
@@ -57,7 +57,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.put<ApiResponse<PlatformPageGroupDto>>(`/${id}`, updateDto);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto>(error);
     }
   }
 
@@ -66,7 +66,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<boolean>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<boolean>(error);
     }
   }
 
@@ -75,7 +75,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<boolean>>(`/${id}/exists`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<boolean>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<boolean>(error);
     }
   }
 
@@ -84,7 +84,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-group-code/${encodeURIComponent(groupCode)}`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error);
     }
   }
 
@@ -93,7 +93,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-header-id/${menuHeaderId}`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error);
     }
   }
 
@@ -102,7 +102,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>(`/by-menu-line-id/${menuLineId}`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error);
     }
   }
 
@@ -111,7 +111,7 @@ export class PlatformPageGroupService implements IPlatformPageGroupService {
       const response = await api.get<ApiResponse<PlatformPageGroupDto[]>>('/group-by-group-code');
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error, 'PlatformPageGroupService');
+      return ApiResponseErrorHelper.create<PlatformPageGroupDto[]>(error);
     }
   }
 }

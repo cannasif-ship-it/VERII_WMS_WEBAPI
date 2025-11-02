@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { ApiResponseErrorHelper } from '../Helpers/ApiResponseErrorHelper';
+import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { IGrLineService } from '../Interfaces/IGrLineService';
 import { ApiResponse } from '../Models/ApiResponse';

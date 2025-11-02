@@ -27,7 +27,7 @@ api.interceptors.request.use((config : AxiosRequestConfig) => {
 export class GrImportDocumentService implements IGrImportDocumentService {
   async getAll(): Promise<ApiResponse<GrImportDocumentDto[]>> {
     try {
-      const response = await api.get('/');
+      const response = await api.get<ApiResponse<GrImportDocumentDto[]>>('/');
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<GrImportDocumentDto[]>(error);
