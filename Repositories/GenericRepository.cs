@@ -24,7 +24,10 @@ namespace WMS_WEBAPI.Repositories
         }
         private long? GetCurrentUserId()
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst("UserId")?.Value;
+            // Prefer standard NameIdentifier claim; fallback to custom "UserId" if present
+            var httpUser = _httpContextAccessor.HttpContext?.User;
+            var userIdClaim = httpUser?.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                              ?? httpUser?.FindFirst("UserId")?.Value;
             return long.TryParse(userIdClaim, out var userId) ? userId : null;
         }
         

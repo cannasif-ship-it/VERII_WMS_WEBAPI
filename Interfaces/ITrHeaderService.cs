@@ -12,9 +12,12 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetActiveAsync();
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByCustomerCodeAsync(string customerCode);
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByDocumentTypeAsync(string documentType);
+        Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByDocumentNoAsync(string documentNo);
         Task<ApiResponse<TrHeaderDto>> CreateAsync(CreateTrHeaderDto createDto);
         Task<ApiResponse<TrHeaderDto>> UpdateAsync(long id, UpdateTrHeaderDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);
         Task<ApiResponse<bool>> CompleteAsync(long id);
+        // Inter-warehouse transfer için korelasyon anahtarlarıyla toplu oluşturma
+        Task<ApiResponse<int>> BulkCreateInterWarehouseTransferAsync(BulkCreateTrRequestDto request);
     }
 }

@@ -128,8 +128,8 @@ namespace WMS_WEBAPI.Data.Configuration
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.ImportLines)
-                .WithOne()
-                .HasForeignKey("LineId")
+                .WithOne(il => il.Line)
+                .HasForeignKey(il => il.LineId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.TerminalLines)

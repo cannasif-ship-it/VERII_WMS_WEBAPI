@@ -309,5 +309,238 @@ namespace WMS_WEBAPI.Services
                 return ApiResponse<IEnumerable<TrHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
+
+        // Korelasyon anahtarlarıyla toplu TR oluşturma: temp ID -> gerçek ID eşleme
+        public async Task<ApiResponse<int>> BulkCreateInterWarehouseTransferAsync(BulkCreateTrRequestDto request)
+        {
+            try
+            {
+                using (var scope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    // 1) Header oluştur ve kaydet
+                    var trHeader = _mapper.Map<TrHeader>(request.Header);
+                    await _unitOfWork.TrHeaders.AddAsync(trHeader);
+                    await _unitOfWork.SaveChangesAsync();
+
+                    // 2) Lines ekle ve ClientKey/ClientGuid -> LineId eşlemesi oluştur
+                    var lineKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                    var lineGuidToId = new Dictionary<Guid, long>();
+                    if (request.Lines != null && request.Lines.Count > 0)
+                    {
+                        var lines = new List<TrLine>(request.Lines.Count);
+                        foreach (var lineDto in request.Lines)
+                        {
+                            var line = new TrLine
+                            {
+                                HeaderId = trHeader.Id,
+                                StockCode = lineDto.StockCode,
+                                OrderId = lineDto.OrderId,
+                                Quantity = lineDto.Quantity,
+                                Unit = lineDto.Unit,
+                                ErpOrderNo = lineDto.ErpOrderNo,
+                                ErpOrderLineNo = lineDto.ErpOrderLineNo,
+                                ErpLineReference = lineDto.ErpLineReference,
+                                Description = lineDto.Description
+                            };
+                            lines.Add(line);
+                        }
+                        await _unitOfWork.TrLines.AddRangeAsync(lines);
+                        await _unitOfWork.SaveChangesAsync();
+
+                        // İD'leri doldurulduktan sonra eşle
+                        for (int i = 0; i < request.Lines.Count; i++)
+                        {
+                            var key = request.Lines[i].ClientKey;
+                            var guid = request.Lines[i].ClientGuid;
+                            var id = lines[i].Id;
+                            if (!string.IsNullOrWhiteSpace(key))
+                            {
+                                lineKeyToId[key!] = id;
+                            }
+                            if (guid.HasValue)
+                            {
+                                lineGuidToId[guid.Value] = id;
+                            }
+                        }
+                    }
+
+                    // 3) Routes ekle ve LineClientKey/LineGroupGuid üzerinden LineId set et, ayrıca route için ClientKey/Guid -> RouteId eşlemesi oluştur
+                    var routeKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                    var routeGuidToId = new Dictionary<Guid, long>();
+                    if (request.Routes != null && request.Routes.Count > 0)
+                    {
+                        var routes = new List<TrRoute>(request.Routes.Count);
+                        foreach (var rDto in request.Routes)
+                        {
+                            long lineId = 0;
+                            if (rDto.LineGroupGuid.HasValue)
+                            {
+                                var lg = rDto.LineGroupGuid.Value;
+                                if (!lineGuidToId.TryGetValue(lg, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineGroupGuid bulunamadı: {lg}",
+                                        "LineGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(rDto.LineClientKey))
+                            {
+                                if (!lineKeyToId.TryGetValue(rDto.LineClientKey!, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineClientKey bulunamadı: {rDto.LineClientKey}",
+                                        "LineClientKeyNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<int>.ErrorResult(
+                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": Route için Line referansı (LineGroupGuid veya LineClientKey) zorunlu",
+                                    "LineReferenceMissing",
+                                    400
+                                );
+                            }
+
+                            var route = new TrRoute
+                            {
+                                LineId = lineId,
+                                StockCode = rDto.StockCode,
+                                RouteCode = rDto.RouteCode ?? string.Empty,
+                                Quantity = rDto.Quantity,
+                                SerialNo = rDto.SerialNo,
+                                SerialNo2 = rDto.SerialNo2,
+                                SourceWarehouse = rDto.SourceWarehouse,
+                                TargetWarehouse = rDto.TargetWarehouse,
+                                SourceCellCode = rDto.SourceCellCode,
+                                TargetCellCode = rDto.TargetCellCode,
+                                Priority = rDto.Priority,
+                                Description = rDto.Description
+                            };
+                            routes.Add(route);
+                        }
+                        await _unitOfWork.TrRoutes.AddRangeAsync(routes);
+                        await _unitOfWork.SaveChangesAsync();
+
+                        // route client key / group guid -> id eşlemesi
+                        for (int i = 0; i < request.Routes.Count; i++)
+                        {
+                            var key = request.Routes[i].ClientKey;
+                            var guid = request.Routes[i].ClientGroupGuid;
+                            var id = routes[i].Id;
+                            if (!string.IsNullOrWhiteSpace(key))
+                            {
+                                routeKeyToId[key!] = id;
+                            }
+                            if (guid.HasValue)
+                            {
+                                routeGuidToId[guid.Value] = id;
+                            }
+                        }
+                    }
+
+                    // 4) ImportLines ekle ve LineClientKey/LineGroupGuid'den LineId, RouteClientKey/RouteGroupGuid'den RouteId set et
+                    if (request.ImportLines != null && request.ImportLines.Count > 0)
+                    {
+                        var importLines = new List<TrImportLine>(request.ImportLines.Count);
+                        foreach (var importDto in request.ImportLines)
+                        {
+                            long lineId = 0;
+                            if (importDto.LineGroupGuid.HasValue)
+                            {
+                                var lg = importDto.LineGroupGuid.Value;
+                                if (!lineGuidToId.TryGetValue(lg, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineGroupGuid bulunamadı: {lg}",
+                                        "LineGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(importDto.LineClientKey))
+                            {
+                                if (!lineKeyToId.TryGetValue(importDto.LineClientKey!, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineClientKey bulunamadı: {importDto.LineClientKey}",
+                                        "LineClientKeyNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<int>.ErrorResult(
+                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": ImportLine için Line referansı (LineGroupGuid veya LineClientKey) zorunlu",
+                                    "LineReferenceMissing",
+                                    400
+                                );
+                            }
+
+                            long? routeId = null;
+                            if (importDto.RouteGroupGuid.HasValue)
+                            {
+                                var rg = importDto.RouteGroupGuid.Value;
+                                if (!routeGuidToId.TryGetValue(rg, out var rid))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": RouteGroupGuid bulunamadı: {rg}",
+                                        "RouteGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                                routeId = rid;
+                            }
+                            else if (!string.IsNullOrWhiteSpace(importDto.RouteClientKey))
+                            {
+                                if (routeKeyToId.TryGetValue(importDto.RouteClientKey!, out var rid))
+                                {
+                                    routeId = rid;
+                                }
+                                else
+                                {
+                                    // Route opsiyonel olduğundan, bulunamazsa null bırakabiliriz
+                                    routeId = null;
+                                }
+                            }
+
+                            var importLine = new TrImportLine
+                            {
+                                HeaderId = trHeader.Id,
+                                LineId = lineId,
+                                LineId1 = lineId, // DB'deki ek FK sütunu ile uyum
+                                RouteId = routeId,
+                                StockCode = importDto.StockCode,
+                                Quantity = importDto.Quantity,
+                                SerialNo = importDto.SerialNo,
+                                SerialNo2 = importDto.SerialNo2,
+                                SerialNo3 = importDto.SerialNo3,
+                                SerialNo4 = importDto.SerialNo4,
+                                ScannedBarkod = importDto.ScannedBarkod,
+                                ErpOrderNumber = importDto.ErpOrderNumber,
+                                ErpOrderNo = importDto.ErpOrderNo,
+                                ErpOrderLineNumber = importDto.ErpOrderLineNumber
+                            };
+                            importLines.Add(importLine);
+                        }
+                        await _unitOfWork.TrImportLines.AddRangeAsync(importLines);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    scope.Complete();
+                    return ApiResponse<int>.SuccessResult(1, _localizationService.GetLocalizedString("Success"));
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.Message ?? string.Empty;
+                var combined = string.IsNullOrWhiteSpace(inner) ? ex.Message : ($"{ex.Message} | Inner: {inner}");
+                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + combined, ex.Message, 500, inner);
+            }
+        }
     }
 }

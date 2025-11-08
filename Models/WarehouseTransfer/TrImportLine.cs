@@ -18,6 +18,11 @@ namespace WMS_WEBAPI.Models
         public long LineId { get; set; }
         public virtual TrLine Line { get; set; } = null!;
 
+        // Bazı ortamlarda mevcut olan ek FK sütunu (DB'de LineId1)
+        // EF konfigürasyonunda yalnızca sütun eşleme yapılacak; navigasyon eklenmeyecek.
+        // Veri bütünlüğü için LineId ile aynı değer atanır.
+        public long? LineId1 { get; set; }
+
         // Route ilişkisi
         [ForeignKey(nameof(Route))]
         public long? RouteId { get; set; }

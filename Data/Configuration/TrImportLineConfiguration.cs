@@ -27,6 +27,10 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasColumnName("LineId")
                 .IsRequired();
 
+            // DB'de mevcut olan ek FK sütunu için eşleme
+            builder.Property(x => x.LineId1)
+                .HasColumnName("LineId1");
+
             builder.Property(x => x.RouteId)
                 .HasColumnName("RouteId");
 
