@@ -492,11 +492,8 @@ namespace WMS_WEBAPI.Services
                             }
                             else
                             {
-                                return ApiResponse<int>.ErrorResult(
-                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": ImportLine için Line referansı (LineGroupGuid veya LineClientKey) zorunlu",
-                                    "LineReferenceMissing",
-                                    400
-                                );
+                                // Line referansı sağlanmadıysa, sadece HeaderId ile ilerleyelim (LineId = null)
+                                lineId = 0;
                             }
 
                             var importLine = new GrImportL
