@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrLineDto, CreateGrLineDto, UpdateGrLineDto } from '../Models/GrLineDtos';
 
 export interface IGrLineService {
@@ -9,4 +9,5 @@ export interface IGrLineService {
   update(id: number, updateDto: UpdateGrLineDto): Promise<ApiResponse<GrLineDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   exists(id: number): Promise<ApiResponse<boolean>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<GrLineDto>>>;
 }

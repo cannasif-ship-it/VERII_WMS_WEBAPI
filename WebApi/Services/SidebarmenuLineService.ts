@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { ISidebarmenuLineService } from '../Interfaces/ISidebarmenuLineService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { SidebarmenuLineDto, CreateSidebarmenuLineDto, UpdateSidebarmenuLineDto } from '../Models/SidebarmenuLineDtos';
 
 const api = axios.create({
@@ -94,6 +94,26 @@ export class SidebarmenuLineService implements ISidebarmenuLineService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<SidebarmenuLineDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<SidebarmenuLineDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<SidebarmenuLineDto>>(error);
     }
   }
 }

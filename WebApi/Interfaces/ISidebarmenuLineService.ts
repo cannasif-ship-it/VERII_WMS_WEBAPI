@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { SidebarmenuLineDto, CreateSidebarmenuLineDto, UpdateSidebarmenuLineDto } from '../Models/SidebarmenuLineDtos';
 
 export interface ISidebarmenuLineService {
@@ -10,4 +10,5 @@ export interface ISidebarmenuLineService {
   exists(id: number): Promise<ApiResponse<boolean>>;
   getByHeaderId(headerId: number): Promise<ApiResponse<SidebarmenuLineDto[]>>;
   getByPage(page: string): Promise<ApiResponse<SidebarmenuLineDto>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<SidebarmenuLineDto>>>;
 }

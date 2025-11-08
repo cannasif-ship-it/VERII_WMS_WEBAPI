@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { TrHeaderDto, CreateTrHeaderDto, UpdateTrHeaderDto } from '../Models/TrHeaderDtos';
 
 export interface ITrHeaderService {
@@ -12,4 +12,5 @@ export interface ITrHeaderService {
   create(createDto: CreateTrHeaderDto): Promise<ApiResponse<TrHeaderDto>>;
   update(id: number, updateDto: UpdateTrHeaderDto): Promise<ApiResponse<TrHeaderDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<TrHeaderDto>>>;
 }

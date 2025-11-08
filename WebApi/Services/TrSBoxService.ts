@@ -30,7 +30,7 @@ export class TrSBoxService implements ITrSBoxService {
       const response = await api.get('/');
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<TrSBoxDto[]>(error, 'TrSBoxService');
+      return ApiResponseErrorHelper.create<TrSBoxDto[]>(error);
     }
   }
 

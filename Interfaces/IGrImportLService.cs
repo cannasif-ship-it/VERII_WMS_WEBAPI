@@ -5,6 +5,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface IGrImportLService
     {
         Task<ApiResponse<IEnumerable<GrImportLDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<GrImportLDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<GrImportLDto?>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<GrImportLDto>>> GetByHeaderIdAsync(long headerId);
         Task<ApiResponse<IEnumerable<GrImportLDto>>> GetByLineIdAsync(long lineId);

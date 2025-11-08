@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { IGrImportDocumentService } from '../Interfaces/IGrImportDocumentService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrImportDocumentDto, CreateGrImportDocumentDto, UpdateGrImportDocumentDto } from '../Models/GrImportDocumentDtos';
 
 const api = axios.create({
@@ -85,6 +85,26 @@ export class GrImportDocumentService implements IGrImportDocumentService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<GrImportDocumentDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<GrImportDocumentDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<GrImportDocumentDto>>(error);
     }
   }
 }

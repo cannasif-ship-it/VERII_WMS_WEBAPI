@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
@@ -18,6 +19,60 @@ namespace WMS_WEBAPI.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _localizationService = localizationService;
+        }
+
+        public async Task<ApiResponse<PagedResponse<TrHeaderDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.TrHeaders.AsQueryable()
+                    .Where(x => !x.IsDeleted);
+
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "DocumentDate":
+                        query = desc ? query.OrderByDescending(x => x.DocumentDate) : query.OrderBy(x => x.DocumentDate);
+                        break;
+                    case "DocumentNo":
+                        query = desc ? query.OrderByDescending(x => x.DocumentNo) : query.OrderBy(x => x.DocumentNo);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<TrHeaderDto>>(items);
+
+                var result = new PagedResponse<TrHeaderDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<TrHeaderDto>>.SuccessResult(
+                    result,
+                    _localizationService.GetLocalizedString("Success"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<TrHeaderDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message,
+                    ex.Message,
+                    500);
+            }
         }
 
         public async Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetAllAsync()

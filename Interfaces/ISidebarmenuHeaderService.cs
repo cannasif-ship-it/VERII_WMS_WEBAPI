@@ -7,6 +7,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface ISidebarmenuHeaderService
     {
         Task<ApiResponse<IEnumerable<SidebarmenuHeaderDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<SidebarmenuHeaderDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<SidebarmenuHeaderDto>> GetByIdAsync(long id);
         Task<ApiResponse<SidebarmenuHeaderDto>> CreateAsync(CreateSidebarmenuHeaderDto createDto);
         Task<ApiResponse<SidebarmenuHeaderDto>> UpdateAsync(long id, UpdateSidebarmenuHeaderDto updateDto);

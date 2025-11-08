@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ITrHeaderService } from '../Interfaces/ITrHeaderService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { TrHeaderDto, CreateTrHeaderDto, UpdateTrHeaderDto } from '../Models/TrHeaderDtos';
 
 const api = axios.create({
@@ -25,6 +25,7 @@ api.interceptors.request.use((config : AxiosRequestConfig) => {
 });
 
 export class TrHeaderService implements ITrHeaderService {
+
   async getAll(): Promise<ApiResponse<TrHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<TrHeaderDto[]>>('/');
@@ -64,6 +65,15 @@ export class TrHeaderService implements ITrHeaderService {
   async delete(id: number): Promise<ApiResponse<boolean>> {
     try {
       const response = await api.delete<ApiResponse<boolean>>(`/${id}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
+
+  async softDelete(id: number): Promise<ApiResponse<boolean>> {
+    try {
+      const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);
@@ -118,5 +128,15 @@ export class TrHeaderService implements ITrHeaderService {
       return ApiResponseErrorHelper.create<TrHeaderDto[]>(error);
     }
   }
+
+  async getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<TrHeaderDto>>> {
+    try {
+      const response = await api.get<ApiResponse<PagedResult<TrHeaderDto>>>(`/paged?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDirection=${sortDirection}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<TrHeaderDto>>(error);
+    }
+  }
+
 }
 

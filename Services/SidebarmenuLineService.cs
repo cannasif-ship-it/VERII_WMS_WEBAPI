@@ -35,6 +35,63 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<PagedResponse<SidebarmenuLineDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.SidebarmenuLines.AsQueryable()
+                    .Where(x => !x.IsDeleted);
+
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "HeaderId":
+                        query = desc ? query.OrderByDescending(x => x.HeaderId) : query.OrderBy(x => x.HeaderId);
+                        break;
+                    case "Page":
+                        query = desc ? query.OrderByDescending(x => x.Page) : query.OrderBy(x => x.Page);
+                        break;
+                    case "Title":
+                        query = desc ? query.OrderByDescending(x => x.Title) : query.OrderBy(x => x.Title);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<SidebarmenuLineDto>>(items);
+
+                var result = new PagedResponse<SidebarmenuLineDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<SidebarmenuLineDto>>.SuccessResult(
+                    result,
+                    _localizationService.GetLocalizedString("Success"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<SidebarmenuLineDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message,
+                    ex.Message,
+                    500);
+            }
+        }
+
         public async Task<ApiResponse<SidebarmenuLineDto>> GetByIdAsync(long id)
         {
             try

@@ -5,6 +5,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface IGrImportSerialLineService
     {
         Task<ApiResponse<IEnumerable<GrImportSerialLineDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<GrImportSerialLineDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<GrImportSerialLineDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<GrImportSerialLineDto>>> GetByImportLineIdAsync(long importLineId);
         Task<ApiResponse<GrImportSerialLineDto>> CreateAsync(CreateGrImportSerialLineDto createDto);

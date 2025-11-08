@@ -21,6 +21,62 @@ namespace WMS_WEBAPI.Services
             _localizationService = localizationService;
         }
 
+        public async Task<ApiResponse<PagedResponse<GrImportLDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.GrImportLines.AsQueryable();
+
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "HeaderId":
+                        query = desc ? query.OrderByDescending(x => x.HeaderId) : query.OrderBy(x => x.HeaderId);
+                        break;
+                    case "LineId":
+                        query = desc ? query.OrderByDescending(x => x.LineId) : query.OrderBy(x => x.LineId);
+                        break;
+                    case "StockCode":
+                        query = desc ? query.OrderByDescending(x => x.StockCode) : query.OrderBy(x => x.StockCode);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<GrImportLDto>>(items);
+
+                var result = new PagedResponse<GrImportLDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<GrImportLDto>>.SuccessResult(
+                    result,
+                    _localizationService.GetLocalizedString("GrImportLRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<GrImportLDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrImportLRetrievalError"),
+                    ex.Message,
+                    500);
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<GrImportLDto>>> GetAllAsync()
         {
             try
@@ -247,7 +303,7 @@ namespace WMS_WEBAPI.Services
             {
                 var grImportLs = await _unitOfWork.GrImportLines.FindAsync(x => !x.IsDeleted);
                 var grImportLDtos = _mapper.Map<IEnumerable<GrImportLDto>>(grImportLs);
-                
+
                 return ApiResponse<IEnumerable<GrImportLDto>>.SuccessResult(
                     grImportLDtos,
                     _localizationService.GetLocalizedString("GrImportLRetrievedSuccessfully")
@@ -262,5 +318,28 @@ namespace WMS_WEBAPI.Services
                 );
             }
         }
+
+        public async Task<ApiResponse<IEnumerable<GrImportLDto>>> GetImportLinesByHeaderIdAsync(long headerId)
+        {
+            try
+            {
+                var importLines = await _unitOfWork.GrImportLines.FindAsync(x => x.HeaderId == headerId);
+                var importLineDtos = _mapper.Map<IEnumerable<GrImportLDto>>(importLines);
+
+                return ApiResponse<IEnumerable<GrImportLDto>>.SuccessResult(
+                    importLineDtos,
+                    _localizationService.GetLocalizedString("GrImportLRetrievedSuccessfully")
+                );
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<GrImportLDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrImportLRetrievalError"),
+                    ex.Message,
+                    500
+                );
+            }
+        }
+        
     }
 }

@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrHeaderDto, CreateGrHeaderDto, UpdateGrHeaderDto } from '../Models/GrHeaderDtos';
 
 export interface IGrHeaderService {
@@ -12,4 +12,5 @@ export interface IGrHeaderService {
   getByBranchCode(branchCode: string): Promise<ApiResponse<GrHeaderDto[]>>;
   getByCustomerCode(customerCode: string): Promise<ApiResponse<GrHeaderDto[]>>;
   getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<GrHeaderDto[]>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<GrHeaderDto>>>;
 }

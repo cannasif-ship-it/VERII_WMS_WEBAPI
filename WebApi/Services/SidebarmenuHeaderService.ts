@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ISidebarmenuHeaderService } from '../Interfaces/ISidebarmenuHeaderService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { SidebarmenuHeaderDto, CreateSidebarmenuHeaderDto, UpdateSidebarmenuHeaderDto } from '../Models/SidebarmenuHeaderDtos';
 
 const api = axios.create({
@@ -103,6 +103,26 @@ export class SidebarmenuHeaderService implements ISidebarmenuHeaderService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<SidebarmenuHeaderDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<SidebarmenuHeaderDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<SidebarmenuHeaderDto>>(error);
     }
   }
 }

@@ -39,8 +39,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entity = await _unitOfWork.TrRoutes
-                    .GetByIdAsync(id);
+                var entity = await _unitOfWork.TrRoutes.GetByIdAsync(id);
 
                 if (entity == null || entity.IsDeleted)
                 {

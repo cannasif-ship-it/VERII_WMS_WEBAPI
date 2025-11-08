@@ -24,8 +24,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.TrBoxes
-                    .FindAsync(x => !x.IsDeleted);
+                var entities = await _unitOfWork.TrBoxes.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<TrBoxDto>>(entities);
                 return ApiResponse<IEnumerable<TrBoxDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -39,9 +38,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entity = await _unitOfWork.TrBoxes
-                    .GetByIdAsync(id);
-
+                var entity = await _unitOfWork.TrBoxes.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
                     return ApiResponse<TrBoxDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
@@ -60,8 +57,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.TrBoxes
-                    .FindAsync(x => x.BoxCode == boxCode && !x.IsDeleted);
+                var entities = await _unitOfWork.TrBoxes.FindAsync(x => x.BoxCode == boxCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<TrBoxDto>>(entities);
                 return ApiResponse<IEnumerable<TrBoxDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -75,8 +71,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.TrBoxes
-                    .FindAsync(x => !x.IsDeleted);
+                var entities = await _unitOfWork.TrBoxes.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<TrBoxDto>>(entities);
                 return ApiResponse<IEnumerable<TrBoxDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

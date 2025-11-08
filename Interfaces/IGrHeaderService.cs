@@ -5,6 +5,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface IGrHeaderService
     {
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<GrHeaderDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<GrHeaderDto?>> GetByIdAsync(int id);
         Task<ApiResponse<GrHeaderDto?>> GetByERPDocumentNoAsync(string erpDocumentNo);
         Task<ApiResponse<GrHeaderDto>> CreateAsync(CreateGrHeaderDto createDto);

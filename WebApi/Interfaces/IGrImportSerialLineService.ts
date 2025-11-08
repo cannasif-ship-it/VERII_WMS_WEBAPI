@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrImportSerialLineDto, CreateGrImportSerialLineDto, UpdateGrImportSerialLineDto } from '../Models/GrImportSerialLineDtos';
 
 export interface IGrImportSerialLineService {
@@ -9,4 +9,5 @@ export interface IGrImportSerialLineService {
   update(id: number, updateDto: UpdateGrImportSerialLineDto): Promise<ApiResponse<GrImportSerialLineDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   exists(id: number): Promise<ApiResponse<boolean>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<GrImportSerialLineDto>>>;
 }

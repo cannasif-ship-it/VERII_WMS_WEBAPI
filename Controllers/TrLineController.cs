@@ -150,5 +150,24 @@ namespace WMS_WEBAPI.Controllers
             var result = await _trLineService.GetByQuantityRangeAsync(minQuantity, maxQuantity);
             return StatusCode(result.StatusCode, result);
         }
+
+        /// <summary>
+        /// Sayfalı TrLine kayıtlarını getirir
+        /// </summary>
+        /// <param name="pageNumber">Sayfa numarası</param>
+        /// <param name="pageSize">Sayfa boyutu</param>
+        /// <param name="sortBy">Sıralama alanı (Id, HeaderId, StockCode, Quantity, CreatedDate)</param>
+        /// <param name="sortDirection">Sıralama yönü (asc/desc)</param>
+        /// <returns>Sayfalı TrLine listesi</returns>
+        [HttpGet("paged")]
+        public async Task<ActionResult<ApiResponse<PagedResponse<TrLineDto>>>> GetPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDirection = "asc")
+        {
+            var result = await _trLineService.GetPagedAsync(pageNumber, pageSize, sortBy, sortDirection);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

@@ -21,6 +21,60 @@ namespace WMS_WEBAPI.Services
             _localizationService = localizationService;
         }
 
+        public async Task<ApiResponse<PagedResponse<GrHeaderDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.GrHeaders.AsQueryable();
+
+                // Sorting (default by Id)
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "DocumentDate":
+                        query = desc ? query.OrderByDescending(x => x.DocumentDate) : query.OrderBy(x => x.DocumentDate);
+                        break;
+                    case "ERPDocumentNo":
+                        query = desc ? query.OrderByDescending(x => x.ERPDocumentNo) : query.OrderBy(x => x.ERPDocumentNo);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<GrHeaderDto>>(items);
+
+                var result = new PagedResponse<GrHeaderDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<GrHeaderDto>>.SuccessResult(
+                    result,
+                    _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<GrHeaderDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrHeaderRetrievalError"),
+                    ex.Message,
+                    500);
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetAllAsync()
         {
             try
@@ -330,5 +384,7 @@ namespace WMS_WEBAPI.Services
                 );
             }
         }
+
+         
     }
 }

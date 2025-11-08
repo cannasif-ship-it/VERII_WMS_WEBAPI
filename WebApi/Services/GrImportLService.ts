@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { IGrImportLService } from '../Interfaces/IGrImportLService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrImportLDto, CreateGrImportLDto, UpdateGrImportLDto } from '../Models/GrImportLDtos';
 
 const api = axios.create({
@@ -104,6 +104,26 @@ export class GrImportLService implements IGrImportLService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<GrImportLDto[]>(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<GrImportLDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<GrImportLDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<GrImportLDto>>(error);
     }
   }
 }

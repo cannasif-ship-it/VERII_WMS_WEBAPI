@@ -5,6 +5,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface ITrLineService
     {
         Task<ApiResponse<IEnumerable<TrLineDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<TrLineDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<TrLineDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<TrLineDto>>> GetByHeaderIdAsync(long headerId);
         Task<ApiResponse<IEnumerable<TrLineDto>>> GetByStockCodeAsync(string stockCode);

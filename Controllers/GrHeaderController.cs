@@ -162,5 +162,24 @@ namespace WMS_WEBAPI.Controllers
             var result = await _grHeaderService.GetByDateRangeAsync(startDate, endDate);
             return StatusCode(result.StatusCode, result);
         }
+
+        /// <summary>
+        /// Sayfalı GrHeader kayıtlarını getirir
+        /// </summary>
+        /// <param name="pageNumber">Sayfa numarası</param>
+        /// <param name="pageSize">Sayfa boyutu</param>
+        /// <param name="sortBy">Sıralama alanı (Id, DocumentDate, ERPDocumentNo, CreatedDate)</param>
+        /// <param name="sortDirection">Sıralama yönü (asc/desc)</param>
+        /// <returns>Sayfalı GrHeader listesi</returns>
+        [HttpGet("paged")]
+        public async Task<ActionResult<ApiResponse<PagedResponse<GrHeaderDto>>>> GetPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDirection = "asc")
+        {
+            var result = await _grHeaderService.GetPagedAsync(pageNumber, pageSize, sortBy, sortDirection);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

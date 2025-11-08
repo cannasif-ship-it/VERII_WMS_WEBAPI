@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { TrLineDto, CreateTrLineDto, UpdateTrLineDto } from '../Models/TrLineDtos';
 
 export interface ITrLineService {
@@ -12,4 +12,5 @@ export interface ITrLineService {
   create(createDto: CreateTrLineDto): Promise<ApiResponse<TrLineDto>>;
   update(id: number, updateDto: UpdateTrLineDto): Promise<ApiResponse<TrLineDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<TrLineDto>>>;
 }

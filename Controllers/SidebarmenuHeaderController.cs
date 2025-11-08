@@ -135,5 +135,24 @@ namespace WMS_WEBAPI.Controllers
             var result = await _sidebarmenuHeaderService.GetSidebarmenuHeadersByUserId(userId);
             return StatusCode(result.StatusCode, result);
         }
+
+        /// <summary>
+        /// Sayfalı SidebarmenuHeader kayıtlarını getirir
+        /// </summary>
+        /// <param name="pageNumber">Sayfa numarası</param>
+        /// <param name="pageSize">Sayfa boyutu</param>
+        /// <param name="sortBy">Sıralama alanı (Id, MenuKey, Title, RoleLevel, CreatedDate)</param>
+        /// <param name="sortDirection">Sıralama yönü (asc/desc)</param>
+        /// <returns>Sayfalı SidebarmenuHeader listesi</returns>
+        [HttpGet("paged")]
+        public async Task<ActionResult<ApiResponse<PagedResponse<SidebarmenuHeaderDto>>>> GetPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDirection = "asc")
+        {
+            var result = await _sidebarmenuHeaderService.GetPagedAsync(pageNumber, pageSize, sortBy, sortDirection);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

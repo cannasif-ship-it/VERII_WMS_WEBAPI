@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrImportLDto, CreateGrImportLDto, UpdateGrImportLDto } from '../Models/GrImportLDtos';
 
 export interface IGrImportLService {
@@ -11,4 +11,5 @@ export interface IGrImportLService {
   update(id: number, updateDto: UpdateGrImportLDto): Promise<ApiResponse<GrImportLDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   getActive(): Promise<ApiResponse<GrImportLDto[]>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<GrImportLDto>>>;
 }

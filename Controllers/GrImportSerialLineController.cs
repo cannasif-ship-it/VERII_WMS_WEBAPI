@@ -112,5 +112,24 @@ namespace WMS_WEBAPI.Controllers
             var result = await _grImportSerialLineService.ExistsAsync(id);
             return StatusCode(result.StatusCode, result);
         }
+
+        /// <summary>
+        /// Sayfalı GrImportSerialLine kayıtlarını getirir
+        /// </summary>
+        /// <param name="pageNumber">Sayfa numarası</param>
+        /// <param name="pageSize">Sayfa boyutu</param>
+        /// <param name="sortBy">Sıralama alanı (Id, ImportLineId, CreatedDate)</param>
+        /// <param name="sortDirection">Sıralama yönü (asc/desc)</param>
+        /// <returns>Sayfalı GrImportSerialLine listesi</returns>
+        [HttpGet("paged")]
+        public async Task<ActionResult<ApiResponse<PagedResponse<GrImportSerialLineDto>>>> GetPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDirection = "asc")
+        {
+            var result = await _grImportSerialLineService.GetPagedAsync(pageNumber, pageSize, sortBy, sortDirection);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

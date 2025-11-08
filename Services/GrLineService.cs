@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
@@ -21,6 +22,59 @@ namespace WMS_WEBAPI.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _localizationService = localizationService;
+        }
+
+        public async Task<ApiResponse<PagedResponse<GrLineDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.GrLines.AsQueryable();
+
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "HeaderId":
+                        query = desc ? query.OrderByDescending(x => x.HeaderId) : query.OrderBy(x => x.HeaderId);
+                        break;
+                    case "Quantity":
+                        query = desc ? query.OrderByDescending(x => x.Quantity) : query.OrderBy(x => x.Quantity);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<GrLineDto>>(items);
+
+                var result = new PagedResponse<GrLineDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<GrLineDto>>.SuccessResult(
+                    result,
+                    _localizationService.GetLocalizedString("GrLineRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<GrLineDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrLineGetAllError"),
+                    ex.Message,
+                    500);
+            }
         }
 
         public async Task<ApiResponse<IEnumerable<GrLineDto>>> GetAllAsync()
@@ -235,5 +289,29 @@ namespace WMS_WEBAPI.Services
                 );
             }
         }
+
+        // GrHeader ilişkili satırları (GrLine) headerId’ye göre getirir
+        public async Task<ApiResponse<IEnumerable<GrLineDto>>> GetLinesByHeaderIdAsync(long headerId)
+        {
+            try
+            {
+                var lines = await _unitOfWork.GrLines.FindAsync(x => x.HeaderId == headerId);
+                var lineDtos = _mapper.Map<IEnumerable<GrLineDto>>(lines);
+
+                return ApiResponse<IEnumerable<GrLineDto>>.SuccessResult(
+                    lineDtos,
+                    _localizationService.GetLocalizedString("GrLineRetrievedSuccessfully")
+                );
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<GrLineDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrLineGetByHeaderIdError"),
+                    ex.Message,
+                    500
+                );
+            }
+        }
+        
     }
 }

@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ITrLineService } from '../Interfaces/ITrLineService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { TrLineDto, CreateTrLineDto, UpdateTrLineDto } from '../Models/TrLineDtos';
 
 const api = axios.create({
@@ -112,6 +112,26 @@ export class TrLineService implements ITrLineService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<TrLineDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<TrLineDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<TrLineDto>>(error);
     }
   }
 }

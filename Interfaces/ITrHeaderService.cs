@@ -5,6 +5,7 @@ namespace WMS_WEBAPI.Interfaces
     public interface ITrHeaderService
     {
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetAllAsync();
+        Task<ApiResponse<PagedResponse<TrHeaderDto>>> GetPagedAsync(int pageNumber, int pageSize, string? sortBy = null, string? sortDirection = "asc");
         Task<ApiResponse<TrHeaderDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByBranchCodeAsync(string branchCode);
         Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);

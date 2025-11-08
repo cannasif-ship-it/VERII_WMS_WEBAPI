@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { ApiResponseErrorHelper } from '../Helpers/ApiResponseErrorHelper';
+import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { IGrHeaderService } from '../Interfaces/IGrHeaderService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrHeaderDto, CreateGrHeaderDto, UpdateGrHeaderDto } from '../Models/GrHeaderDtos';
 const api = axios.create({
   baseURL: API_BASE_URL + "/GrHeader",
@@ -124,6 +124,26 @@ export class GrHeaderService implements IGrHeaderService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<GrHeaderDto[]>(error);
+    }
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<GrHeaderDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<GrHeaderDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<GrHeaderDto>>(error);
     }
   }
 }

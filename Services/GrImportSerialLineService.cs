@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
@@ -21,6 +22,51 @@ namespace WMS_WEBAPI.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _localizationService = localizationService;
+        }
+
+        public async Task<ApiResponse<PagedResponse<GrImportSerialLineDto>>> GetPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? sortBy = null,
+            string? sortDirection = "asc")
+        {
+            try
+            {
+                if (pageNumber < 1) pageNumber = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var query = _unitOfWork.GrImportSerialLines.AsQueryable();
+
+                bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
+                switch (sortBy?.Trim())
+                {
+                    case "ImportLineId":
+                        query = desc ? query.OrderByDescending(x => x.ImportLineId) : query.OrderBy(x => x.ImportLineId);
+                        break;
+                    case "CreatedDate":
+                        query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
+                        break;
+                    default:
+                        query = desc ? query.OrderByDescending(x => x.Id) : query.OrderBy(x => x.Id);
+                        break;
+                }
+
+                var totalCount = await query.CountAsync();
+                var items = await query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var dtos = _mapper.Map<List<GrImportSerialLineDto>>(items);
+
+                var result = new PagedResponse<GrImportSerialLineDto>(dtos, totalCount, pageNumber, pageSize);
+
+                return ApiResponse<PagedResponse<GrImportSerialLineDto>>.SuccessResult(result,_localizationService.GetLocalizedString("GrImportSerialLineRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<PagedResponse<GrImportSerialLineDto>>.ErrorResult(_localizationService.GetLocalizedString("GrImportSerialLineGetAllError"),ex.Message,500);
+            }
         }
 
         public async Task<ApiResponse<IEnumerable<GrImportSerialLineDto>>> GetAllAsync()
@@ -52,12 +98,7 @@ namespace WMS_WEBAPI.Services
                 var serialLine = await _unitOfWork.GrImportSerialLines.GetByIdAsync(id);
                 if (serialLine == null)
                 {
-                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportSerialLineNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportSerialLine not found"
-                    );
+                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("GrImportSerialLineNotFound"),"Record not found",404,"GrImportSerialLine not found");
                 }
 
                 var serialLineDto = _mapper.Map<GrImportSerialLineDto>(serialLine);

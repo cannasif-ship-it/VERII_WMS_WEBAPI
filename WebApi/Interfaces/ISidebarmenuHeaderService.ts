@@ -1,4 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { SidebarmenuHeaderDto, CreateSidebarmenuHeaderDto, UpdateSidebarmenuHeaderDto } from '../Models/SidebarmenuHeaderDtos';
 import { SidebarmenuHeader } from '../Models/SidebarmenuHeader';
 
@@ -12,4 +12,5 @@ export interface ISidebarmenuHeaderService {
   getByMenuKey(menuKey: string): Promise<ApiResponse<SidebarmenuHeaderDto>>;
   getByRoleLevel(roleLevel: number): Promise<ApiResponse<SidebarmenuHeaderDto[]>>;
   getSidebarmenuHeadersByUserId(userId: number): Promise<ApiResponse<SidebarmenuHeader[]>>;
+  getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<SidebarmenuHeaderDto>>>;
 }

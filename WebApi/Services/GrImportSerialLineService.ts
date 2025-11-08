@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { IGrImportSerialLineService } from '../Interfaces/IGrImportSerialLineService';
-import { ApiResponse } from '../Models/ApiResponse';
+import { ApiResponse, PagedResult } from '../Models/ApiResponse';
 import { GrImportSerialLineDto, CreateGrImportSerialLineDto, UpdateGrImportSerialLineDto } from '../Models/GrImportSerialLineDtos';
 
 const api = axios.create({
@@ -87,6 +87,26 @@ export class GrImportSerialLineService implements IGrImportSerialLineService {
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);
     } 
+  }
+
+  async getPaged(
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: 'asc' | 'desc'
+  ): Promise<ApiResponse<PagedResult<GrImportSerialLineDto>>> {
+    try {
+      const params = new URLSearchParams({
+        pageNumber: String(pageNumber),
+        pageSize: String(pageSize),
+        sortBy: encodeURIComponent(sortBy),
+        sortDirection
+      });
+      const response = await api.get<ApiResponse<PagedResult<GrImportSerialLineDto>>>(`/paged?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<PagedResult<GrImportSerialLineDto>>(error);
+    }
   }
 }
 
