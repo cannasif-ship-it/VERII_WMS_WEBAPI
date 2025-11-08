@@ -1,4 +1,7 @@
 using WMS_WEBAPI.DTOs;
+using WMS_WEBAPI.Models;
+using System;
+using System.Collections.Generic;
 
 namespace WMS_WEBAPI.Interfaces
 {
@@ -16,5 +19,7 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByBranchCodeAsync(string branchCode);
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByCustomerCodeAsync(string customerCode);
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
+        // Korelasyon anahtarlarıyla toplu oluşturma (temp ID -> gerçek ID eşleme)
+        Task<ApiResponse<int>> BulkCreateCorrelatedAsync(BulkCreateGrRequestDto request);
     }
 }

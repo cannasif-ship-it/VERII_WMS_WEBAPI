@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
+using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Controllers
 {
@@ -193,5 +194,39 @@ namespace WMS_WEBAPI.Controllers
             var result = await _grHeaderService.GetPagedAsync(pageNumber, pageSize, sortBy, sortDirection);
             return StatusCode(result.StatusCode, result);
         }
+
+
+        [HttpPost("bulkCreate")]
+        public async Task<ActionResult<ApiResponse<int>>> BulkCreate([FromBody] BulkCreateGrRequestDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                var error = ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400);
+                return StatusCode(error.StatusCode, error);
+            }
+
+            // Özel transactional insert: tüm eklemeler tek transaction içinde yapılır.
+            try
+            {
+                using (var scope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var result = await _grHeaderService.BulkCreateCorrelatedAsync(request);
+
+                    if (result.StatusCode >= 400)
+                    {
+                        return StatusCode(result.StatusCode, result);
+                    }
+
+                    scope.Complete();
+                    return StatusCode(result.StatusCode, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ApiResponse<int>.ErrorResult("İşlem sırasında hata oluştu: " + ex.Message, ex.Message, 500);
+                return StatusCode(error.StatusCode, error);
+            }
+        }
+        
     }
 }

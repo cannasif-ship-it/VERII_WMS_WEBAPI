@@ -385,6 +385,218 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        // Korelasyon anahtarlarıyla toplu oluşturma: temp ID -> gerçek ID eşleme
+        public async Task<ApiResponse<int>> BulkCreateCorrelatedAsync(BulkCreateGrRequestDto request)
+        {
+            try
+            {
+                using (var scope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    // 1) Header oluştur ve kaydet
+                    var grHeader = _mapper.Map<GrHeader>(request.Header);
+                    await _unitOfWork.GrHeaders.AddAsync(grHeader);
+                    await _unitOfWork.SaveChangesAsync();
+
+                    // 2) ImportDocument(ler) ekle (varsa) - AddRange ile optimize
+                    if (request.Documents != null && request.Documents.Count > 0)
+                    {
+                        var docs = new List<GrImportDocument>(request.Documents.Count);
+                        foreach (var docDto in request.Documents)
+                        {
+                            docs.Add(new GrImportDocument
+                            {
+                                HeaderId = grHeader.Id,
+                                Base64 = docDto.Base64
+                            });
+                        }
+                        await _unitOfWork.GrImportDocuments.AddRangeAsync(docs);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    // 3) Lines ekle ve ClientKey/ClientGuid -> LineId eşlemesi oluştur
+                    var lineKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                    var lineGuidToId = new Dictionary<Guid, long>();
+                    if (request.Lines != null && request.Lines.Count > 0)
+                    {
+                        var lines = new List<GrLine>(request.Lines.Count);
+                        foreach (var lineDto in request.Lines)
+                        {
+                            var line = new GrLine
+                            {
+                                HeaderId = grHeader.Id,
+                                OrderId = lineDto.OrderId,
+                                Quantity = lineDto.Quantity,
+                                ErpProductCode = lineDto.ErpProductCode,
+                                MeasurementUnit = lineDto.MeasurementUnit,
+                                IsSerial = lineDto.IsSerial,
+                                AutoSerial = lineDto.AutoSerial,
+                                QuantityBySerial = lineDto.QuantityBySerial,
+                                Description1 = lineDto.Description1,
+                                Description2 = lineDto.Description2,
+                                Description3 = lineDto.Description3
+                            };
+                            lines.Add(line);
+                        }
+                        await _unitOfWork.GrLines.AddRangeAsync(lines);
+                        await _unitOfWork.SaveChangesAsync();
+
+                        // İD'leri doldurulduktan sonra eşle
+                        for (int i = 0; i < request.Lines.Count; i++)
+                        {
+                            var key = request.Lines[i].ClientKey;
+                            var guid = request.Lines[i].ClientGuid;
+                            var id = lines[i].Id;
+                            if (!string.IsNullOrWhiteSpace(key))
+                            {
+                                lineKeyToId[key] = id;
+                            }
+                            if (guid.HasValue)
+                            {
+                                lineGuidToId[guid.Value] = id;
+                            }
+                        }
+                    }
+
+                    // 4) ImportLines ekle ve LineClientKey/LineGroupGuid üzerinden LineId set et
+                    var importLineKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                    var importLineGuidToId = new Dictionary<Guid, long>();
+                    if (request.ImportLines != null && request.ImportLines.Count > 0)
+                    {
+                        var importLines = new List<GrImportL>(request.ImportLines.Count);
+                        foreach (var importDto in request.ImportLines)
+                        {
+                            long lineId = 0;
+                            // Öncelik: GUID gruplama varsa onu kullan
+                            if (importDto.LineGroupGuid.HasValue)
+                            {
+                                var lg = importDto.LineGroupGuid.Value;
+                                if (!lineGuidToId.TryGetValue(lg, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineGroupGuid bulunamadı: {lg}",
+                                        "LineGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(importDto.LineClientKey))
+                            {
+                                if (!lineKeyToId.TryGetValue(importDto.LineClientKey, out lineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": LineClientKey bulunamadı: {importDto.LineClientKey}",
+                                        "LineClientKeyNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<int>.ErrorResult(
+                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": ImportLine için Line referansı (LineGroupGuid veya LineClientKey) zorunlu",
+                                    "LineReferenceMissing",
+                                    400
+                                );
+                            }
+
+                            var importLine = new GrImportL
+                            {
+                                HeaderId = grHeader.Id,
+                                LineId = lineId == 0 ? null : lineId,
+                                StockCode = importDto.StockCode,
+                                Description1 = importDto.Description1,
+                                Description2 = importDto.Description2
+                            };
+                            importLines.Add(importLine);
+                        }
+                        await _unitOfWork.GrImportLines.AddRangeAsync(importLines);
+                        await _unitOfWork.SaveChangesAsync();
+
+                        // import line client key / group guid -> id eşlemesi (opsiyonel)
+                        for (int i = 0; i < request.ImportLines.Count; i++)
+                        {
+                            var key = request.ImportLines[i].ClientKey;
+                            var groupGuid = request.ImportLines[i].LineGroupGuid; // import line tarafında çocuklar için kullanacağız
+                            if (!string.IsNullOrWhiteSpace(key))
+                            {
+                                importLineKeyToId[key] = importLines[i].Id;
+                            }
+                            if (groupGuid.HasValue)
+                            {
+                                importLineGuidToId[groupGuid.Value] = importLines[i].Id;
+                            }
+                        }
+                    }
+
+                    // 5) SerialLines ekle ve ImportLineClientKey/ImportLineGroupGuid'den ImportLineId set et
+                    if (request.SerialLines != null && request.SerialLines.Count > 0)
+                    {
+                        var serialLines = new List<GrImportSerialLine>(request.SerialLines.Count);
+                        foreach (var sDto in request.SerialLines)
+                        {
+                            long importLineId = 0;
+                            if (sDto.ImportLineGroupGuid.HasValue)
+                            {
+                                var ig = sDto.ImportLineGroupGuid.Value;
+                                if (!importLineGuidToId.TryGetValue(ig, out importLineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": ImportLineGroupGuid bulunamadı: {ig}",
+                                        "ImportLineGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(sDto.ImportLineClientKey))
+                            {
+                                if (!importLineKeyToId.TryGetValue(sDto.ImportLineClientKey, out importLineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": ImportLineClientKey bulunamadı: {sDto.ImportLineClientKey}",
+                                        "ImportLineClientKeyNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<int>.ErrorResult(
+                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": SerialLine için ImportLine referansı (ImportLineGroupGuid veya ImportLineClientKey) zorunlu",
+                                    "ImportLineReferenceMissing",
+                                    400
+                                );
+                            }
+
+                            var serial = new GrImportSerialLine
+                            {
+                                ImportLineId = importLineId,
+                                SerialNumber = sDto.SerialNumber,
+                                Quantity = sDto.Quantity,
+                                TargetWarehouse = sDto.TargetWarehouse,
+                                TargetCellCode = sDto.TargetCellCode,
+                                ScannedBarcode = sDto.ScannedBarcode,
+                                SerialNumber2 = sDto.SerialNumber2,
+                                SerialNumber3 = sDto.SerialNumber3,
+                                SerialNumber4 = sDto.SerialNumber4,
+                                Description1 = sDto.Description1,
+                                Description2 = sDto.Description2
+                            };
+                            serialLines.Add(serial);
+                        }
+                        await _unitOfWork.GrImportSerialLines.AddRangeAsync(serialLines);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    scope.Complete();
+                    return ApiResponse<int>.SuccessResult(1, _localizationService.GetLocalizedString("Success"));
+                }
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+            }
+        }
+
         public async Task<ApiResponse<bool>> CompleteAsync(int id)
         {
             try
