@@ -11,6 +11,7 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<GrHeaderDto>> CreateAsync(CreateGrHeaderDto createDto);
         Task<ApiResponse<GrHeaderDto>> UpdateAsync(int id, UpdateGrHeaderDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(int id);
+        Task<ApiResponse<bool>> CompleteAsync(int id);
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetActiveAsync();
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByBranchCodeAsync(string branchCode);
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByCustomerCodeAsync(string customerCode);

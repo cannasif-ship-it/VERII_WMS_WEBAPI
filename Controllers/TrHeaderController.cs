@@ -117,6 +117,18 @@ namespace WMS_WEBAPI.Controllers
         }
 
         /// <summary>
+        /// TrHeader kaydını tamamlar (IsCompleted=true, CompletionDate=now, IsPendingApproval=false)
+        /// </summary>
+        /// <param name="id">Tamamlanacak TrHeader ID</param>
+        /// <returns>İşlem sonucu</returns>
+        [HttpPost("{id}/complete")]
+        public async Task<ActionResult<ApiResponse<bool>>> Complete(long id)
+        {
+            var result = await _trHeaderService.CompleteAsync(id);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        /// <summary>
         /// Aktif TrHeader kayıtlarını getirir
         /// </summary>
         /// <returns>Aktif TrHeader listesi</returns>

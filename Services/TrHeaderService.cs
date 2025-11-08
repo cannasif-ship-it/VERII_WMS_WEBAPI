@@ -240,6 +240,31 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<bool>> CompleteAsync(long id)
+        {
+            try
+            {
+                var entity = await _unitOfWork.TrHeaders.GetByIdAsync(id);
+                if (entity == null || entity.IsDeleted)
+                {
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), "Record not found", 404);
+                }
+
+                entity.IsCompleted = true;
+                entity.CompletionDate = DateTime.UtcNow;
+                entity.IsPendingApproval = false;
+
+                _unitOfWork.TrHeaders.Update(entity);
+                await _unitOfWork.SaveChangesAsync();
+
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordCompletedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<TrHeaderDto>>> GetByBranchCodeAsync(string branchCode)
         {
             try

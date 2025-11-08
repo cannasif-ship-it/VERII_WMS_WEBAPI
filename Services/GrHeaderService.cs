@@ -385,6 +385,37 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<bool>> CompleteAsync(int id)
+        {
+            try
+            {
+                var entity = await _unitOfWork.GrHeaders.GetByIdAsync(id);
+                if (entity == null)
+                {
+                    return ApiResponse<bool>.ErrorResult(
+                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
+                        "Record not found",
+                        404,
+                        "GrHeader not found");
+                }
+
+                entity.IsCompleted = true;
+                entity.CompletionDate = DateTime.UtcNow;
+                entity.IsPendingApproval = false;
+
+                _unitOfWork.GrHeaders.Update(entity);
+                await _unitOfWork.SaveChangesAsync();
+
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("GrHeaderCompletedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<bool>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrHeaderCompletionError"),
+                    ex.Message,
+                    500);
+            }
+        }
          
     }
 }

@@ -13,4 +13,5 @@ export interface ITrHeaderService {
   update(id: number, updateDto: UpdateTrHeaderDto): Promise<ApiResponse<TrHeaderDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   getPaged(pageNumber: number, pageSize: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<ApiResponse<PagedResult<TrHeaderDto>>>;
+  complete(id: number): Promise<ApiResponse<boolean>>;
 }

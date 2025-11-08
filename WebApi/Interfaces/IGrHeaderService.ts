@@ -9,6 +9,7 @@ export interface IGrHeaderService {
   update(id: number, updateDto: UpdateGrHeaderDto): Promise<ApiResponse<GrHeaderDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   getActive(): Promise<ApiResponse<GrHeaderDto[]>>;
+  complete(id: number): Promise<ApiResponse<boolean>>;
   getByBranchCode(branchCode: string): Promise<ApiResponse<GrHeaderDto[]>>;
   getByCustomerCode(customerCode: string): Promise<ApiResponse<GrHeaderDto[]>>;
   getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<GrHeaderDto[]>>;

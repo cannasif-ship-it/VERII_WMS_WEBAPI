@@ -15,5 +15,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<TrHeaderDto>> CreateAsync(CreateTrHeaderDto createDto);
         Task<ApiResponse<TrHeaderDto>> UpdateAsync(long id, UpdateTrHeaderDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);
+        Task<ApiResponse<bool>> CompleteAsync(long id);
     }
 }

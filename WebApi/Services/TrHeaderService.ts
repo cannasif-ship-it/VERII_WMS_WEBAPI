@@ -138,5 +138,14 @@ export class TrHeaderService implements ITrHeaderService {
     }
   }
 
+  async complete(id: number): Promise<ApiResponse<boolean>> {
+    try {
+      const response = await api.post<ApiResponse<boolean>>(`/${id}/complete`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
+
 }
 

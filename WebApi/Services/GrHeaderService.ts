@@ -146,5 +146,14 @@ export class GrHeaderService implements IGrHeaderService {
       return ApiResponseErrorHelper.create<PagedResult<GrHeaderDto>>(error);
     }
   }
+
+  async complete(id: number): Promise<ApiResponse<boolean>> {
+    try {
+      const response = await api.post<ApiResponse<boolean>>(`/${id}/complete`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
 }
 
