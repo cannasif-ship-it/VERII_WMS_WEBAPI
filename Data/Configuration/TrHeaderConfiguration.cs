@@ -4,20 +4,11 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class TrHeaderConfiguration : IEntityTypeConfiguration<TrHeader>
+    public class TrHeaderConfiguration : BaseHeaderEntityConfiguration<TrHeader>
     {
-        public void Configure(EntityTypeBuilder<TrHeader> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<TrHeader> builder)
         {
-            // Table name
             builder.ToTable("RII_TR_HEADER");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.BranchCode)
                 .HasColumnName("BranchCode")
@@ -66,40 +57,12 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasColumnName("YearCode")
                 .HasMaxLength(4);
 
-            // BaseHeaderEntity properties
             builder.Property(x => x.PriorityLevel)
                 .HasColumnName("PriorityLevel");
 
             builder.Property(x => x.Type)
                 .HasColumnName("Type")
                 .HasMaxLength(20);
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy")
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.Property(x => x.CreatedDate)
-                .HasColumnName("CreatedDate")
-                .IsRequired();
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasColumnName("IsDeleted")
-                .HasDefaultValue(false);
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnName("DeletedDate");
 
             // Indexes
             builder.HasIndex(x => x.DocumentNo)
@@ -135,24 +98,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.HeaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // User relationships
-            builder.HasOne(x => x.CreatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_HEADER_RII_USERS_CREATED_BY");
-
-            builder.HasOne(x => x.UpdatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.UpdatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_HEADER_RII_USERS_UPDATED_BY");
-
-            builder.HasOne(x => x.DeletedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.DeletedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_HEADER_RII_USERS_DELETED_BY");
+            
         }
     }
 }

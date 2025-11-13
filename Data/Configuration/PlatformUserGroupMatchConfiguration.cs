@@ -4,20 +4,12 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class PlatformUserGroupMatchConfiguration : IEntityTypeConfiguration<PlatformUserGroupMatch>
+    public class PlatformUserGroupMatchConfiguration : BaseEntityConfiguration<PlatformUserGroupMatch>
     {
-        public void Configure(EntityTypeBuilder<PlatformUserGroupMatch> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<PlatformUserGroupMatch> builder)
         {
             // Table name
             builder.ToTable("PlatformUserGroupMatch");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.UserId)
                 .IsRequired()
@@ -28,26 +20,6 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasMaxLength(50)
                 .HasColumnName("GroupCode");
 
-            // Base entity properties
-            builder.Property(x => x.CreatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.CreatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("CreatedDate");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
 
             // Indexes
             builder.HasIndex(x => x.UserId)

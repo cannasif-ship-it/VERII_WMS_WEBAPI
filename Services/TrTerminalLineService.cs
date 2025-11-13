@@ -87,12 +87,12 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByLineIdAsync(long lineId)
+        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByHeaderIdAsync(long headerId)
         {
             try
             {
                 var entities = await _unitOfWork.TrTerminalLines
-                    .FindAsync(x => x.LineId == lineId && !x.IsDeleted);
+                    .FindAsync(x => x.HeaderId == headerId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<TrTerminalLineDto>>(entities);
                 return ApiResponse<IEnumerable<TrTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -102,12 +102,14 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByRouteIdAsync(long routeId)
+        
+
+        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByUserIdAsync(long userId)
         {
             try
             {
                 var entities = await _unitOfWork.TrTerminalLines
-                    .FindAsync(x => x.RouteId == routeId && !x.IsDeleted);
+                    .FindAsync(x => x.TerminalUserId == userId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<TrTerminalLineDto>>(entities);
                 return ApiResponse<IEnumerable<TrTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -117,35 +119,7 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByUserIdAsync(string userId)
-        {
-            try
-            {
-                var entities = await _unitOfWork.TrTerminalLines
-                    .FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<TrTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
-
-        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByTerminalCodeAsync(string terminalCode)
-        {
-            try
-            {
-                var entities = await _unitOfWork.TrTerminalLines
-                    .FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<TrTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
+        
 
         public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
@@ -162,21 +136,7 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetByStatusAsync(string status)
-        {
-            try
-            {
-                // TrTerminalLine model doesn't have Status property, filtering only by IsDeleted
-                var entities = await _unitOfWork.TrTerminalLines
-                    .FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<TrTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<TrTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
+        
 
         public async Task<ApiResponse<IEnumerable<TrTerminalLineDto>>> GetActiveAsync()
         {

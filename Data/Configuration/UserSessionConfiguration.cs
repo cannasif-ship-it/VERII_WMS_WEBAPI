@@ -4,13 +4,11 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class UserSessionConfiguration : IEntityTypeConfiguration<UserSession>
+    public class UserSessionConfiguration : BaseEntityConfiguration<UserSession>
     {
-        public void Configure(EntityTypeBuilder<UserSession> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<UserSession> builder)
         {
             builder.ToTable("RII_USER_SESSION");
-
-            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.UserId)
                 .IsRequired();
@@ -43,21 +41,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // User relationships for BaseEntity
-            builder.HasOne(x => x.CreatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(x => x.UpdatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.UpdatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(x => x.DeletedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.DeletedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Base entity user relationships handled by BaseEntityConfiguration
 
             // Indexes
             builder.HasIndex(x => x.UserId);

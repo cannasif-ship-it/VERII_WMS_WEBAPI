@@ -4,83 +4,38 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class TrImportLineConfiguration : IEntityTypeConfiguration<TrImportLine>
+    public class TrImportLineConfiguration : BaseEntityConfiguration<TrImportLine>
     {
-        public void Configure(EntityTypeBuilder<TrImportLine> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<TrImportLine> builder)
         {
-            // Table name
             builder.ToTable("RII_TR_IMPORT_LINE");
 
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
-
             builder.Property(x => x.HeaderId)
-                .HasColumnName("HeaderId")
                 .IsRequired();
 
             builder.Property(x => x.LineId)
-                .HasColumnName("LineId")
                 .IsRequired();
 
             // DB'de mevcut olan ek FK sütunu için eşleme
-            builder.Property(x => x.LineId1)
-                .HasColumnName("LineId1");
+            builder.Property(x => x.LineId1);
 
-            builder.Property(x => x.RouteId)
-                .HasColumnName("RouteId");
+            builder.Property(x => x.RouteId);
 
             builder.Property(x => x.StockCode)
-                .HasColumnName("StockCode")
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(x => x.SerialNo)
-                .HasColumnName("SerialNo")
                 .HasMaxLength(50);
 
             builder.Property(x => x.ErpOrderNo)
-                .HasColumnName("ErpOrderNo")
                 .HasMaxLength(50);
 
             builder.Property(x => x.ErpOrderNumber)
-                .HasColumnName("ErpOrderNumber")
                 .HasMaxLength(50);
 
             builder.Property(x => x.Description)
-                .HasColumnName("Description")
                 .HasMaxLength(200);
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy")
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.Property(x => x.CreatedDate)
-                .HasColumnName("CreatedDate")
-                .IsRequired();
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasColumnName("IsDeleted")
-                .HasDefaultValue(false);
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnName("DeletedDate");
 
             // Indexes
             builder.HasIndex(x => x.HeaderId)
@@ -101,7 +56,6 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.IsDeleted)
                 .HasDatabaseName("IX_TrImportLine_IsDeleted");
 
-            // Foreign key relationships
             builder.HasOne(x => x.Header)
                 .WithMany(x => x.ImportLines)
                 .HasForeignKey(x => x.HeaderId)
@@ -117,30 +71,10 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.RouteId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Navigation properties
             builder.HasMany(x => x.Boxes)
                 .WithOne(x => x.ImportLine)
                 .HasForeignKey(x => x.ImportLineId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // User relationships
-            builder.HasOne(x => x.CreatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_IMPORT_LINE_RII_USERS_CREATED_BY");
-
-            builder.HasOne(x => x.UpdatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.UpdatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_IMPORT_LINE_RII_USERS_UPDATED_BY");
-
-            builder.HasOne(x => x.DeletedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.DeletedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_IMPORT_LINE_RII_USERS_DELETED_BY");
         }
     }
 }

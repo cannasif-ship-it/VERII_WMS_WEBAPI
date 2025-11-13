@@ -4,15 +4,11 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : BaseEntityConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
         {
-            // Table name
             builder.ToTable("RII_USERS");
-
-            // Primary key
-            builder.HasKey(u => u.Id);
 
             // Properties
             builder.Property(u => u.Username)
@@ -61,8 +57,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .IsUnique()
                 .HasDatabaseName("IX_RII_USERS_Email");
 
-            // Seed data - removed to avoid migration issues with SQL Server
-            // Will be handled by SeedData.cs instead
+            
         }
     }
 }

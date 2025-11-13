@@ -19,8 +19,8 @@ namespace WMS_WEBAPI.Data
             // Admin kullanıcısını oluştur
             var adminUser = new User
             {
-                Username = "admin@verii.com",
-                Email = "admin@verii.com",
+                Username = "admin@v3rii.com",
+                Email = "admin@v3erii.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Veriipass123!"),
                 FirstName = "Admin",
                 LastName = "User",

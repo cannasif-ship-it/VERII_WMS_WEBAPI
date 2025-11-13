@@ -4,20 +4,14 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class GrImportDocumentConfiguration : IEntityTypeConfiguration<GrImportDocument>
+    public class GrImportDocumentConfiguration : BaseEntityConfiguration<GrImportDocument>
     {
-        public void Configure(EntityTypeBuilder<GrImportDocument> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<GrImportDocument> builder)
         {
             // Table name
             builder.ToTable("RII_GR_ImportDocument");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
+            
             // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.HeaderId)
                 .IsRequired()
@@ -27,30 +21,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .IsRequired()
                 .HasColumnName("Base64");
 
-            // BaseEntity properties
-            builder.Property(x => x.CreatedDate)
-                .IsRequired()
-                .HasColumnName("CreatedDate")
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnName("DeletedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy");
+            // Base entity handled by BaseEntityConfiguration
 
             // Foreign key relationships
             builder.HasOne(x => x.Header)

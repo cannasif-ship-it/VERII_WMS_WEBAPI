@@ -4,20 +4,14 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class SidebarmenuHeaderConfiguration : IEntityTypeConfiguration<SidebarmenuHeader>
+    public class SidebarmenuHeaderConfiguration : BaseEntityConfiguration<SidebarmenuHeader>
     {
-        public void Configure(EntityTypeBuilder<SidebarmenuHeader> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<SidebarmenuHeader> builder)
         {
             // Table name
             builder.ToTable("RII_PLATFORM_SIDEBARMENU_HEADER");
 
-            // Primary key
-            builder.HasKey(x => x.Id);
-
             // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.MenuKey)
                 .IsRequired()
@@ -61,26 +55,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .IsRequired()
                 .HasColumnName("RoleLevel");
 
-            // Base entity properties
-            builder.Property(x => x.CreatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.CreatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("CreatedDate");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
+            // Base entity handled by BaseEntityConfiguration
 
             // Indexes
             builder.HasIndex(x => x.MenuKey)

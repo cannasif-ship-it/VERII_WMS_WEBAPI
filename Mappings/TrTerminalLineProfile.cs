@@ -16,8 +16,6 @@ namespace WMS_WEBAPI.Mappings
 
             CreateMap<CreateTrTerminalLineDto, TrTerminalLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
@@ -28,8 +26,6 @@ namespace WMS_WEBAPI.Mappings
 
             CreateMap<UpdateTrTerminalLineDto, TrTerminalLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())

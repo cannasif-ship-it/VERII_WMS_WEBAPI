@@ -4,19 +4,12 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class UserAuthorityConfiguration : IEntityTypeConfiguration<UserAuthority>
+    public class UserAuthorityConfiguration : BaseEntityConfiguration<UserAuthority>
     {
-        public void Configure(EntityTypeBuilder<UserAuthority> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<UserAuthority> builder)
         {
             // Table name
             builder.ToTable("RII_USER_AUTHORITY");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             // Properties
             builder.Property(x => x.Title)
@@ -24,33 +17,6 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasMaxLength(30)
                 .HasColumnName("Title");
 
-            // Base entity properties
-            builder.Property(x => x.CreatedDate)
-                .IsRequired()
-                .HasColumnType("datetime2")
-                .HasColumnName("CreatedDate");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("DeletedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .IsRequired()
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy");
 
             // Query filter for soft delete
             builder.HasQueryFilter(x => !x.IsDeleted);

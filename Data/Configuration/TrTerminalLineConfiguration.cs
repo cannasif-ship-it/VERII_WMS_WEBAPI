@@ -4,94 +4,39 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class TrTerminalLineConfiguration : IEntityTypeConfiguration<TrTerminalLine>
+    public class TrTerminalLineConfiguration : BaseEntityConfiguration<TrTerminalLine>
     {
-        public void Configure(EntityTypeBuilder<TrTerminalLine> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<TrTerminalLine> builder)
         {
-            // Table name
-            builder.ToTable("RII_TR_TERMINAL_LINE");
+            builder.ToTable("RII_TR_TerminalLine");
 
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
-
-            builder.Property(x => x.LineId)
-                .HasColumnName("LineId")
+            builder.Property(x => x.HeaderId)
                 .IsRequired();
 
-            builder.Property(x => x.RouteId)
-                .HasColumnName("RouteId");
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy")
-                .HasMaxLength(50)
+            builder.Property(x => x.TerminalUserId)
                 .IsRequired();
 
-            builder.Property(x => x.CreatedDate)
-                .HasColumnName("CreatedDate")
-                .IsRequired();
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasColumnName("IsDeleted")
-                .HasDefaultValue(false);
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy")
-                .HasMaxLength(50);
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnName("DeletedDate");
+            
 
             // Indexes
-            builder.HasIndex(x => x.LineId)
-                .HasDatabaseName("IX_TrTerminalLine_LineId");
+            builder.HasIndex(x => x.HeaderId)
+                .HasDatabaseName("IX_TrTerminalLine_HeaderId");
 
-            builder.HasIndex(x => x.RouteId)
-                .HasDatabaseName("IX_TrTerminalLine_RouteId");
+            builder.HasIndex(x => x.TerminalUserId)
+                .HasDatabaseName("IX_TrTerminalLine_TerminalUserId");
 
             builder.HasIndex(x => x.IsDeleted)
                 .HasDatabaseName("IX_TrTerminalLine_IsDeleted");
 
-            // Foreign key relationships
-            builder.HasOne(x => x.Line)
-                .WithMany(x => x.TerminalLines)
-                .HasForeignKey(x => x.LineId)
+            builder.HasOne(x => x.Header)
+                .WithMany()
+                .HasForeignKey(x => x.HeaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.Route)
+            builder.HasOne(x => x.User)
                 .WithMany()
-                .HasForeignKey(x => x.RouteId)
+                .HasForeignKey(x => x.TerminalUserId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // User relationships
-            builder.HasOne(x => x.CreatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_TERMINAL_LINE_RII_USERS_CREATED_BY");
-
-            builder.HasOne(x => x.UpdatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.UpdatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_TERMINAL_LINE_RII_USERS_UPDATED_BY");
-
-            builder.HasOne(x => x.DeletedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.DeletedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_RII_TR_TERMINAL_LINE_RII_USERS_DELETED_BY");
         }
     }
 }

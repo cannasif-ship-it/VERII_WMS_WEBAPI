@@ -7,12 +7,12 @@ namespace WMS_WEBAPI.Models
     [Table("RII_TR_TerminalLine")]
     public class TrTerminalLine : BaseEntity
     {
-        [Required, ForeignKey(nameof(Line))]
-        public long LineId { get; set; }
-        public virtual TrLine Line { get; set; } = null!;
+        [Required, ForeignKey(nameof(Header))]
+        public long HeaderId { get; set; }
+        public virtual TrHeader Header { get; set; } = null!;
 
-        [ForeignKey(nameof(Route))]
-        public long? RouteId { get; set; }
-        public virtual TrRoute? Route { get; set; }
+        [ForeignKey(nameof(User))]
+        public long TerminalUserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

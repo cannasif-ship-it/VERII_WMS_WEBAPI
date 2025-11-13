@@ -4,20 +4,12 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class PlatformPageGroupConfiguration : IEntityTypeConfiguration<PlatformPageGroup>
+    public class PlatformPageGroupConfiguration : BaseEntityConfiguration<PlatformPageGroup>
     {
-        public void Configure(EntityTypeBuilder<PlatformPageGroup> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<PlatformPageGroup> builder)
         {
             // Table name
             builder.ToTable("PlatformPageGroup");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.GroupCode)
                 .IsRequired()
@@ -32,26 +24,6 @@ namespace WMS_WEBAPI.Data.Configuration
                 .IsRequired()
                 .HasColumnName("MenuLineId");
 
-            // Base entity properties
-            builder.Property(x => x.CreatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.CreatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("CreatedDate");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasMaxLength(50)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
 
             // Indexes
             builder.HasIndex(x => x.GroupCode)

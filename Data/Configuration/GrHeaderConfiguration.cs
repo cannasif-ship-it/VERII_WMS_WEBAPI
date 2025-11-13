@@ -4,20 +4,14 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class GrHeaderConfiguration : IEntityTypeConfiguration<GrHeader>
+    public class GrHeaderConfiguration : BaseHeaderEntityConfiguration<GrHeader>
     {
-        public void Configure(EntityTypeBuilder<GrHeader> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<GrHeader> builder)
         {
             // Table name
             builder.ToTable("RII_GR_Header");
 
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
+            
 
             builder.Property(x => x.BranchCode)
                 .IsRequired()
@@ -84,14 +78,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasMaxLength(100)
                 .HasColumnName("Description5");
 
-            // BaseHeaderEntity properties
-            builder.Property(x => x.CreatedDate)
-                .IsRequired()
-                .HasColumnName("CreatedDate")
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnName("UpdatedDate");
+            
 
             // Indexes
             builder.HasIndex(x => x.ERPDocumentNo)

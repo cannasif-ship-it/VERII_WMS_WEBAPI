@@ -47,10 +47,10 @@ namespace WMS_WEBAPI.Controllers
         /// </summary>
         /// <param name="lineId">Line ID</param>
         /// <returns>TrTerminalLine listesi</returns>
-        [HttpGet("line/{lineId}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByLineId(long lineId)
+        [HttpGet("header/{headerId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByHeaderId(long headerId)
         {
-            var result = await _trTerminalLineService.GetByLineIdAsync(lineId);
+            var result = await _trTerminalLineService.GetByHeaderIdAsync(headerId);
             return StatusCode(result.StatusCode, result);
         }
 
@@ -59,12 +59,7 @@ namespace WMS_WEBAPI.Controllers
         /// </summary>
         /// <param name="routeId">Route ID</param>
         /// <returns>TrTerminalLine listesi</returns>
-        [HttpGet("route/{routeId}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByRouteId(long routeId)
-        {
-            var result = await _trTerminalLineService.GetByRouteIdAsync(routeId);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// Kullanıcı ID'ye göre TrTerminalLine kayıtlarını getirir
@@ -72,7 +67,7 @@ namespace WMS_WEBAPI.Controllers
         /// <param name="userId">Kullanıcı ID</param>
         /// <returns>TrTerminalLine listesi</returns>
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByUserId(string userId)
+        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByUserId(long userId)
         {
             var result = await _trTerminalLineService.GetByUserIdAsync(userId);
             return StatusCode(result.StatusCode, result);
@@ -83,12 +78,7 @@ namespace WMS_WEBAPI.Controllers
         /// </summary>
         /// <param name="terminalCode">Terminal kodu</param>
         /// <returns>TrTerminalLine listesi</returns>
-        [HttpGet("terminal/{terminalCode}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByTerminalCode(string terminalCode)
-        {
-            var result = await _trTerminalLineService.GetByTerminalCodeAsync(terminalCode);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// Tarih aralığına göre TrTerminalLine kayıtlarını getirir
@@ -108,12 +98,7 @@ namespace WMS_WEBAPI.Controllers
         /// </summary>
         /// <param name="status">Durum</param>
         /// <returns>TrTerminalLine listesi</returns>
-        [HttpGet("status/{status}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrTerminalLineDto>>>> GetByStatus(string status)
-        {
-            var result = await _trTerminalLineService.GetByStatusAsync(status);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// Yeni TrTerminalLine kaydı oluşturur

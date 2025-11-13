@@ -4,20 +4,11 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class GrLineConfiguration : IEntityTypeConfiguration<GrLine>
+    public class GrLineConfiguration : BaseEntityConfiguration<GrLine>
     {
-        public void Configure(EntityTypeBuilder<GrLine> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<GrLine> builder)
         {
-            // Table name
             builder.ToTable("RII_GR_Line");
-
-            // Primary key
-            builder.HasKey(x => x.Id);
-
-            // Properties configuration
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.HeaderId)
                 .IsRequired()
@@ -48,33 +39,6 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasMaxLength(100)
                 .HasColumnName("Description3");
 
-            // Base entity properties
-            builder.Property(x => x.CreatedDate)
-                .IsRequired()
-                .HasColumnType("datetime2")
-                .HasColumnName("CreatedDate");
-
-            builder.Property(x => x.UpdatedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("UpdatedDate");
-
-            builder.Property(x => x.DeletedDate)
-                .HasColumnType("datetime2")
-                .HasColumnName("DeletedDate");
-
-            builder.Property(x => x.IsDeleted)
-                .IsRequired()
-                .HasDefaultValue(false)
-                .HasColumnName("IsDeleted");
-
-            builder.Property(x => x.CreatedBy)
-                .HasColumnName("CreatedBy");
-
-            builder.Property(x => x.UpdatedBy)
-                .HasColumnName("UpdatedBy");
-
-            builder.Property(x => x.DeletedBy)
-                .HasColumnName("DeletedBy");
 
             // Relationships
             builder.HasOne(x => x.Header)
@@ -83,23 +47,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_GrLine_GrHeader");
 
-            builder.HasOne(x => x.CreatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_GrLine_CreatedBy");
-
-            builder.HasOne(x => x.UpdatedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.UpdatedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_GrLine_UpdatedBy");
-
-            builder.HasOne(x => x.DeletedByUser)
-                .WithMany()
-                .HasForeignKey(x => x.DeletedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_GrLine_DeletedBy");
+            
 
             // Indexes
             builder.HasIndex(x => x.HeaderId)
@@ -114,8 +62,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.HeaderId)
                 .HasDatabaseName("IX_GrLine_HeaderId");
 
-            // Query filter for soft delete
-            builder.HasQueryFilter(x => !x.IsDeleted);
+            
         }
     }
 }
