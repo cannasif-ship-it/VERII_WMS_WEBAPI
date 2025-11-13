@@ -45,6 +45,13 @@ namespace WMS_WEBAPI.Data
         public DbSet<PtRoute> PtRoutes { get; set; }
         public DbSet<PtTerminalLine> PtTerminalLines { get; set; }
 
+        // SubcontractingIssueTransfer DbSets
+        public DbSet<SitHeader> SitHeaders { get; set; }
+        public DbSet<SitLine> SitLines { get; set; }
+        public DbSet<SitImportLine> SitImportLines { get; set; }
+        public DbSet<SitRoute> SitRoutes { get; set; }
+        public DbSet<SitTerminalLine> SitTerminalLines { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -85,6 +92,13 @@ namespace WMS_WEBAPI.Data
             modelBuilder.ApplyConfiguration(new PtImportLineConfiguration());
             modelBuilder.ApplyConfiguration(new PtRouteConfiguration());
             modelBuilder.ApplyConfiguration(new PtTerminalLineConfiguration());
+
+            // Apply SubcontractingIssueTransfer configurations
+            modelBuilder.ApplyConfiguration(new SitHeaderConfiguration());
+            modelBuilder.ApplyConfiguration(new SitLineConfiguration());
+            modelBuilder.ApplyConfiguration(new SitImportLineConfiguration());
+            modelBuilder.ApplyConfiguration(new SitRouteConfiguration());
+            modelBuilder.ApplyConfiguration(new SitTerminalLineConfiguration());
                         
             // GoodReciptFunctions - Function olduğu için HasNoKey kullanıyoruz
             modelBuilder.Entity<FN_GoodsOpenOrders_Header>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Header");

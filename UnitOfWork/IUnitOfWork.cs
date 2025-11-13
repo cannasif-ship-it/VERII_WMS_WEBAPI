@@ -49,6 +49,13 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<PtRoute> PtRoutes { get; }
         IGenericRepository<PtTerminalLine> PtTerminalLines { get; }
 
+        // SubcontractingIssueTransfer repositories
+        IGenericRepository<SitHeader> SitHeaders { get; }
+        IGenericRepository<SitLine> SitLines { get; }
+        IGenericRepository<SitImportLine> SitImportLines { get; }
+        IGenericRepository<SitRoute> SitRoutes { get; }
+        IGenericRepository<SitTerminalLine> SitTerminalLines { get; }
+
 
 
 

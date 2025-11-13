@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { IGrLineService } from '../Interfaces/IGrLineService';
@@ -15,7 +15,7 @@ const api = axios.create({
 });
 
 // Request interceptor to add auth token
-api.interceptors.request.use((config : AxiosRequestConfig) => {
+api.interceptors.request.use((config : any) => {
   const token = getAuthToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

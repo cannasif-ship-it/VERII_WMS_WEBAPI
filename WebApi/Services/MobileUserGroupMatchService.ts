@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { ApiResponse } from '../Models/ApiResponse';
@@ -16,7 +16,7 @@ export class MobileUserGroupMatchService {
 
     constructor() {
         // Request interceptor to add auth token
-        this.api.interceptors.request.use((config: AxiosRequestConfig) => {
+        this.api.interceptors.request.use((config: any) => {
             const token = getAuthToken();
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;

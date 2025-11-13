@@ -112,6 +112,13 @@ builder.Services.AddScoped<IPtImportLineService, PtImportLineService>();
 builder.Services.AddScoped<IPtRouteService, PtRouteService>();
 builder.Services.AddScoped<IPtTerminalLineService, PtTerminalLineService>();
 
+// Register Subcontracting Issue Transfer Services
+builder.Services.AddScoped<ISitHeaderService, SitHeaderService>();
+builder.Services.AddScoped<ISitLineService, SitLineService>();
+builder.Services.AddScoped<ISitImportLineService, SitImportLineService>();
+builder.Services.AddScoped<ISitRouteService, SitRouteService>();
+builder.Services.AddScoped<ISitTerminalLineService, SitTerminalLineService>();
+
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
 builder.Services.AddScoped<ITRFunctionService, TRFunctionService>();

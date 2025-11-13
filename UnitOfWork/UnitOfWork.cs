@@ -57,6 +57,13 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<PtRoute>? _ptRoutes;
         private IGenericRepository<PtTerminalLine>? _ptTerminalLines;
 
+        // SubcontractingIssueTransfer repository instances
+        private IGenericRepository<SitHeader>? _sitHeaders;
+        private IGenericRepository<SitLine>? _sitLines;
+        private IGenericRepository<SitImportLine>? _sitImportLines;
+        private IGenericRepository<SitRoute>? _sitRoutes;
+        private IGenericRepository<SitTerminalLine>? _sitTerminalLines;
+
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -159,6 +166,22 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<PtTerminalLine> PtTerminalLines =>
             _ptTerminalLines ??= new GenericRepository<PtTerminalLine>(_context, _httpContextAccessor);
+
+        // SubcontractingIssueTransfer repository properties
+        public IGenericRepository<SitHeader> SitHeaders =>
+            _sitHeaders ??= new GenericRepository<SitHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SitLine> SitLines =>
+            _sitLines ??= new GenericRepository<SitLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SitImportLine> SitImportLines =>
+            _sitImportLines ??= new GenericRepository<SitImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SitRoute> SitRoutes =>
+            _sitRoutes ??= new GenericRepository<SitRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SitTerminalLine> SitTerminalLines =>
+            _sitTerminalLines ??= new GenericRepository<SitTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {

@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { ApiResponseErrorHelper } from '../Helpers/ApiResponseErrorHelper';
+import axios from 'axios';
+import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
 import { IMobilePageGroupService } from '../Interfaces/IMobilePageGroupService';
 import { ApiResponse } from '../Models/ApiResponse';
@@ -16,7 +16,7 @@ const api = axios.create({
 });
 
 // Request interceptor to add auth token
-api.interceptors.request.use((config : AxiosRequestConfig) => {
+api.interceptors.request.use((config : any) => {
   const token = getAuthToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
