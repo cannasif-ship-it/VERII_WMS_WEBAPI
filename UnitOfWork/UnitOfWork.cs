@@ -50,6 +50,13 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<TrTerminalLine>? _trTerminalLines;
         private IGenericRepository<TrImportLine>? _trImportLines;
 
+        // ProductTransfer repository instances
+        private IGenericRepository<PtHeader>? _ptHeaders;
+        private IGenericRepository<PtLine>? _ptLines;
+        private IGenericRepository<PtImportLine>? _ptImportLines;
+        private IGenericRepository<PtRoute>? _ptRoutes;
+        private IGenericRepository<PtTerminalLine>? _ptTerminalLines;
+
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -136,6 +143,22 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<TrImportLine> TrImportLines =>
             _trImportLines ??= new GenericRepository<TrImportLine>(_context, _httpContextAccessor);
+
+        // ProductTransfer repository properties
+        public IGenericRepository<PtHeader> PtHeaders =>
+            _ptHeaders ??= new GenericRepository<PtHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<PtLine> PtLines =>
+            _ptLines ??= new GenericRepository<PtLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<PtImportLine> PtImportLines =>
+            _ptImportLines ??= new GenericRepository<PtImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<PtRoute> PtRoutes =>
+            _ptRoutes ??= new GenericRepository<PtRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<PtTerminalLine> PtTerminalLines =>
+            _ptTerminalLines ??= new GenericRepository<PtTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {

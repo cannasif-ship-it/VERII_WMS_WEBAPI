@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WMS_WEBAPI.Models
 {
-    [Table("RII_TR_TerminalLine")]
+    [Table("RII_TR_TERMINAL_LINE")]
     public class TrTerminalLine : BaseEntity
     {
         [Required, ForeignKey(nameof(Header))]

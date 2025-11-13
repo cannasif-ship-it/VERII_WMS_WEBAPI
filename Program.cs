@@ -105,6 +105,13 @@ builder.Services.AddScoped<ITrRouteService, TrRouteService>();
 builder.Services.AddScoped<ITrImportLineService, TrImportLineService>();
 builder.Services.AddScoped<ITrTerminalLineService, TrTerminalLineService>();
 
+// Register Product Transfer Services
+builder.Services.AddScoped<IPtHeaderService, PtHeaderService>();
+builder.Services.AddScoped<IPtLineService, PtLineService>();
+builder.Services.AddScoped<IPtImportLineService, PtImportLineService>();
+builder.Services.AddScoped<IPtRouteService, PtRouteService>();
+builder.Services.AddScoped<IPtTerminalLineService, PtTerminalLineService>();
+
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
 builder.Services.AddScoped<ITRFunctionService, TRFunctionService>();
