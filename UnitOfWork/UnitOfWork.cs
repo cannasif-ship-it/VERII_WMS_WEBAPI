@@ -64,6 +64,13 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<SitRoute>? _sitRoutes;
         private IGenericRepository<SitTerminalLine>? _sitTerminalLines;
 
+        // SubcontractingReceiptTransfer repository instances
+        private IGenericRepository<SrtHeader>? _srtHeaders;
+        private IGenericRepository<SrtLine>? _srtLines;
+        private IGenericRepository<SrtImportLine>? _srtImportLines;
+        private IGenericRepository<SrtRoute>? _srtRoutes;
+        private IGenericRepository<SrtTerminalLine>? _srtTerminalLines;
+
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -182,6 +189,22 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<SitTerminalLine> SitTerminalLines =>
             _sitTerminalLines ??= new GenericRepository<SitTerminalLine>(_context, _httpContextAccessor);
+
+        // SubcontractingReceiptTransfer repository properties
+        public IGenericRepository<SrtHeader> SrtHeaders =>
+            _srtHeaders ??= new GenericRepository<SrtHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SrtLine> SrtLines =>
+            _srtLines ??= new GenericRepository<SrtLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SrtImportLine> SrtImportLines =>
+            _srtImportLines ??= new GenericRepository<SrtImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SrtRoute> SrtRoutes =>
+            _srtRoutes ??= new GenericRepository<SrtRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SrtTerminalLine> SrtTerminalLines =>
+            _srtTerminalLines ??= new GenericRepository<SrtTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {

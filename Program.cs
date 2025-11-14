@@ -117,7 +117,14 @@ builder.Services.AddScoped<ISitHeaderService, SitHeaderService>();
 builder.Services.AddScoped<ISitLineService, SitLineService>();
 builder.Services.AddScoped<ISitImportLineService, SitImportLineService>();
 builder.Services.AddScoped<ISitRouteService, SitRouteService>();
-builder.Services.AddScoped<ISitTerminalLineService, SitTerminalLineService>();
+        builder.Services.AddScoped<ISitTerminalLineService, SitTerminalLineService>();
+
+// Register Subcontracting Receipt Transfer Services
+builder.Services.AddScoped<ISrtHeaderService, SrtHeaderService>();
+builder.Services.AddScoped<ISrtLineService, SrtLineService>();
+builder.Services.AddScoped<ISrtImportLineService, SrtImportLineService>();
+builder.Services.AddScoped<ISrtRouteService, SrtRouteService>();
+builder.Services.AddScoped<ISrtTerminalLineService, SrtTerminalLineService>();
 
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
