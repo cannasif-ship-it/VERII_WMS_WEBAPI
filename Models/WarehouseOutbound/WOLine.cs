@@ -47,12 +47,8 @@ namespace WMS_WEBAPI.Models
         [MaxLength(100)]
         public string? Description { get; set; }
 
-        public virtual ICollection<WoRoute> Routes { get; set; } = new List<WoRoute>();
-
-        // Harici sistemden (ERP, Excel vb.) içe aktarılan satırlarla ilişki
+        // Navigation properties
         public virtual ICollection<WoImportLine> ImportLines { get; set; } = new List<WoImportLine>();
-
-        // Terminal (operatör, üretim istasyonu) tarafından işlenen satırlar
-        public virtual ICollection<WoTerminalLine> TerminalLines { get; set; } = new List<WoTerminalLine>();
+        public virtual ICollection<WoLineSerialLine> SerialLines { get; set; } = new List<WoLineSerialLine>();
     }
 }

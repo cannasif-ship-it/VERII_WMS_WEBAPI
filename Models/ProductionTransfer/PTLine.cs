@@ -10,10 +10,9 @@ namespace WMS_WEBAPI.Models
     public class PtLine : BaseEntity
     {
         // İlgili başlık (header) kaydının Id’si. Her satır bir header’a bağlıdır.
+        // Header ilişkisi (1-N ilişki). Navigation property.
         [Required, ForeignKey(nameof(Header))]
         public long HeaderId { get; set; }
-
-        // Header ilişkisi (1-N ilişki). Navigation property.
         public virtual PtHeader Header { get; set; } = null!;
 
         // Stok kodu – ERP veya WMS tarafındaki malzeme/ürün kodu
@@ -22,6 +21,10 @@ namespace WMS_WEBAPI.Models
 
         // Eğer satır bir üretim emrine veya iş emrine bağlıysa, bu id o kaydı gösterir (opsiyonel)
         public int? OrderId { get; set; }
+
+        // Satırdaki miktar – üretime gönderilen ya da üretilen miktar
+        [Required]
+        public decimal Quantity { get; set; }
 
         // Miktarın birimi (örneğin KG, ADET, MTR)
         [MaxLength(10)]
@@ -43,6 +46,9 @@ namespace WMS_WEBAPI.Models
         // Satır açıklaması – stokun, operasyonun veya üretim işinin açıklaması olabilir
         [MaxLength(100)]
         public string? Description { get; set; }
+
+        // Rota ilişkileri
+        public virtual ICollection<PtRoute> Routes { get; set; } = new List<PtRoute>();
 
         public virtual ICollection<PtImportLine> ImportLines { get; set; } = new List<PtImportLine>();
 

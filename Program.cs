@@ -140,6 +140,12 @@ builder.Services.AddScoped<IWiImportLineService, WiImportLineService>();
 builder.Services.AddScoped<IWiRouteService, WiRouteService>();
 builder.Services.AddScoped<IWiTerminalLineService, WiTerminalLineService>();
 
+// Register Inventory Count Services
+builder.Services.AddScoped<IICHeaderService, ICHeaderService>();
+builder.Services.AddScoped<IIcImportLineService, IcImportLineService>();
+builder.Services.AddScoped<IIcRouteService, IcRouteService>();
+builder.Services.AddScoped<IIcTerminalLineService, IcTerminalLineService>();
+
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
 builder.Services.AddScoped<ITRFunctionService, TRFunctionService>();

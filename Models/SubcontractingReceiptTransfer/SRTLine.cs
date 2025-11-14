@@ -51,8 +51,5 @@ namespace WMS_WEBAPI.Models
 
         // Harici sistemden (ERP, Excel vb.) içe aktarılan satırlarla ilişki
         public virtual ICollection<SrtImportLine> ImportLines { get; set; } = new List<SrtImportLine>();
-
-        // Terminal (operatör, üretim istasyonu) tarafından işlenen satırlar
-        public virtual ICollection<SrtTerminalLine> TerminalLines { get; set; } = new List<SrtTerminalLine>();
     }
 }

@@ -5,30 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WMS_WEBAPI.Models
 {
-    // RII_WO_IMPORT_LINE tablosu:
-    // ERP veya harici sistemlerden gelen üretim / transfer / fason satır verilerini temsil eder.
-    // WoHeader (belge), WoLine (kalem) ve WoRoute (rota) ile ilişkili olabilir.
-    // Genellikle barkod, seri, lot gibi terminalden toplanan veya ERP’den çekilen satır detaylarını içerir.
     [Table("RII_WO_IMPORT_LINE")]
     public class WoImportLine : BaseEntity
     {
-        // HEADER İLİŞKİSİ
-        // Bu satırın ait olduğu üst belge (örneğin üretim transferi veya fason fişi)
-        [Required, ForeignKey(nameof(Header))]
+        [Required, ForeignKey(nameof(HeaderId))]
         public long HeaderId { get; set; }
         public virtual WoHeader Header { get; set; } = null!;
 
-        // LINE İLİŞKİSİ
-        // Bu satır hangi işlem kalemine (WoLine) bağlı
-        [Required, ForeignKey(nameof(Line))]
-        public long LineId { get; set; }
-        public virtual WoLine Line { get; set; } = null!;
-
-        // ROUTE İLİŞKİSİ (isteğe bağlı)
-        // Eğer satır belirli bir rota (operasyon adımı) üzerinden geliyorsa bu alan doldurulur
-        [ForeignKey(nameof(Route))]
-        public long? RouteId { get; set; }
-        public virtual WoRoute? Route { get; set; }
+        public long? LineId { get; set; }
+        [ForeignKey(nameof(LineId))]
+        public virtual WoLine? Line { get; set; }
 
         // ÜRÜN / MALZEME BİLGİLERİ
         // Stok kodu – ERP veya WMS’deki ürün referansı
@@ -45,5 +31,8 @@ namespace WMS_WEBAPI.Models
 
         [MaxLength(255)]
         public string? Description { get; set; }
+
+        // Navigation properties
+        public virtual ICollection<WoRoute> Routes { get; set; } = new List<WoRoute>();
     }
 }

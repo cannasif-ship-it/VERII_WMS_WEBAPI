@@ -12,13 +12,9 @@ namespace WMS_WEBAPI.Models
         public long HeaderId { get; set; }
         public virtual WiHeader Header { get; set; } = null!;
 
-        [Required, ForeignKey(nameof(Line))]
-        public long LineId { get; set; }
-        public virtual WiLine Line { get; set; } = null!;
-
-        [ForeignKey(nameof(Route))]
-        public long? RouteId { get; set; }
-        public virtual WiRoute? Route { get; set; }
+        public long? LineId { get; set; }
+        [ForeignKey(nameof(LineId))]
+        public virtual WiLine? Line { get; set; }
 
         [Required, MaxLength(35)]
         public string StockCode { get; set; } = null!;

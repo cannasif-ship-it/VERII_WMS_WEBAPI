@@ -34,13 +34,11 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<MobilemenuLine> MobilemenuLines { get; }
         
         // WarehouseTransfer repositories
-        IGenericRepository<TrBox> TrBoxes { get; }
-        IGenericRepository<TrSBox> TrSBoxes { get; }
-        IGenericRepository<TrLine> TrLines { get; }
-        IGenericRepository<TrHeader> TrHeaders { get; }
-        IGenericRepository<TrRoute> TrRoutes { get; }
-        IGenericRepository<TrTerminalLine> TrTerminalLines { get; }
-        IGenericRepository<TrImportLine> TrImportLines { get; }
+        IGenericRepository<WtLine> WtLines { get; }
+        IGenericRepository<WtHeader> WtHeaders { get; }
+        IGenericRepository<WtRoute> WtRoutes { get; }
+        IGenericRepository<WtTerminalLine> WtTerminalLines { get; }
+        IGenericRepository<WtImportLine> WtImportLines { get; }
 
         // ProductTransfer repositories
         IGenericRepository<PtHeader> PtHeaders { get; }
@@ -76,6 +74,12 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<WiImportLine> WiImportLines { get; }
         IGenericRepository<WiRoute> WiRoutes { get; }
         IGenericRepository<WiTerminalLine> WiTerminalLines { get; }
+
+        // InventoryCount repositories
+        IGenericRepository<IcHeader> ICHeaders { get; }
+        IGenericRepository<IcImportLine> IcImportLines { get; }
+        IGenericRepository<IcRoute> IcRoutes { get; }
+        IGenericRepository<IcTerminalLine> IcTerminalLines { get; }
 
 
 

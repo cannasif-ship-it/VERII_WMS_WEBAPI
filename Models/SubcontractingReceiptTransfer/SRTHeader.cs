@@ -69,12 +69,14 @@ namespace WMS_WEBAPI.Models
         [Required]
         public byte Type { get; set; }
 
-        // Navigation properties ↓
 
         // Header’a bağlı satır kayıtları (üretim kalemleri, malzeme detayları)
         public virtual ICollection<SrtLine> Lines { get; set; } = new List<SrtLine>();
 
         // Harici kaynaklardan (örneğin Excel, ERP import) gelen satır kayıtları
         public virtual ICollection<SrtImportLine> ImportLines { get; set; } = new List<SrtImportLine>();
+        
+        // Terminal (operatör, üretim istasyonu) tarafından işlenen satırlar
+        public virtual ICollection<SrtTerminalLine> TerminalLines { get; set; } = new List<SrtTerminalLine>();
     }
 }

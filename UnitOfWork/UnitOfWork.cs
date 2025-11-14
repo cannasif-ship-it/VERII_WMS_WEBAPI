@@ -42,13 +42,11 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<MobilemenuLine>? _mobilemenuLines;
         
         // WarehouseTransfer repository instances
-        private IGenericRepository<TrBox>? _trBoxes;
-        private IGenericRepository<TrSBox>? _trSBoxes;
-        private IGenericRepository<TrLine>? _trLines;
-        private IGenericRepository<TrHeader>? _trHeaders;
-        private IGenericRepository<TrRoute>? _trRoutes;
-        private IGenericRepository<TrTerminalLine>? _trTerminalLines;
-        private IGenericRepository<TrImportLine>? _trImportLines;
+        private IGenericRepository<WtLine>? _wtLines;
+        private IGenericRepository<WtHeader>? _wtHeaders;
+        private IGenericRepository<WtRoute>? _wtRoutes;
+        private IGenericRepository<WtTerminalLine>? _wtTerminalLines;
+        private IGenericRepository<WtImportLine>? _wtImportLines;
 
         // ProductTransfer repository instances
         private IGenericRepository<PtHeader>? _ptHeaders;
@@ -80,6 +78,12 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<WiImportLine>? _wiImportLines;
         private IGenericRepository<WiRoute>? _wiRoutes;
         private IGenericRepository<WiTerminalLine>? _wiTerminalLines;
+
+        // InventoryCount repository instances
+        private IGenericRepository<IcHeader>? _icHeaders;
+        private IGenericRepository<IcImportLine>? _icImportLines;
+        private IGenericRepository<IcRoute>? _icRoutes;
+        private IGenericRepository<IcTerminalLine>? _icTerminalLines;
 
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -147,26 +151,20 @@ namespace WMS_WEBAPI.UnitOfWork
             _mobilemenuLines ??= new GenericRepository<MobilemenuLine>(_context, _httpContextAccessor);
 
         // WarehouseTransfer repository properties
-        public IGenericRepository<TrBox> TrBoxes =>
-            _trBoxes ??= new GenericRepository<TrBox>(_context, _httpContextAccessor);
+        public IGenericRepository<WtLine> WtLines =>
+            _wtLines ??= new GenericRepository<WtLine>(_context, _httpContextAccessor);
 
-        public IGenericRepository<TrSBox> TrSBoxes =>
-            _trSBoxes ??= new GenericRepository<TrSBox>(_context, _httpContextAccessor);
+        public IGenericRepository<WtHeader> WtHeaders =>
+            _wtHeaders ??= new GenericRepository<WtHeader>(_context, _httpContextAccessor);
 
-        public IGenericRepository<TrLine> TrLines =>
-            _trLines ??= new GenericRepository<TrLine>(_context, _httpContextAccessor);
+        public IGenericRepository<WtRoute> WtRoutes =>
+            _wtRoutes ??= new GenericRepository<WtRoute>(_context, _httpContextAccessor);
 
-        public IGenericRepository<TrHeader> TrHeaders =>
-            _trHeaders ??= new GenericRepository<TrHeader>(_context, _httpContextAccessor);
+        public IGenericRepository<WtTerminalLine> WtTerminalLines =>
+            _wtTerminalLines ??= new GenericRepository<WtTerminalLine>(_context, _httpContextAccessor);
 
-        public IGenericRepository<TrRoute> TrRoutes =>
-            _trRoutes ??= new GenericRepository<TrRoute>(_context, _httpContextAccessor);
-
-        public IGenericRepository<TrTerminalLine> TrTerminalLines =>
-            _trTerminalLines ??= new GenericRepository<TrTerminalLine>(_context, _httpContextAccessor);
-
-        public IGenericRepository<TrImportLine> TrImportLines =>
-            _trImportLines ??= new GenericRepository<TrImportLine>(_context, _httpContextAccessor);
+        public IGenericRepository<WtImportLine> WtImportLines =>
+            _wtImportLines ??= new GenericRepository<WtImportLine>(_context, _httpContextAccessor);
 
         // ProductTransfer repository properties
         public IGenericRepository<PtHeader> PtHeaders =>
@@ -247,6 +245,19 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<WiTerminalLine> WiTerminalLines =>
             _wiTerminalLines ??= new GenericRepository<WiTerminalLine>(_context, _httpContextAccessor);
+
+        // InventoryCount repository properties
+        public IGenericRepository<IcHeader> ICHeaders =>
+            _icHeaders ??= new GenericRepository<IcHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<IcImportLine> IcImportLines =>
+            _icImportLines ??= new GenericRepository<IcImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<IcRoute> IcRoutes =>
+            _icRoutes ??= new GenericRepository<IcRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<IcTerminalLine> IcTerminalLines =>
+            _icTerminalLines ??= new GenericRepository<IcTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {
