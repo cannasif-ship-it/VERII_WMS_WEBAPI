@@ -59,6 +59,13 @@ namespace WMS_WEBAPI.Data
         public DbSet<SrtRoute> SrtRoutes { get; set; }
         public DbSet<SrtTerminalLine> SrtTerminalLines { get; set; }
 
+        // WarehouseOutbound DbSets
+        public DbSet<WoHeader> WoHeaders { get; set; }
+        public DbSet<WoLine> WoLines { get; set; }
+        public DbSet<WoImportLine> WoImportLines { get; set; }
+        public DbSet<WoRoute> WoRoutes { get; set; }
+        public DbSet<WoTerminalLine> WoTerminalLines { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -113,6 +120,13 @@ namespace WMS_WEBAPI.Data
             modelBuilder.ApplyConfiguration(new SrtImportLineConfiguration());
             modelBuilder.ApplyConfiguration(new SrtRouteConfiguration());
             modelBuilder.ApplyConfiguration(new SrtTerminalLineConfiguration());
+
+            // WarehouseOutbound configurations
+            modelBuilder.ApplyConfiguration(new WoHeaderConfiguration());
+            modelBuilder.ApplyConfiguration(new WoLineConfiguration());
+            modelBuilder.ApplyConfiguration(new WoImportLineConfiguration());
+            modelBuilder.ApplyConfiguration(new WoRouteConfiguration());
+            modelBuilder.ApplyConfiguration(new WoTerminalLineConfiguration());
                         
             // GoodReciptFunctions - Function olduğu için HasNoKey kullanıyoruz
             modelBuilder.Entity<FN_GoodsOpenOrders_Header>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Header");

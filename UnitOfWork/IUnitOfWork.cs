@@ -63,6 +63,13 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<SrtRoute> SrtRoutes { get; }
         IGenericRepository<SrtTerminalLine> SrtTerminalLines { get; }
 
+        // WarehouseOutbound repositories
+        IGenericRepository<WoHeader> WoHeaders { get; }
+        IGenericRepository<WoLine> WoLines { get; }
+        IGenericRepository<WoImportLine> WoImportLines { get; }
+        IGenericRepository<WoRoute> WoRoutes { get; }
+        IGenericRepository<WoTerminalLine> WoTerminalLines { get; }
+
 
 
 

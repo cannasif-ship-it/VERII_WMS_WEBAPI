@@ -70,6 +70,11 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<SrtImportLine>? _srtImportLines;
         private IGenericRepository<SrtRoute>? _srtRoutes;
         private IGenericRepository<SrtTerminalLine>? _srtTerminalLines;
+        private IGenericRepository<WoHeader>? _woHeaders;
+        private IGenericRepository<WoLine>? _woLines;
+        private IGenericRepository<WoImportLine>? _woImportLines;
+        private IGenericRepository<WoRoute>? _woRoutes;
+        private IGenericRepository<WoTerminalLine>? _woTerminalLines;
 
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -205,6 +210,22 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<SrtTerminalLine> SrtTerminalLines =>
             _srtTerminalLines ??= new GenericRepository<SrtTerminalLine>(_context, _httpContextAccessor);
+
+        // WarehouseOutbound repository properties
+        public IGenericRepository<WoHeader> WoHeaders =>
+            _woHeaders ??= new GenericRepository<WoHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WoLine> WoLines =>
+            _woLines ??= new GenericRepository<WoLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WoImportLine> WoImportLines =>
+            _woImportLines ??= new GenericRepository<WoImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WoRoute> WoRoutes =>
+            _woRoutes ??= new GenericRepository<WoRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WoTerminalLine> WoTerminalLines =>
+            _woTerminalLines ??= new GenericRepository<WoTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {

@@ -124,7 +124,14 @@ builder.Services.AddScoped<ISrtHeaderService, SrtHeaderService>();
 builder.Services.AddScoped<ISrtLineService, SrtLineService>();
 builder.Services.AddScoped<ISrtImportLineService, SrtImportLineService>();
 builder.Services.AddScoped<ISrtRouteService, SrtRouteService>();
-builder.Services.AddScoped<ISrtTerminalLineService, SrtTerminalLineService>();
+        builder.Services.AddScoped<ISrtTerminalLineService, SrtTerminalLineService>();
+
+// Register Warehouse Outbound Services
+builder.Services.AddScoped<IWoHeaderService, WoHeaderService>();
+builder.Services.AddScoped<IWoLineService, WoLineService>();
+builder.Services.AddScoped<IWoImportLineService, WoImportLineService>();
+builder.Services.AddScoped<IWoRouteService, WoRouteService>();
+builder.Services.AddScoped<IWoTerminalLineService, WoTerminalLineService>();
 
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
