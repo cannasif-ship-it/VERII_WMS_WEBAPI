@@ -75,6 +75,11 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<WoImportLine>? _woImportLines;
         private IGenericRepository<WoRoute>? _woRoutes;
         private IGenericRepository<WoTerminalLine>? _woTerminalLines;
+        private IGenericRepository<WiHeader>? _wiHeaders;
+        private IGenericRepository<WiLine>? _wiLines;
+        private IGenericRepository<WiImportLine>? _wiImportLines;
+        private IGenericRepository<WiRoute>? _wiRoutes;
+        private IGenericRepository<WiTerminalLine>? _wiTerminalLines;
 
         public UnitOfWork(WmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -226,6 +231,22 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<WoTerminalLine> WoTerminalLines =>
             _woTerminalLines ??= new GenericRepository<WoTerminalLine>(_context, _httpContextAccessor);
+
+        // WarehouseInbound repository properties
+        public IGenericRepository<WiHeader> WiHeaders =>
+            _wiHeaders ??= new GenericRepository<WiHeader>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WiLine> WiLines =>
+            _wiLines ??= new GenericRepository<WiLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WiImportLine> WiImportLines =>
+            _wiImportLines ??= new GenericRepository<WiImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WiRoute> WiRoutes =>
+            _wiRoutes ??= new GenericRepository<WiRoute>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WiTerminalLine> WiTerminalLines =>
+            _wiTerminalLines ??= new GenericRepository<WiTerminalLine>(_context, _httpContextAccessor);
 
         public async Task<long> SaveChangesAsync()
         {

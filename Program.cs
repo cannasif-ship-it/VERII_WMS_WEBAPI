@@ -133,6 +133,13 @@ builder.Services.AddScoped<IWoImportLineService, WoImportLineService>();
 builder.Services.AddScoped<IWoRouteService, WoRouteService>();
 builder.Services.AddScoped<IWoTerminalLineService, WoTerminalLineService>();
 
+// Register Warehouse Inbound Services
+builder.Services.AddScoped<IWiHeaderService, WiHeaderService>();
+builder.Services.AddScoped<IWiLineService, WiLineService>();
+builder.Services.AddScoped<IWiImportLineService, WiImportLineService>();
+builder.Services.AddScoped<IWiRouteService, WiRouteService>();
+builder.Services.AddScoped<IWiTerminalLineService, WiTerminalLineService>();
+
 // Register Function Services
 builder.Services.AddScoped<IGoodReciptFunctionsService, GoodReciptFunctionsService>();
 builder.Services.AddScoped<ITRFunctionService, TRFunctionService>();
