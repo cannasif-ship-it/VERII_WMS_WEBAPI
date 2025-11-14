@@ -94,19 +94,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<SitImportLineDto>>> GetByErpOrderNoAsync(string erpOrderNo)
-        {
-            try
-            {
-                var entities = await _unitOfWork.SitImportLines.FindAsync(x => x.ErpOrderNo == erpOrderNo && !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<SitImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<SitImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<IEnumerable<SitImportLineDto>>> GetActiveAsync()
         {

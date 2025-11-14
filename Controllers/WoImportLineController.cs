@@ -54,12 +54,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("erporder/{erpOrderNo}")]
-        public async Task<IActionResult> GetByErpOrderNo(string erpOrderNo)
-        {
-            var result = await _service.GetByErpOrderNoAsync(erpOrderNo);
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpGet("active")]
         public async Task<IActionResult> GetActive()

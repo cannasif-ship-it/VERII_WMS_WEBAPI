@@ -8,7 +8,6 @@ export interface ITrImportLineService {
   getByRouteId(routeId: number): Promise<ApiResponse<TrImportLineDto[]>>;
   getByStockCode(stockCode: string): Promise<ApiResponse<TrImportLineDto[]>>;
   getByCellCode(cellCode: string): Promise<ApiResponse<TrImportLineDto[]>>;
-  getByErpOrderNo(erpOrderNo: string): Promise<ApiResponse<TrImportLineDto[]>>;
   getActive(): Promise<ApiResponse<TrImportLineDto[]>>;
   create(createDto: CreateTrImportLineDto): Promise<ApiResponse<TrImportLineDto>>;
   update(id: number, updateDto: UpdateTrImportLineDto): Promise<ApiResponse<TrImportLineDto>>;

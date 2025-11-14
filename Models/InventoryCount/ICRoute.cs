@@ -5,21 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WMS_WEBAPI.Models
 {
-    // RII_PT_ROUTE tablosu:
+    // RII_IC_ROUTE tablosu:
     // Üretim veya transfer sürecinde, her satırın (PtLine) izlediği rotayı (kaynak → hedef) tanımlar.
     // Rota, malzemenin hangi depodan/hücreden nereye taşındığını, hangi sırayla işlendiğini belirtir.
-    [Table("RII_PT_ROUTE")]
-    public class PtRoute : BaseEntity
+    [Table("RII_IC_ROUTE")]
+    public class IcRoute : BaseEntity
     {
-        // Bu rota hangi PtLine kaydına bağlı (örneğin üretim satırı veya transfer kalemi)
-        // Navigation property – rota, bağlı olduğu satıra (PtLine) erişim sağlar
-        [Required, ForeignKey(nameof(Line))]
-        public long LineId { get; set; }
-        public virtual PtLine Line { get; set; } = null!;
+        // Bu rota hangi IcLine kaydına bağlı (örneğin üretim satırı veya transfer kalemi)
+        // Navigation property – rota, bağlı olduğu satıra (IcImportLine) erişim sağlar
+        [Required, ForeignKey(nameof(ImportLine))]
+        public long ImportLineId { get; set; }
+        public virtual IcImportLine ImportLine { get; set; } = null!;
 
-        // Stok kodu – bu rotanın ilişkili olduğu ürün veya malzeme
-        [Required, MaxLength(35)]
-        public string StockCode { get; set; } = null!;
 
         // Rota kodu – ERP veya WMS içindeki operasyon/rota tanımı
         // Örneğin: “MONT01”, “BOYA02”, “AMBALAJ”
@@ -57,6 +54,7 @@ namespace WMS_WEBAPI.Models
         // Örneğin: 0 = kritik operasyon, 5 = opsiyonel adım
         public int Priority { get; set; } = 0;
 
+        // Açıklama alanı – operasyon veya rota hakkında serbest bilgi
         [MaxLength(100)]
         public string? Description { get; set; }
 

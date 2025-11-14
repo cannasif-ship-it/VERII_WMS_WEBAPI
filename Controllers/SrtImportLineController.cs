@@ -61,12 +61,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("erpOrder/{erpOrderNo}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<SrtImportLineDto>>>> GetByErpOrderNo(string erpOrderNo)
-        {
-            var result = await _service.GetByErpOrderNoAsync(erpOrderNo);
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<SrtImportLineDto>>> Create([FromBody] CreateSrtImportLineDto createDto)

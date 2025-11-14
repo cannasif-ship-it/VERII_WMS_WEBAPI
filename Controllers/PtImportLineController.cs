@@ -54,12 +54,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("erpOrder/{erpOrderNo}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<PtImportLineDto>>>> GetByErpOrderNo(string erpOrderNo)
-        {
-            var result = await _service.GetByErpOrderNoAsync(erpOrderNo);
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpGet("active")]
         public async Task<ActionResult<ApiResponse<IEnumerable<PtImportLineDto>>>> GetActive()

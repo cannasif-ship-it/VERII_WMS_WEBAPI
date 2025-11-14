@@ -95,12 +95,6 @@ namespace WMS_WEBAPI.Controllers
         /// </summary>
         /// <param name="erpOrderNo">ERP sipariş numarası</param>
         /// <returns>TrImportLine listesi</returns>
-        [HttpGet("erporder/{erpOrderNo}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TrImportLineDto>>>> GetByErpOrderNo(string erpOrderNo)
-        {
-            var result = await _trImportLineService.GetByErpOrderNoAsync(erpOrderNo);
-            return StatusCode(result.StatusCode, result);
-        }
 
         /// <summary>
         /// Yeni TrImportLine kaydı oluşturur

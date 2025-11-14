@@ -35,42 +35,6 @@ namespace WMS_WEBAPI.Models
         [Required, MaxLength(35)]
         public string StockCode { get; set; } = null!;
 
-        // Seri numaraları (lot veya barkod takibi için)
-        // Birden fazla seri desteği (örneğin komponent bazlı ürünler için)
-        [MaxLength(50)]
-        public string? SerialNo { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo2 { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo3 { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo4 { get; set; }
-
-        // Aktarılan miktar
-        [Required]
-        public decimal Quantity { get; set; } = 0;
-
-        // Terminal veya barkod okuyucudan okunan orijinal barkod değeri
-        [MaxLength(100)]
-        public string? ScannedBarkod { get; set; }
-
-        // ERP İLİŞKİSİ
-        // ERP tarafındaki üretim veya sipariş bilgileri
-        [MaxLength(50)]
-        public string? ErpOrderNumber { get; set; }    // Eski/alternatif sipariş numarası
-
-        [MaxLength(50)]
-        public string? ErpOrderNo { get; set; }        // Ana sipariş numarası
-
-        [MaxLength(10)]
-        public string? ErpOrderLineNumber { get; set; } // ERP satır numarası
-
-        [MaxLength(10)]
-        public string? ErpOrderSequence { get; set; }   // ERP sıra veya operasyon numarası
-
         // AÇIKLAMA ALANLARI
         // İşlemi açıklayan ek bilgiler (örneğin fason açıklaması, terminal notu)
         [MaxLength(30)]

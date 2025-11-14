@@ -23,10 +23,6 @@ namespace WMS_WEBAPI.Models
         // Eğer satır bir üretim emrine veya iş emrine bağlıysa, bu id o kaydı gösterir (opsiyonel)
         public int? OrderId { get; set; }
 
-        // Satırdaki miktar – üretime gönderilen ya da üretilen miktar
-        [Required]
-        public decimal Quantity { get; set; }
-
         // Miktarın birimi (örneğin KG, ADET, MTR)
         [MaxLength(10)]
         public string? Unit { get; set; }
@@ -48,14 +44,7 @@ namespace WMS_WEBAPI.Models
         [MaxLength(100)]
         public string? Description { get; set; }
 
-        // Navigation properties ↓
-        // Üretim rotasıyla ilişkili adımlar (örneğin iş istasyonları, operasyon sıraları)
-        public virtual ICollection<PtRoute> Routes { get; set; } = new List<PtRoute>();
-
-        // Harici sistemden (ERP, Excel vb.) içe aktarılan satırlarla ilişki
         public virtual ICollection<PtImportLine> ImportLines { get; set; } = new List<PtImportLine>();
 
-        // Terminal (operatör, üretim istasyonu) tarafından işlenen satırlar
-        public virtual ICollection<PtTerminalLine> TerminalLines { get; set; } = new List<PtTerminalLine>();
     }
 }

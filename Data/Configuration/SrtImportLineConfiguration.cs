@@ -13,16 +13,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.HeaderId).IsRequired();
             builder.Property(x => x.LineId).IsRequired();
             builder.Property(x => x.StockCode).HasMaxLength(35).IsRequired();
-            builder.Property(x => x.SerialNo).HasMaxLength(50);
-            builder.Property(x => x.SerialNo2).HasMaxLength(50);
-            builder.Property(x => x.SerialNo3).HasMaxLength(50);
-            builder.Property(x => x.SerialNo4).HasMaxLength(50);
-            builder.Property(x => x.Quantity).HasColumnType("decimal(18,4)").IsRequired();
-            builder.Property(x => x.ScannedBarkod).HasMaxLength(100);
-            builder.Property(x => x.ErpOrderNumber).HasMaxLength(50);
-            builder.Property(x => x.ErpOrderNo).HasMaxLength(50);
-            builder.Property(x => x.ErpOrderLineNumber).HasMaxLength(10);
-            builder.Property(x => x.ErpOrderSequence).HasMaxLength(10);
+            
             builder.Property(x => x.Description1).HasMaxLength(30);
             builder.Property(x => x.Description2).HasMaxLength(50);
             builder.Property(x => x.Description).HasMaxLength(255);

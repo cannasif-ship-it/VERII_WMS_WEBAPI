@@ -32,37 +32,6 @@ namespace WMS_WEBAPI.Models
         [Required, MaxLength(35)]
         public string StockCode { get; set; } = null!;
 
-        [MaxLength(50)]
-        public string? SerialNo { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo2 { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo3 { get; set; }
-
-        [MaxLength(50)]
-        public string? SerialNo4 { get; set; }
-
-        [Required]
-        public decimal Quantity { get; set; } = 0;
-
-        [MaxLength(100)]
-        public string? ScannedBarkod { get; set; }
-
-        // ERP bağlantısı (nullable olabilir)
-        [MaxLength(50)]
-        public string? ErpOrderNumber { get; set; }
-
-        [MaxLength(50)]
-        public string? ErpOrderNo { get; set; }
-
-        [MaxLength(10)]
-        public string? ErpOrderLineNumber { get; set; }
-
-        [MaxLength(10)]
-        public string? ErpOrderSequence { get; set; }
-
         // Açıklamalar
         [MaxLength(30)]
         public string? Description1 { get; set; }

@@ -22,36 +22,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasMaxLength(35)
                 .IsRequired();
 
-            builder.Property(x => x.SerialNo)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.SerialNo2)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.SerialNo3)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.SerialNo4)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.Quantity)
-                .HasColumnType("decimal(18,4)")
-                .IsRequired();
-
-            builder.Property(x => x.ScannedBarkod)
-                .HasMaxLength(100);
-
-            builder.Property(x => x.ErpOrderNumber)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.ErpOrderNo)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.ErpOrderLineNumber)
-                .HasMaxLength(10);
-
-            builder.Property(x => x.ErpOrderSequence)
-                .HasMaxLength(10);
+            
 
             builder.Property(x => x.Description1)
                 .HasMaxLength(30);
@@ -74,8 +45,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.StockCode)
                 .HasDatabaseName("IX_SitImportLine_StockCode");
 
-            builder.HasIndex(x => x.ErpOrderNo)
-                .HasDatabaseName("IX_SitImportLine_ErpOrderNo");
+            
 
             builder.HasIndex(x => x.IsDeleted)
                 .HasDatabaseName("IX_SitImportLine_IsDeleted");

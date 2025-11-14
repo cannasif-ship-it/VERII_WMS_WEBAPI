@@ -9,16 +9,6 @@ namespace WMS_WEBAPI.DTOs
         public long LineId { get; set; }
         public long? RouteId { get; set; }
         public string StockCode { get; set; } = string.Empty;
-        public string? SerialNo { get; set; }
-        public string? SerialNo2 { get; set; }
-        public string? SerialNo3 { get; set; }
-        public string? SerialNo4 { get; set; }
-        public decimal Quantity { get; set; }
-        public string? ScannedBarkod { get; set; }
-        public string? ErpOrderNumber { get; set; }
-        public string? ErpOrderNo { get; set; }
-        public string? ErpOrderLineNumber { get; set; }
-        public string? ErpOrderSequence { get; set; }
         public string? Description1 { get; set; }
         public string? Description2 { get; set; }
         public string? Description { get; set; }
@@ -47,36 +37,6 @@ namespace WMS_WEBAPI.DTOs
         [Required, StringLength(35)]
         public string StockCode { get; set; } = string.Empty;
 
-        [StringLength(50)]
-        public string? SerialNo { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo2 { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo3 { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo4 { get; set; }
-
-        [Required]
-        public decimal Quantity { get; set; }
-
-        [StringLength(100)]
-        public string? ScannedBarkod { get; set; }
-
-        [StringLength(50)]
-        public string? ErpOrderNumber { get; set; }
-
-        [StringLength(50)]
-        public string? ErpOrderNo { get; set; }
-
-        [StringLength(10)]
-        public string? ErpOrderLineNumber { get; set; }
-
-        [StringLength(10)]
-        public string? ErpOrderSequence { get; set; }
-
         [StringLength(30)]
         public string? Description1 { get; set; }
 
@@ -95,35 +55,6 @@ namespace WMS_WEBAPI.DTOs
 
         [StringLength(35)]
         public string? StockCode { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo2 { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo3 { get; set; }
-
-        [StringLength(50)]
-        public string? SerialNo4 { get; set; }
-
-        public decimal? Quantity { get; set; }
-
-        [StringLength(100)]
-        public string? ScannedBarkod { get; set; }
-
-        [StringLength(50)]
-        public string? ErpOrderNumber { get; set; }
-
-        [StringLength(50)]
-        public string? ErpOrderNo { get; set; }
-
-        [StringLength(10)]
-        public string? ErpOrderLineNumber { get; set; }
-
-        [StringLength(10)]
-        public string? ErpOrderSequence { get; set; }
 
         [StringLength(30)]
         public string? Description1 { get; set; }

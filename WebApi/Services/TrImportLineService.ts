@@ -79,14 +79,6 @@ export class TrImportLineService implements ITrImportLineService {
     }
   }
 
-  async getByErpOrderNo(erpOrderNo: string): Promise<ApiResponse<TrImportLineDto[]>> {
-    try {
-      const response = await api.get<ApiResponse<TrImportLineDto[]>>(`/by-erp-order-no/${encodeURIComponent(erpOrderNo)}`);
-      return response.data;
-    } catch (error) {
-      return ApiResponseErrorHelper.create<TrImportLineDto[]>(error);
-    }
-  }
 
   async getActive(): Promise<ApiResponse<TrImportLineDto[]>> {
     try {

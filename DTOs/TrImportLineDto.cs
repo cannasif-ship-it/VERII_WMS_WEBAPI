@@ -9,7 +9,6 @@ namespace WMS_WEBAPI.DTOs
         public long RouteId { get; set; }
         public string StockCode { get; set; } = string.Empty;
         public string? StockName { get; set; }
-        public decimal Quantity { get; set; }
         public string? Unit { get; set; }
         public string? CellCode { get; set; }
         public string? CellName { get; set; }
@@ -25,7 +24,7 @@ namespace WMS_WEBAPI.DTOs
         public string? ProductSpecifications { get; set; }
         public string? BatchNo { get; set; }
         public string? LotNo { get; set; }
-        public string? SerialNo { get; set; }
+        
         public DateTime? ExpiryDate { get; set; }
         public DateTime? ManufactureDate { get; set; }
         public decimal? Weight { get; set; }
@@ -47,11 +46,7 @@ namespace WMS_WEBAPI.DTOs
         public DateTime? AssignedDate { get; set; }
         public string? CompletedBy { get; set; }
         public DateTime? CompletedDate { get; set; }
-        public string? ErpOrderNo { get; set; }
-        public int? ErpLineNo { get; set; }
-        public string? ErpStatus { get; set; }
-        public DateTime? ErpSyncDate { get; set; }
-        public string? ErpDescription { get; set; }
+        
         public string? Notes { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -82,8 +77,7 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(200)]
         public string? StockName { get; set; }
 
-        [Required]
-        public decimal Quantity { get; set; }
+        
 
         [StringLength(10)]
         public string? Unit { get; set; }
@@ -130,8 +124,7 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(50)]
         public string? LotNo { get; set; }
 
-        [StringLength(50)]
-        public string? SerialNo { get; set; }
+        
 
         public DateTime? ExpiryDate { get; set; }
         public DateTime? ManufactureDate { get; set; }
@@ -182,18 +175,7 @@ namespace WMS_WEBAPI.DTOs
 
         public DateTime? CompletedDate { get; set; }
 
-        [StringLength(50)]
-        public string? ErpOrderNo { get; set; }
-
-        public int? ErpLineNo { get; set; }
-
-        [StringLength(20)]
-        public string? ErpStatus { get; set; }
-
-        public DateTime? ErpSyncDate { get; set; }
-
-        [StringLength(500)]
-        public string? ErpDescription { get; set; }
+        
 
         [StringLength(500)]
         public string? Notes { get; set; }
@@ -210,7 +192,7 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(200)]
         public string? StockName { get; set; }
 
-        public decimal? Quantity { get; set; }
+        
 
         [StringLength(10)]
         public string? Unit { get; set; }

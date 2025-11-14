@@ -14,16 +14,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.LineId).IsRequired();
             builder.Property(x => x.RouteId);
             builder.Property(x => x.StockCode).HasMaxLength(35).IsRequired();
-            builder.Property(x => x.SerialNo).HasMaxLength(50);
-            builder.Property(x => x.SerialNo2).HasMaxLength(50);
-            builder.Property(x => x.SerialNo3).HasMaxLength(50);
-            builder.Property(x => x.SerialNo4).HasMaxLength(50);
-            builder.Property(x => x.Quantity).HasColumnType("decimal(18,4)").IsRequired();
-            builder.Property(x => x.ScannedBarkod).HasMaxLength(100);
-            builder.Property(x => x.ErpOrderNumber).HasMaxLength(50);
-            builder.Property(x => x.ErpOrderNo).HasMaxLength(50);
-            builder.Property(x => x.ErpOrderLineNumber).HasMaxLength(10);
-            builder.Property(x => x.ErpOrderSequence).HasMaxLength(10);
+            
             builder.Property(x => x.Description1).HasMaxLength(30);
             builder.Property(x => x.Description2).HasMaxLength(50);
             builder.Property(x => x.Description).HasMaxLength(255);
@@ -32,7 +23,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.LineId).HasDatabaseName("IX_WoImportLine_LineId");
             builder.HasIndex(x => x.RouteId).HasDatabaseName("IX_WoImportLine_RouteId");
             builder.HasIndex(x => x.StockCode).HasDatabaseName("IX_WoImportLine_StockCode");
-            builder.HasIndex(x => x.ErpOrderNo).HasDatabaseName("IX_WoImportLine_ErpOrderNo");
+            
             builder.HasIndex(x => x.IsDeleted).HasDatabaseName("IX_WoImportLine_IsDeleted");
 
             builder.HasOne(x => x.Header)
