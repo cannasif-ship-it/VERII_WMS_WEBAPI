@@ -6,7 +6,7 @@ using WMS_WEBAPI.Models;
 namespace WMS_WEBAPI.Models
 {
     [Table("RII_GR_LINE_SERIAL")]
-    public class GrLineSerial : BaseLineEntity
+    public class GrLineSerial : BaseLineSerialEntity
     {
         public long ImportLineId { get; set; }
         [ForeignKey(nameof(ImportLineId))]

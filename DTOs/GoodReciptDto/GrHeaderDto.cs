@@ -9,12 +9,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(30)]
         public string CustomerCode { get; set; } = null!;
 
-        [Required]
-        [StringLength(20)]
-        public string ERPDocumentNo { get; set; } = null!;
-
-        public DateTime DocumentDate { get; set; }
-
         public bool ReturnCode { get; set; } = false;
         public bool OCRSource { get; set; } = false;
 
@@ -34,12 +28,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(30)]
         public string CustomerCode { get; set; } = null!;
 
-        [Required]
-        [StringLength(20)]
-        public string ERPDocumentNo { get; set; } = null!;
-
-        public DateTime DocumentDate { get; set; }
-
         public bool ReturnCode { get; set; } = false;
         public bool OCRSource { get; set; } = false;
 
@@ -57,11 +45,6 @@ namespace WMS_WEBAPI.DTOs
     {
         [StringLength(30)]
         public string? CustomerCode { get; set; }
-
-        [StringLength(20)]
-        public string? ERPDocumentNo { get; set; }
-
-        public DateTime? DocumentDate { get; set; }
 
         public bool? ReturnCode { get; set; }
         public bool? OCRSource { get; set; }

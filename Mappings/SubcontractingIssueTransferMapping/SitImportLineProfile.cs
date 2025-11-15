@@ -12,7 +12,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.HeaderId, opt => opt.MapFrom(src => src.HeaderId))
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
+                
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.Description1, opt => opt.MapFrom(src => src.Description1))
                 .ForMember(dest => dest.Description2, opt => opt.MapFrom(src => src.Description2))
@@ -23,7 +23,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.HeaderId, opt => opt.MapFrom(src => src.HeaderId))
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
+                
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.Description1, opt => opt.MapFrom(src => src.Description1))
                 .ForMember(dest => dest.Description2, opt => opt.MapFrom(src => src.Description2))
@@ -37,13 +37,13 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore());
+                ;
 
             CreateMap<UpdateSitImportLineDto, SitImportLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.HeaderId, opt => opt.MapFrom(src => src.HeaderId))
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
+                
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.Description1, opt => opt.MapFrom(src => src.Description1))
                 .ForMember(dest => dest.Description2, opt => opt.MapFrom(src => src.Description2))
@@ -57,7 +57,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
+                
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
     }

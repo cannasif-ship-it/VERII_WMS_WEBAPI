@@ -19,5 +19,6 @@ namespace WMS_WEBAPI.Models
         
         //navigation properties
         public virtual ICollection<GrRoute> Routes { get; set; } = new List<GrRoute>();
+        public virtual ICollection<GrLineSerial> SerialLines { get; set; } = new List<GrLineSerial>();
     }
 }

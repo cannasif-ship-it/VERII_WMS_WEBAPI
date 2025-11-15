@@ -10,17 +10,12 @@ namespace WMS_WEBAPI.DTOs
         // Alternatif GUID tabanlı gruplama anahtarı (istemci tarafında üretilecek)
         public Guid? ClientGuid { get; set; }
 
-        public int? OrderId { get; set; }
+        public string StockCode { get; set; } = string.Empty;
         public decimal Quantity { get; set; }
-        public string ErpProductCode { get; set; } = null!;
-        public byte? MeasurementUnit { get; set; }
-        public bool IsSerial { get; set; }
-        public bool AutoSerial { get; set; }
-        public bool QuantityBySerial { get; set; }
-        public int? TargetWarehouse { get; set; }
-        public string? Description1 { get; set; }
-        public string? Description2 { get; set; }
-        public string? Description3 { get; set; }
+        public string? Unit { get; set; }
+        public string? ErpOrderNo { get; set; }
+        public string? ErpOrderLineNo { get; set; }
+        public string? Description { get; set; }
     }
 
     // İthalat satırları için line korelasyon anahtarı
@@ -42,16 +37,13 @@ namespace WMS_WEBAPI.DTOs
         public string ImportLineClientKey { get; set; } = null!; // Hangi ImportLine'a bağlanacağını belirtir
         // Alternatif: aynı ImportLine'a bağlanacak seri satırları için GUID gruplama
         public Guid? ImportLineGroupGuid { get; set; }
-        public string SerialNumber { get; set; } = null!;
+        public string SerialNo { get; set; } = null!;
         public decimal Quantity { get; set; }
-        public short TargetWarehouse { get; set; }
+        public string? SourceCellCode { get; set; }
         public string? TargetCellCode { get; set; }
-        public string ScannedBarcode { get; set; } = null!;
-        public string? SerialNumber2 { get; set; }
-        public string? SerialNumber3 { get; set; }
-        public string? SerialNumber4 { get; set; }
-        public string? Description1 { get; set; }
-        public string? Description2 { get; set; }
+        public string? SerialNo2 { get; set; }
+        public string? SerialNo3 { get; set; }
+        public string? SerialNo4 { get; set; }
     }
 
     // Import dokümanı

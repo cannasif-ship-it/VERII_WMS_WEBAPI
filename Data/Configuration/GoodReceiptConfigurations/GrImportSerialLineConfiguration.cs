@@ -22,7 +22,6 @@ namespace WMS_WEBAPI.Data.Configuration
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-            // Indexes
             builder.HasIndex(x => x.ImportLineId).HasDatabaseName("IX_GrLineSerial_ImportLineId");
             builder.HasIndex(x => x.IsDeleted).HasDatabaseName("IX_GrLineSerial_IsDeleted");
 

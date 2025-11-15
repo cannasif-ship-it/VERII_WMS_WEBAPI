@@ -24,7 +24,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore());
+                ;
 
             CreateMap<UpdateSrtImportLineDto, SrtImportLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -37,7 +37,6 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
     }

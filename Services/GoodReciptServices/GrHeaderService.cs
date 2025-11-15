@@ -424,16 +424,12 @@ namespace WMS_WEBAPI.Services
                             var line = new GrLine
                             {
                                 HeaderId = grHeader.Id,
-                                OrderId = lineDto.OrderId,
+                                StockCode = lineDto.StockCode,
                                 Quantity = lineDto.Quantity,
-                                ErpProductCode = lineDto.ErpProductCode,
-                                MeasurementUnit = lineDto.MeasurementUnit,
-                                IsSerial = lineDto.IsSerial,
-                                AutoSerial = lineDto.AutoSerial,
-                                QuantityBySerial = lineDto.QuantityBySerial,
-                                Description1 = lineDto.Description1,
-                                Description2 = lineDto.Description2,
-                                Description3 = lineDto.Description3
+                                Unit = lineDto.Unit,
+                                ErpOrderNo = lineDto.ErpOrderNo,
+                                ErpOrderLineNo = lineDto.ErpOrderLineNo,
+                                Description = lineDto.Description
                             };
                             lines.Add(line);
                         }
@@ -460,9 +456,10 @@ namespace WMS_WEBAPI.Services
                     // 4) ImportLines ekle ve LineClientKey/LineGroupGuid üzerinden LineId set et
                     var importLineKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
                     var importLineGuidToId = new Dictionary<Guid, long>();
+                    var importLineIdToStockCode = new Dictionary<long, string>();
                     if (request.ImportLines != null && request.ImportLines.Count > 0)
                     {
-                        var importLines = new List<GrImportL>(request.ImportLines.Count);
+                        var importLines = new List<GrImportLine>(request.ImportLines.Count);
                         foreach (var importDto in request.ImportLines)
                         {
                             long lineId = 0;
@@ -496,7 +493,7 @@ namespace WMS_WEBAPI.Services
                                 lineId = 0;
                             }
 
-                            var importLine = new GrImportL
+                            var importLine = new GrImportLine
                             {
                                 HeaderId = grHeader.Id,
                                 LineId = lineId == 0 ? null : lineId,
@@ -509,11 +506,12 @@ namespace WMS_WEBAPI.Services
                         await _unitOfWork.GrImportLines.AddRangeAsync(importLines);
                         await _unitOfWork.SaveChangesAsync();
 
-                        // import line client key / group guid -> id eşlemesi (opsiyonel)
+                        // import line client key / group guid -> id eşlemesi (opsiyonel) ve stok kodu eşlemesi
                         for (int i = 0; i < request.ImportLines.Count; i++)
                         {
                             var key = request.ImportLines[i].ClientKey;
                             var groupGuid = request.ImportLines[i].LineGroupGuid; // import line tarafında çocuklar için kullanacağız
+                            importLineIdToStockCode[importLines[i].Id] = importLines[i].StockCode;
                             if (!string.IsNullOrWhiteSpace(key))
                             {
                                 importLineKeyToId[key] = importLines[i].Id;
@@ -528,7 +526,7 @@ namespace WMS_WEBAPI.Services
                     // 5) SerialLines ekle ve ImportLineClientKey/ImportLineGroupGuid'den ImportLineId set et
                     if (request.SerialLines != null && request.SerialLines.Count > 0)
                     {
-                        var serialLines = new List<GrImportSerialLine>(request.SerialLines.Count);
+                        var serialLines = new List<GrLineSerial>(request.SerialLines.Count);
                         foreach (var sDto in request.SerialLines)
                         {
                             long importLineId = 0;
@@ -564,20 +562,18 @@ namespace WMS_WEBAPI.Services
                                 );
                             }
 
-                            var serial = new GrImportSerialLine
+                            var serial = new GrLineSerial
                             {
                                 ImportLineId = importLineId,
-                                SerialNumber = sDto.SerialNumber,
-                                Quantity = sDto.Quantity,
-                                TargetWarehouse = sDto.TargetWarehouse,
+                                SerialNo = sDto.SerialNo,
+                                SerialNo2 = sDto.SerialNo2,
+                                SerialNo3 = sDto.SerialNo3,
+                                SerialNo4 = sDto.SerialNo4,
+                                SourceCellCode = sDto.SourceCellCode,
                                 TargetCellCode = sDto.TargetCellCode,
-                                ScannedBarcode = sDto.ScannedBarcode,
-                                SerialNumber2 = sDto.SerialNumber2,
-                                SerialNumber3 = sDto.SerialNumber3,
-                                SerialNumber4 = sDto.SerialNumber4,
-                                Description1 = sDto.Description1,
-                                Description2 = sDto.Description2
+                                CreatedDate = DateTime.UtcNow
                             };
+                            serial.Quantity = sDto.Quantity;
                             serialLines.Add(serial);
                         }
                         await _unitOfWork.GrImportSerialLines.AddRangeAsync(serialLines);
