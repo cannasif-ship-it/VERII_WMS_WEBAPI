@@ -7,18 +7,14 @@ namespace WMS_WEBAPI.DTOs
         public long Id { get; set; }
         public string BranchCode { get; set; } = string.Empty;
         public string? ProjectCode { get; set; }
-        public string DocumentNo { get; set; } = string.Empty;
-        public DateTime DocumentDate { get; set; }
         public string DocumentType { get; set; } = string.Empty;
         public string? CustomerCode { get; set; }
         public string? SourceWarehouse { get; set; }
         public string? TargetWarehouse { get; set; }
-        public string? Priority { get; set; }
         public string YearCode { get; set; } = string.Empty;
         public string? Description1 { get; set; }
         public string? Description2 { get; set; }
         public byte? PriorityLevel { get; set; }
-        public byte Type { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public long? UpdatedBy { get; set; }
@@ -52,13 +48,6 @@ namespace WMS_WEBAPI.DTOs
         public string? ProjectCode { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string DocumentNo { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime DocumentDate { get; set; }
-
-        [Required]
         [StringLength(10)]
         public string DocumentType { get; set; } = string.Empty;
 
@@ -71,9 +60,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(20)]
         public string? TargetWarehouse { get; set; }
 
-        [StringLength(10)]
-        public string? Priority { get; set; }
-
         [Required]
         [StringLength(4)]
         public string YearCode { get; set; } = DateTime.Now.Year.ToString();
@@ -85,9 +71,6 @@ namespace WMS_WEBAPI.DTOs
         public string? Description2 { get; set; }
 
         public byte? PriorityLevel { get; set; }
-
-        [Required]
-        public byte Type { get; set; }
     }
 
     public class UpdatePtHeaderDto
@@ -97,11 +80,6 @@ namespace WMS_WEBAPI.DTOs
 
         [StringLength(20)]
         public string? ProjectCode { get; set; }
-
-        [StringLength(50)]
-        public string? DocumentNo { get; set; }
-
-        public DateTime? DocumentDate { get; set; }
 
         [StringLength(10)]
         public string? DocumentType { get; set; }
@@ -115,9 +93,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(20)]
         public string? TargetWarehouse { get; set; }
 
-        [StringLength(10)]
-        public string? Priority { get; set; }
-
         [StringLength(4)]
         public string? YearCode { get; set; }
 
@@ -128,7 +103,5 @@ namespace WMS_WEBAPI.DTOs
         public string? Description2 { get; set; }
 
         public byte? PriorityLevel { get; set; }
-
-        public byte? Type { get; set; }
     }
 }

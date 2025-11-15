@@ -8,8 +8,7 @@ namespace WMS_WEBAPI.Data.Configuration
     {
         protected override void ConfigureEntity(EntityTypeBuilder<GrImportDocument> builder)
         {
-            // Table name
-            builder.ToTable("RII_GR_ImportDocument");
+            builder.ToTable("RII_GR_IMPORT_DOCUMENT");
             
             // Properties configuration
 
@@ -20,6 +19,12 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.Base64)
                 .IsRequired()
                 .HasColumnName("Base64");
+
+            builder.Property(x => x.ImageUrl)
+                .HasColumnName("ImageUrl");
+
+            builder.Property(x => x.FileName)
+                .HasColumnName("FileName");
 
             // Base entity handled by BaseEntityConfiguration
 

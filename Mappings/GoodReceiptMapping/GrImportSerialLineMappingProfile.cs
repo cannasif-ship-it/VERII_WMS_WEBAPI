@@ -9,7 +9,7 @@ namespace WMS_WEBAPI.Mappings
         public GrImportSerialLineMappingProfile()
         {
             // GrImportSerialLine mappings
-            CreateMap<GrImportSerialLine, GrImportSerialLineDto>()
+            CreateMap<GrLineSerial, GrImportSerialLineDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImportLineId, opt => opt.MapFrom(src => src.ImportLineId))
                 .ForMember(dest => dest.SerialNumber, opt => opt.MapFrom(src => src.SerialNumber))
@@ -21,7 +21,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? $"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}".Trim() : null))
                 .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? $"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}".Trim() : null));
 
-            CreateMap<CreateGrImportSerialLineDto, GrImportSerialLine>()
+            CreateMap<CreateGrImportSerialLineDto, GrLineSerial>()
                 .ForMember(dest => dest.ImportLineId, opt => opt.MapFrom(src => src.ImportLineId))
                 .ForMember(dest => dest.SerialNumber, opt => opt.MapFrom(src => src.SerialNumber))
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow))
@@ -37,7 +37,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedByUser, opt => opt.Ignore())
                 .ForMember(dest => dest.ImportLine, opt => opt.Ignore());
 
-            CreateMap<UpdateGrImportSerialLineDto, GrImportSerialLine>()
+            CreateMap<UpdateGrImportSerialLineDto, GrLineSerial>()
                 .ForMember(dest => dest.ImportLineId, opt => opt.MapFrom(src => src.ImportLineId))
                 .ForMember(dest => dest.SerialNumber, opt => opt.MapFrom(src => src.SerialNumber))
                 .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => DateTime.UtcNow))

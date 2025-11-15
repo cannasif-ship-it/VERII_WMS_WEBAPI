@@ -17,12 +17,6 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.ProjectCode)
                 .HasMaxLength(20);
 
-            builder.Property(x => x.DocumentNo)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            builder.Property(x => x.DocumentDate)
-                .IsRequired();
 
             builder.Property(x => x.DocumentType)
                 .HasMaxLength(10)
@@ -37,8 +31,6 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.TargetWarehouse)
                 .HasMaxLength(20);
 
-            builder.Property(x => x.Priority)
-                .HasMaxLength(10);
 
             builder.Property(x => x.YearCode)
                 .HasMaxLength(4)
@@ -46,12 +38,7 @@ namespace WMS_WEBAPI.Data.Configuration
 
             builder.Property(x => x.PriorityLevel);
 
-            builder.Property(x => x.Type)
-                .IsRequired();
 
-            builder.HasIndex(x => x.DocumentNo)
-                .IsUnique()
-                .HasDatabaseName("IX_SitHeader_DocumentNo");
 
             builder.HasIndex(x => x.BranchCode)
                 .HasDatabaseName("IX_SitHeader_BranchCode");
@@ -59,8 +46,8 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.ProjectCode)
                 .HasDatabaseName("IX_SitHeader_ProjectCode");
 
-            builder.HasIndex(x => x.DocumentDate)
-                .HasDatabaseName("IX_SitHeader_DocumentDate");
+            builder.HasIndex(x => x.PlannedDate)
+                .HasDatabaseName("IX_SitHeader_PlannedDate");
 
             builder.HasIndex(x => x.CustomerCode)
                 .HasDatabaseName("IX_SitHeader_CustomerCode");

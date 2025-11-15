@@ -13,8 +13,8 @@ namespace WMS_WEBAPI.Data
         public DbSet<GrHeader> GrHeaders { get; set; }
         public DbSet<GrLine> GrLines { get; set; }
         public DbSet<GrImportDocument> GrImportDocuments { get; set; }
-        public DbSet<GrImportL> GrImportLines { get; set; }
-        public DbSet<GrImportSerialLine> GrImportSerialLines { get; set; }
+        public DbSet<GrImportLine> GrImportLines { get; set; }
+        public DbSet<GrLineSerial> GrImportSerialLines { get; set; }
         public DbSet<UserAuthority> UserAuthorities { get; set; }
         
         // MobileSidebar DbSets
@@ -30,13 +30,12 @@ namespace WMS_WEBAPI.Data
         public DbSet<SidebarmenuLine> SidebarmenuLines { get; set; }
         
         // WarehouseTransfer DbSets
-        public DbSet<TrBox> TrBoxes { get; set; }
-        public DbSet<TrHeader> TrHeaders { get; set; }
-        public DbSet<TrImportLine> TrImportLines { get; set; }
-        public DbSet<TrLine> TrLines { get; set; }
-        public DbSet<TrRoute> TrRoutes { get; set; }
-        public DbSet<TrSBox> TrSBoxes { get; set; }
-        public DbSet<TrTerminalLine> TrTerminalLines { get; set; }
+        public DbSet<WtHeader> WtHeaders { get; set; }
+        public DbSet<WtImportLine> WtImportLines { get; set; }
+        public DbSet<WtLine> WtLines { get; set; }
+        public DbSet<WtRoute> WtRoutes { get; set; }
+        public DbSet<WtTerminalLine> WtTerminalLines { get; set; }
+        public DbSet<WtLineSerial> WtLineSerials { get; set; }
 
         //ProductTransfer DbSets
         public DbSet<PtHeader> PtHeaders { get; set; }
@@ -89,7 +88,7 @@ namespace WMS_WEBAPI.Data
             modelBuilder.ApplyConfiguration(new GrHeaderConfiguration());
             modelBuilder.ApplyConfiguration(new GrLineConfiguration());
             modelBuilder.ApplyConfiguration(new GrImportDocumentConfiguration());
-            modelBuilder.ApplyConfiguration(new GrImportLConfiguration());
+            modelBuilder.ApplyConfiguration(new GrImportLineConfiguration());
             modelBuilder.ApplyConfiguration(new GrImportSerialLineConfiguration());
             modelBuilder.ApplyConfiguration(new UserAuthorityConfiguration());
 

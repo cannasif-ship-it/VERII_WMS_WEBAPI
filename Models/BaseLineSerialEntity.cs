@@ -1,18 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WMS_WEBAPI.Models
 {
-    [Table("RII_WT_LINE_SERIAL_LINE")]
-    public class WtLineSerialLine : BaseEntity
+    public abstract class BaseLineSerialEntity : BaseEntity
     {
-       [Required, ForeignKey(nameof(Line))]
-        public long LineId { get; set; }
-        public virtual WtLine Line { get; set; } = null!;
 
-        [Required]
+        [Required, Column(TypeName = "decimal(18,6)")]
         public decimal Quantity { get; set; }
 
         // Seri bilgileri (isteğe bağlı, kalabilir veya kaldırılabilir)
@@ -22,10 +17,17 @@ namespace WMS_WEBAPI.Models
         [MaxLength(50)]
         public string? SerialNo2 { get; set; }
 
+        [MaxLength(50)]
+        public string? SerialNo3 { get; set; }
+
+        [MaxLength(50)]
+        public string? SerialNo4 { get; set; }
+
         [MaxLength(20)]
         public string? SourceCellCode { get; set; }
 
         [MaxLength(20)]
         public string? TargetCellCode { get; set; }
+
     }
 }

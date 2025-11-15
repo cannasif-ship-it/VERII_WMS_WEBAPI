@@ -4,7 +4,7 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class SitLineConfiguration : BaseEntityConfiguration<SitLine>
+    public class SitLineConfiguration : BaseLineEntityConfiguration<SitLine>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<SitLine> builder)
         {
@@ -13,30 +13,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.HeaderId)
                 .IsRequired();
 
-            builder.Property(x => x.StockCode)
-                .HasMaxLength(35)
-                .IsRequired();
-
-            builder.Property(x => x.OrderId);
-
-            builder.Property(x => x.Quantity)
-                .HasColumnType("decimal(18,4)")
-                .IsRequired();
-
-            builder.Property(x => x.Unit)
-                .HasMaxLength(10);
-
-            builder.Property(x => x.ErpOrderNo)
-                .HasMaxLength(50);
-
-            builder.Property(x => x.ErpOrderLineNo)
-                .HasMaxLength(10);
-
-            builder.Property(x => x.ErpLineReference)
-                .HasMaxLength(10);
-
-            builder.Property(x => x.Description)
-                .HasMaxLength(100);
+            
 
             builder.HasIndex(x => x.HeaderId)
                 .HasDatabaseName("IX_SitLine_HeaderId");
@@ -55,10 +32,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.HeaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(x => x.Routes)
-                .WithOne(x => x.Line)
-                .HasForeignKey(x => x.LineId)
-                .OnDelete(DeleteBehavior.Restrict);
+            
 
             builder.HasMany(x => x.ImportLines)
                 .WithOne(x => x.Line)

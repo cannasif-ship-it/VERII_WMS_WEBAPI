@@ -42,5 +42,6 @@ namespace WMS_WEBAPI.Models
          // Navigation properties
         public virtual ICollection<WoLine> Lines { get; set; } = new List<WoLine>();
         public virtual ICollection<WoImportLine> ImportLines { get; set; } = new List<WoImportLine>();
+        public virtual ICollection<WoTerminalLine> TerminalLines { get; set; } = new List<WoTerminalLine>();
     }
 }

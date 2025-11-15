@@ -52,25 +52,11 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByLineIdAsync(long lineId)
+        public async Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByImportLineIdAsync(long importLineId)
         {
             try
             {
-                var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.LineId == lineId && !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
-
-        public async Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByStockCodeAsync(string stockCode)
-        {
-            try
-            {
-                var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.StockCode == stockCode && !x.IsDeleted);
+                var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.ImportLineId == importLineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
                 return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

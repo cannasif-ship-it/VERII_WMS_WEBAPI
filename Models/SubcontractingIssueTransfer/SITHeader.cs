@@ -11,29 +11,6 @@ namespace WMS_WEBAPI.Models
     [Table("RII_SIT_HEADER")]
     public class SitHeader : BaseHeaderEntity
     {
-        // Şube kodu – ERP’deki şube veya işyeri kodunu temsil eder (örnek: "01")
-        [Required, MaxLength(10)]
-        public string BranchCode { get; set; } = null!;
-
-        // Proje kodu – Eğer üretim/transfer belirli bir projeye aitse kullanılır
-        [MaxLength(20)]
-        public string? ProjectCode { get; set; }
-
-        // Belge numarası – ERP veya WMS tarafından üretilen fiş numarası (örnek: "PT000123")
-        [Required, MaxLength(50)]
-        public string DocumentNo { get; set; } = null!;
-
-        // Belge tarihi – fişin oluşturulma veya ERP’ye gönderilme tarihi
-        public DateTime DocumentDate { get; set; }
-
-        // Belge tipi – örneğin:
-        // "PT" = Production Transfer
-        // "IN" = Üretim Girişi
-        // "OUT" = Üretimden Çıkış
-        // "FSN_OUT" = Fasona Çıkış
-        // "FSN_IN" = Fasondan Giriş
-        [Required, MaxLength(10)]
-        public string DocumentType { get; set; } = null!;
 
         // Müşteri kodu – genellikle fason üretim veya dış kaynak durumlarında kullanılır (ERP cari kodu)
         [MaxLength(20)]
@@ -47,34 +24,11 @@ namespace WMS_WEBAPI.Models
         [MaxLength(20)]
         public string? TargetWarehouse { get; set; }
 
-        // Operasyon önceliği veya önem derecesi (örnek: "Yüksek", "Orta", "Düşük")
-        [MaxLength(10)]
-        public string? Priority { get; set; }
-
-        // Yıl kodu – ERP’de dönemsel kayıtlar için kullanılır (örn. 2025)
-        [Required, MaxLength(4)]
-        public string YearCode { get; set; } = DateTime.Now.Year.ToString();
-
-        // Açıklama alanları – kullanıcıya serbest bilgi notu veya ERP açıklamaları
-        [MaxLength(50)]
-        public string? Description1 { get; set; }
-
-        [MaxLength(100)]
-        public string? Description2 { get; set; }
-
-        // Sayısal öncelik değeri (örneğin 1 = yüksek, 3 = düşük)
-        public byte? PriorityLevel { get; set; }
-
-        // Kayıt tipi (örnek: 0 = üretim transfer, 1 = fason, 2 = üretim çıkışı)
-        [Required]
-        public byte Type { get; set; }
 
         // Navigation properties ↓
-
-        // Header’a bağlı satır kayıtları (üretim kalemleri, malzeme detayları)
         public virtual ICollection<SitLine> Lines { get; set; } = new List<SitLine>();
-
-        // Harici kaynaklardan (örneğin Excel, ERP import) gelen satır kayıtları
         public virtual ICollection<SitImportLine> ImportLines { get; set; } = new List<SitImportLine>();
+        public virtual ICollection<SitTerminalLine> TerminalLines { get; set; } = new List<SitTerminalLine>();
+        
     }
 }

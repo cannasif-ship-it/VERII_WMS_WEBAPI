@@ -5,18 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WMS_WEBAPI.Models
 {
-    // RII_IC_IMPORT_LINE tablosu:
-    // ERP veya harici sistemlerden gelen sayım satır verilerini temsil eder.
-    // IcHeader (belge), IcLine (kalem) ve IcRoute (rota) ile ilişkili olabilir.
-    // Genellikle barkod, seri, lot gibi terminalden toplanan veya ERP’den çekilen satır detaylarını içerir.
     [Table("RII_IC_IMPORT_LINE")]
     public class IcImportLine : BaseEntity
     {
-        // HEADER İLİŞKİSİ
-        // Bu satırın ait olduğu üst belge (örneğin sayım fişi)
-        [Required, ForeignKey(nameof(Header))]
         public long HeaderId { get; set; }
+        [ForeignKey(nameof(HeaderId))]
         public virtual IcHeader Header { get; set; } = null!;
+
 
         // ÜRÜN / MALZEME BİLGİLERİ
         // Stok kodu – ERP veya WMS’deki ürün referansı

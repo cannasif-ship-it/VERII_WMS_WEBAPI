@@ -4,21 +4,14 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class WoLineConfiguration : BaseEntityConfiguration<WoLine>
+    public class WoLineConfiguration : BaseLineEntityConfiguration<WoLine>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<WoLine> builder)
         {
             builder.ToTable("RII_WO_LINE");
 
             builder.Property(x => x.HeaderId).IsRequired();
-            builder.Property(x => x.StockCode).HasMaxLength(35).IsRequired();
-            builder.Property(x => x.OrderId);
-            builder.Property(x => x.Quantity).HasColumnType("decimal(18,4)").IsRequired();
-            builder.Property(x => x.Unit).HasMaxLength(10);
-            builder.Property(x => x.ErpOrderNo).HasMaxLength(50);
-            builder.Property(x => x.ErpOrderLineNo).HasMaxLength(10);
-            builder.Property(x => x.ErpLineReference).HasMaxLength(10);
-            builder.Property(x => x.Description).HasMaxLength(100);
+            
 
             builder.HasIndex(x => x.HeaderId).HasDatabaseName("IX_WoLine_HeaderId");
             builder.HasIndex(x => x.StockCode).HasDatabaseName("IX_WoLine_StockCode");
@@ -30,10 +23,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.HeaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(x => x.Routes)
-                .WithOne(x => x.Line)
-                .HasForeignKey(x => x.LineId)
-                .OnDelete(DeleteBehavior.Restrict);
+            
 
             builder.HasMany(x => x.ImportLines)
                 .WithOne(x => x.Line)

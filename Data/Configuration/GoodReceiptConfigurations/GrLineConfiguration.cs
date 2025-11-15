@@ -4,40 +4,17 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class GrLineConfiguration : BaseEntityConfiguration<GrLine>
+    public class GrLineConfiguration : BaseLineEntityConfiguration<GrLine>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<GrLine> builder)
         {
-            builder.ToTable("RII_GR_Line");
+            builder.ToTable("RII_GR_LINE");
 
             builder.Property(x => x.HeaderId)
                 .IsRequired()
                 .HasColumnName("HeaderId");
 
-            builder.Property(x => x.Quantity)
-                .IsRequired()
-                .HasColumnType("decimal(18,2)")
-                .HasColumnName("Quantity");
-
-            builder.Property(x => x.ErpProductCode)
-                .IsRequired()
-                .HasMaxLength(35)
-                .HasColumnName("ErpProductCode");
-
-            builder.Property(x => x.MeasurementUnit)
-                .HasColumnName("MeasurementUnit");
-
-            builder.Property(x => x.Description1)
-                .HasMaxLength(30)
-                .HasColumnName("Description1");
-
-            builder.Property(x => x.Description2)
-                .HasMaxLength(50)
-                .HasColumnName("Description2");
-
-            builder.Property(x => x.Description3)
-                .HasMaxLength(100)
-                .HasColumnName("Description3");
+            
 
 
             // Relationships
@@ -53,8 +30,8 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.HeaderId)
                 .HasDatabaseName("IX_GrLine_HeaderId");
 
-            builder.HasIndex(x => x.ErpProductCode)
-                .HasDatabaseName("IX_GrLine_ErpProductCode");
+            builder.HasIndex(x => x.StockCode)
+                .HasDatabaseName("IX_GrLine_StockCode");
 
             builder.HasIndex(x => x.IsDeleted)
                 .HasDatabaseName("IX_GrLine_IsDeleted");

@@ -75,12 +75,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("docno/{documentNo}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<PtHeaderDto>>>> GetByDocumentNo(string documentNo)
-        {
-            var result = await _service.GetByDocumentNoAsync(documentNo);
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<PtHeaderDto>>> Create([FromBody] CreatePtHeaderDto createDto)

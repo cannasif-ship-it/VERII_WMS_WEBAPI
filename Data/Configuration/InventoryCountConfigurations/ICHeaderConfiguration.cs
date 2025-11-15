@@ -12,7 +12,6 @@ namespace WMS_WEBAPI.Data.Configuration
 
             builder.Property(x => x.BranchCode).HasMaxLength(10).IsRequired();
             builder.Property(x => x.ProjectCode).HasMaxLength(20);
-            builder.Property(x => x.DocumentDate);
             builder.Property(x => x.DocumentType).HasMaxLength(10).IsRequired();
             builder.Property(x => x.CellCode).HasMaxLength(35);
             builder.Property(x => x.WarehouseCode).HasMaxLength(20);
@@ -24,7 +23,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.Type).IsRequired();
 
             builder.HasIndex(x => x.BranchCode).HasDatabaseName("IX_ICHeader_BranchCode");
-            builder.HasIndex(x => x.DocumentDate).HasDatabaseName("IX_ICHeader_DocumentDate");
+            builder.HasIndex(x => x.PlannedDate).HasDatabaseName("IX_ICHeader_PlannedDate");
             builder.HasIndex(x => x.WarehouseCode).HasDatabaseName("IX_ICHeader_WarehouseCode");
             builder.HasIndex(x => x.ProductCode).HasDatabaseName("IX_ICHeader_ProductCode");
             builder.HasIndex(x => x.YearCode).HasDatabaseName("IX_ICHeader_YearCode");

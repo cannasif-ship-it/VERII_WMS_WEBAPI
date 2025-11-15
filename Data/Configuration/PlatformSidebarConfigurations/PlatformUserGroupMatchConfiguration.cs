@@ -8,8 +8,7 @@ namespace WMS_WEBAPI.Data.Configuration
     {
         protected override void ConfigureEntity(EntityTypeBuilder<PlatformUserGroupMatch> builder)
         {
-            // Table name
-            builder.ToTable("PlatformUserGroupMatch");
+            builder.ToTable("RII_PLATFORM_USER_GROUP_MATCH");
 
             builder.Property(x => x.UserId)
                 .IsRequired()
@@ -17,7 +16,7 @@ namespace WMS_WEBAPI.Data.Configuration
 
             builder.Property(x => x.GroupCode)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .HasColumnName("GroupCode");
 
 

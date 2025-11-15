@@ -7,12 +7,13 @@ namespace WMS_WEBAPI.Models
     [Table("RII_WO_TERMINAL_LINE")]
     public class WoTerminalLine : BaseEntity
     {
-        [Required, ForeignKey(nameof(Header))]
         public long HeaderId { get; set; }
+        [ForeignKey(nameof(HeaderId))]
         public virtual WoHeader Header { get; set; } = null!;
-
-        [ForeignKey(nameof(User))]
+             
         public long TerminalUserId { get; set; }
+        [ForeignKey(nameof(TerminalUserId))]
         public virtual User User { get; set; } = null!;
+
     }
 }

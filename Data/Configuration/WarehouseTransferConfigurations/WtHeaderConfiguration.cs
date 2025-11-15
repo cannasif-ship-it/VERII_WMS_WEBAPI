@@ -27,14 +27,14 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasColumnName("TargetWarehouse")
                 .HasMaxLength(20);
 
-            builder.Property(x => x.Type)
-                .HasColumnName("Type")
-                .HasMaxLength(20);
+            builder.Property(x => x.ElectronicWaybill)
+                .HasColumnName("ElectronicWaybill")
+                .IsRequired();
+
+            builder.Property(x => x.ShipmentId)
+                .HasColumnName("ShipmentId");
 
             // Indexes
-            builder.HasIndex(x => x.DocumentNo)
-                .HasDatabaseName("IX_TrHeader_DocumentNo")
-                .IsUnique();
 
             builder.HasIndex(x => x.BranchCode)
                 .HasDatabaseName("IX_TrHeader_BranchCode");
@@ -42,8 +42,8 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.ProjectCode)
                 .HasDatabaseName("IX_TrHeader_ProjectCode");
 
-            builder.HasIndex(x => x.DocumentDate)
-                .HasDatabaseName("IX_TrHeader_DocumentDate");
+            builder.HasIndex(x => x.PlannedDate)
+                .HasDatabaseName("IX_TrHeader_PlannedDate");
 
             builder.HasIndex(x => x.CustomerCode)
                 .HasDatabaseName("IX_TrHeader_CustomerCode");

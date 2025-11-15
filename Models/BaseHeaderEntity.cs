@@ -21,6 +21,7 @@ namespace WMS_WEBAPI.Models
         
         // Planlanmış tarih – belge ne zaman planlanmışsa (örn. 2025-01-01)
         public DateTime PlannedDate { get; set; }
+        public bool IsPlanned { get; set; } = false; // Planlı giriş mi?
 
         // Belge tipi – örneğin:
         [Required, MaxLength(10)]
@@ -49,9 +50,12 @@ namespace WMS_WEBAPI.Models
         public bool IsERPIntegrated { get; set; } = false;
 
         // ERP Integration Fields
+        [MaxLength(50)]
         public string? ERPReferenceNumber { get; set; } // ERP referans numarası
         public DateTime? ERPIntegrationDate { get; set; } // ERP entegrasyon tarihi
+        [MaxLength(50)]
         public string? ERPIntegrationStatus { get; set; } // ERP entegrasyon durumu
+        [MaxLength(2000)]
         public string? ERPErrorMessage { get; set; } // ERP hata mesajı (varsa)
     }
 }

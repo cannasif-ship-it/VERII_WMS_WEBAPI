@@ -7,7 +7,6 @@ namespace WMS_WEBAPI.DTOs
         public long Id { get; set; }
         public long HeaderId { get; set; }
         public long LineId { get; set; }
-        public long? RouteId { get; set; }
         public string StockCode { get; set; } = string.Empty;
         public string? Description1 { get; set; }
         public string? Description2 { get; set; }
@@ -32,8 +31,6 @@ namespace WMS_WEBAPI.DTOs
         [Required]
         public long LineId { get; set; }
 
-        public long? RouteId { get; set; }
-
         [Required]
         [StringLength(35)]
         public string StockCode { get; set; } = string.Empty;
@@ -52,7 +49,6 @@ namespace WMS_WEBAPI.DTOs
     {
         public long? HeaderId { get; set; }
         public long? LineId { get; set; }
-        public long? RouteId { get; set; }
 
         [StringLength(35)]
         public string? StockCode { get; set; }

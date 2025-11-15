@@ -6,8 +6,7 @@ namespace WMS_WEBAPI.Interfaces
     {
         Task<ApiResponse<IEnumerable<PtRouteDto>>> GetAllAsync();
         Task<ApiResponse<PtRouteDto>> GetByIdAsync(long id);
-        Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByLineIdAsync(long lineId);
-        Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByStockCodeAsync(string stockCode);
+        Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByImportLineIdAsync(long importLineId);
         Task<ApiResponse<IEnumerable<PtRouteDto>>> GetBySerialNoAsync(string serialNo);
         Task<ApiResponse<IEnumerable<PtRouteDto>>> GetBySourceWarehouseAsync(int sourceWarehouse);
         Task<ApiResponse<IEnumerable<PtRouteDto>>> GetByTargetWarehouseAsync(int targetWarehouse);

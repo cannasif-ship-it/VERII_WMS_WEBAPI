@@ -7,12 +7,10 @@ namespace WMS_WEBAPI.DTOs
         public long Id { get; set; }
         public long HeaderId { get; set; }
         public string StockCode { get; set; } = string.Empty;
-        public int? OrderId { get; set; }
         public decimal Quantity { get; set; }
         public string? Unit { get; set; }
         public string? ErpOrderNo { get; set; }
         public string? ErpOrderLineNo { get; set; }
-        public string? ErpLineReference { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
@@ -35,7 +33,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(35)]
         public string StockCode { get; set; } = string.Empty;
 
-        public int? OrderId { get; set; }
 
         [Required]
         public decimal Quantity { get; set; }
@@ -46,11 +43,8 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(50)]
         public string? ErpOrderNo { get; set; }
 
-        [StringLength(10)]
+        [StringLength(30)]
         public string? ErpOrderLineNo { get; set; }
-
-        [StringLength(10)]
-        public string? ErpLineReference { get; set; }
 
         [StringLength(100)]
         public string? Description { get; set; }
@@ -63,7 +57,6 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(35)]
         public string? StockCode { get; set; }
 
-        public int? OrderId { get; set; }
 
         public decimal? Quantity { get; set; }
 
@@ -73,11 +66,8 @@ namespace WMS_WEBAPI.DTOs
         [StringLength(50)]
         public string? ErpOrderNo { get; set; }
 
-        [StringLength(10)]
+        [StringLength(30)]
         public string? ErpOrderLineNo { get; set; }
-
-        [StringLength(10)]
-        public string? ErpLineReference { get; set; }
 
         [StringLength(100)]
         public string? Description { get; set; }

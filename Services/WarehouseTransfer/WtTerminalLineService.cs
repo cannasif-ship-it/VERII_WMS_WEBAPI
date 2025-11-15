@@ -7,7 +7,7 @@ using WMS_WEBAPI.UnitOfWork;
 
 namespace WMS_WEBAPI.Services
 {
-    public class WtTerminalLineService : ITrTerminalLineService
+    public class WtTerminalLineService : IWtTerminalLineService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

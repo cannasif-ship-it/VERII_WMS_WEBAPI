@@ -12,7 +12,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<PtHeaderDto>>> GetActiveAsync();
         Task<ApiResponse<IEnumerable<PtHeaderDto>>> GetByCustomerCodeAsync(string customerCode);
         Task<ApiResponse<IEnumerable<PtHeaderDto>>> GetByDocumentTypeAsync(string documentType);
-        Task<ApiResponse<IEnumerable<PtHeaderDto>>> GetByDocumentNoAsync(string documentNo);
         Task<ApiResponse<PtHeaderDto>> CreateAsync(CreatePtHeaderDto createDto);
         Task<ApiResponse<PtHeaderDto>> UpdateAsync(long id, UpdatePtHeaderDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);

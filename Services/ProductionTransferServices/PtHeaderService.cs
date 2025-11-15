@@ -49,11 +49,8 @@ namespace WMS_WEBAPI.Services
                     case "BranchCode":
                         query = desc ? query.OrderByDescending(x => x.BranchCode) : query.OrderBy(x => x.BranchCode);
                         break;
-                    case "DocumentNo":
-                        query = desc ? query.OrderByDescending(x => x.DocumentNo) : query.OrderBy(x => x.DocumentNo);
-                        break;
-                    case "DocumentDate":
-                        query = desc ? query.OrderByDescending(x => x.DocumentDate) : query.OrderBy(x => x.DocumentDate);
+                    case "DocumentType":
+                        query = desc ? query.OrderByDescending(x => x.DocumentType) : query.OrderBy(x => x.DocumentType);
                         break;
                     case "CreatedDate":
                         query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
@@ -111,7 +108,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.DocumentDate >= startDate && x.DocumentDate <= endDate && !x.IsDeleted);
+                var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
                 return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -163,19 +160,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<PtHeaderDto>>> GetByDocumentNoAsync(string documentNo)
-        {
-            try
-            {
-                var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.DocumentNo == documentNo && !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<PtHeaderDto>> CreateAsync(CreatePtHeaderDto createDto)
         {

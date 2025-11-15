@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WMS_WEBAPI.Models
 {
     [Table("RII_SRT_IMPORT_LINE")]
-    public class SrtImportLine : BaseEntity
+    public class SrtImportLine : BaseImportLineEntity
     {
         [Required, ForeignKey(nameof(Header))]
         public long HeaderId { get; set; }
@@ -17,20 +17,5 @@ namespace WMS_WEBAPI.Models
         public virtual SrtLine? Line { get; set; }
 
 
-        // ÜRÜN / MALZEME BİLGİLERİ
-        // Stok kodu – ERP veya WMS’deki ürün referansı
-        [Required, MaxLength(35)]
-        public string StockCode { get; set; } = null!;
-
-        // AÇIKLAMA ALANLARI
-        // İşlemi açıklayan ek bilgiler (örneğin fason açıklaması, terminal notu)
-        [MaxLength(30)]
-        public string? Description1 { get; set; }
-
-        [MaxLength(50)]
-        public string? Description2 { get; set; }
-
-        [MaxLength(255)]
-        public string? Description { get; set; }
     }
 }

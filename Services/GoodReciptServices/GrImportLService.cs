@@ -202,7 +202,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var grImportL = _mapper.Map<GrImportL>(createDto);
+                var grImportL = _mapper.Map<GrImportLine>(createDto);
                 grImportL.CreatedDate = DateTime.UtcNow;
                 
                 await _unitOfWork.GrImportLines.AddAsync(grImportL);

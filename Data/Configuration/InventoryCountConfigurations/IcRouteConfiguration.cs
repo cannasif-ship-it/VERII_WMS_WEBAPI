@@ -11,15 +11,15 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.ToTable("RII_IC_ROUTE");
 
             builder.Property(x => x.ImportLineId).IsRequired();
-            builder.Property(x => x.RouteCode).HasMaxLength(30);
-            builder.Property(x => x.Quantity).HasColumnType("decimal(18,6)").IsRequired();
+            builder.Property(x => x.Barcode).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.OldQuantity).HasColumnType("decimal(18,6)").IsRequired();
+            builder.Property(x => x.NewQuantity).HasColumnType("decimal(18,6)").IsRequired();
             builder.Property(x => x.SerialNo).HasMaxLength(50);
             builder.Property(x => x.SerialNo2).HasMaxLength(50);
-            builder.Property(x => x.SourceWarehouse);
-            builder.Property(x => x.TargetWarehouse);
-            builder.Property(x => x.SourceCellCode).HasMaxLength(20);
-            builder.Property(x => x.TargetCellCode).HasMaxLength(20);
-            builder.Property(x => x.Priority);
+            builder.Property(x => x.OldWarehouse);
+            builder.Property(x => x.NewWarehouse);
+            builder.Property(x => x.OldCellCode).HasMaxLength(20);
+            builder.Property(x => x.NewCellCode).HasMaxLength(20);
             builder.Property(x => x.Description).HasMaxLength(100);
 
             builder.HasIndex(x => x.ImportLineId).HasDatabaseName("IX_IcRoute_ImportLineId");

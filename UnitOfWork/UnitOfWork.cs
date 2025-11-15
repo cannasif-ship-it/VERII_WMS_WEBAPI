@@ -23,8 +23,8 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<GrHeader>? _grHeaders;
         private IGenericRepository<GrLine>? _grLines;
         private IGenericRepository<GrImportDocument>? _grImportDocuments;
-        private IGenericRepository<GrImportL>? _grImportLines;
-        private IGenericRepository<GrImportSerialLine>? _grImportSerialLines;
+        private IGenericRepository<GrImportLine>? _grImportLines;
+        private IGenericRepository<GrLineSerial>? _grImportSerialLines;
         
         // User and Authority repository instances
         private IGenericRepository<UserAuthority>? _userAuthorities;
@@ -114,11 +114,11 @@ namespace WMS_WEBAPI.UnitOfWork
         public IGenericRepository<GrImportDocument> GrImportDocuments =>
             _grImportDocuments ??= new GenericRepository<GrImportDocument>(_context, _httpContextAccessor);
 
-        public IGenericRepository<GrImportL> GrImportLines =>
-            _grImportLines ??= new GenericRepository<GrImportL>(_context, _httpContextAccessor);
+        public IGenericRepository<GrImportLine> GrImportLines =>
+            _grImportLines ??= new GenericRepository<GrImportLine>(_context, _httpContextAccessor);
 
-        public IGenericRepository<GrImportSerialLine> GrImportSerialLines =>
-            _grImportSerialLines ??= new GenericRepository<GrImportSerialLine>(_context, _httpContextAccessor);
+        public IGenericRepository<GrLineSerial> GrImportSerialLines =>
+            _grImportSerialLines ??= new GenericRepository<GrLineSerial>(_context, _httpContextAccessor);
 
         // User and Authority repository properties
         public IGenericRepository<UserAuthority> UserAuthorities =>

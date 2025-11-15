@@ -4,11 +4,11 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class GrImportLConfiguration : BaseEntityConfiguration<GrImportL>
+    public class GrImportLineConfiguration : BaseImportLineEntityConfiguration<GrImportLine>
     {
-        protected override void ConfigureEntity(EntityTypeBuilder<GrImportL> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<GrImportLine> builder)
         {
-            builder.ToTable("RII_GR_ImportL");
+            builder.ToTable("RII_GR_IMPORT_LINE");
 
             builder.Property(x => x.LineId)
                 .HasColumnName("LineId");
@@ -17,23 +17,12 @@ namespace WMS_WEBAPI.Data.Configuration
                 .IsRequired()
                 .HasColumnName("HeaderId");
 
-            builder.Property(x => x.StockCode)
-                .IsRequired()
-                .HasMaxLength(35)
-                .HasColumnName("StockCode");
-
-            builder.Property(x => x.Description1)
-                .HasMaxLength(30)
-                .HasColumnName("Description1");
-
-            builder.Property(x => x.Description2)
-                .HasMaxLength(50)
-                .HasColumnName("Description2");
+            
 
 
             // Relationships
             builder.HasOne(x => x.Line)
-                .WithMany()
+                .WithMany(x => x.ImportLines)
                 .HasForeignKey(x => x.LineId)
                 .OnDelete(DeleteBehavior.Restrict);
 

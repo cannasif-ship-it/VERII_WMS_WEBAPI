@@ -4,24 +4,18 @@ using WMS_WEBAPI.Models;
 
 namespace WMS_WEBAPI.Data.Configuration
 {
-    public class WiImportLineConfiguration : BaseEntityConfiguration<WiImportLine>
+    public class WiImportLineConfiguration : BaseImportLineEntityConfiguration<WiImportLine>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<WiImportLine> builder)
         {
             builder.ToTable("RII_WI_IMPORT_LINE");
 
             builder.Property(x => x.HeaderId).IsRequired();
-            builder.Property(x => x.LineId).IsRequired();
-            builder.Property(x => x.RouteId);
-            builder.Property(x => x.StockCode).HasMaxLength(35).IsRequired();
+            builder.Property(x => x.LineId);
             
-            builder.Property(x => x.Description1).HasMaxLength(30);
-            builder.Property(x => x.Description2).HasMaxLength(50);
-            builder.Property(x => x.Description).HasMaxLength(255);
 
             builder.HasIndex(x => x.HeaderId).HasDatabaseName("IX_WiImportLine_HeaderId");
             builder.HasIndex(x => x.LineId).HasDatabaseName("IX_WiImportLine_LineId");
-            builder.HasIndex(x => x.RouteId).HasDatabaseName("IX_WiImportLine_RouteId");
             builder.HasIndex(x => x.StockCode).HasDatabaseName("IX_WiImportLine_StockCode");
             
             builder.HasIndex(x => x.IsDeleted).HasDatabaseName("IX_WiImportLine_IsDeleted");
@@ -36,10 +30,7 @@ namespace WMS_WEBAPI.Data.Configuration
                 .HasForeignKey(x => x.LineId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.Route)
-                .WithMany(x => x.ImportLines)
-                .HasForeignKey(x => x.RouteId)
-                .OnDelete(DeleteBehavior.SetNull);
+            
         }
     }
 }

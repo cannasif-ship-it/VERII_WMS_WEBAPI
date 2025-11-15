@@ -33,17 +33,10 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("line/{lineId}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<PtRouteDto>>>> GetByLineId(long lineId)
+        [HttpGet("importline/{importLineId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<PtRouteDto>>>> GetByImportLineId(long importLineId)
         {
-            var result = await _service.GetByLineIdAsync(lineId);
-            return StatusCode(result.StatusCode, result);
-        }
-
-        [HttpGet("stock/{stockCode}")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<PtRouteDto>>>> GetByStockCode(string stockCode)
-        {
-            var result = await _service.GetByStockCodeAsync(stockCode);
+            var result = await _service.GetByImportLineIdAsync(importLineId);
             return StatusCode(result.StatusCode, result);
         }
 
