@@ -5,9 +5,8 @@ namespace WMS_WEBAPI.DTOs
     /// <summary>
     /// GR Import Serial Line DTO - Veri transfer objesi
     /// </summary>
-    public class GrImportSerialLineDto
+    public class GrImportSerialLineDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public long ImportLineId { get; set; }
         public string SerialNumber { get; set; } = null!;
         public decimal Quantity { get; set; }
@@ -19,18 +18,6 @@ namespace WMS_WEBAPI.DTOs
         public string? SerialNumber4 { get; set; }
         public string? Description1 { get; set; }
         public string? Description2 { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public bool IsDeleted { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? UpdatedBy { get; set; }
-        public long? DeletedBy { get; set; }
-        
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
     }
 
     /// <summary>

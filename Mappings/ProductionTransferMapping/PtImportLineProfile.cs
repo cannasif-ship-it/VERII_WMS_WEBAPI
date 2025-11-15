@@ -23,9 +23,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => src.IsDeleted))
                 .ForMember(dest => dest.DeletedBy, opt => opt.MapFrom(src => src.DeletedBy))
                 .ForMember(dest => dest.DeletedDate, opt => opt.MapFrom(src => src.DeletedDate))
-                .ForMember(dest => dest.CreatedByFullUser, opt => opt.MapFrom(src => src.CreatedByUser != null ? ($"{src.CreatedByUser.FirstName} {src.CreatedByUser.LastName}").Trim() : null))
-                .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? ($"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}").Trim() : null))
-                .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? ($"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}").Trim() : null));
+                .ApplyFullUserNames<PtImportLine, PtImportLineDto>();
 
             CreateMap<CreatePtImportLineDto, PtImportLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())

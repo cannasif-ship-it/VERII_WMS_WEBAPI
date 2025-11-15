@@ -20,4 +20,22 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
         }
     }
+
+    public static class MappingExtensions
+    {
+        private static string? FullName(User? user)
+        {
+            return user != null ? ($"{user.FirstName} {user.LastName}").Trim() : null;
+        }
+
+        public static IMappingExpression<TSource, TDestination> ApplyFullUserNames<TSource, TDestination>(this IMappingExpression<TSource, TDestination> expr)
+            where TSource : BaseEntity
+            where TDestination : BaseEntityDto
+        {
+            expr.ForMember(nameof(BaseEntityDto.CreatedByFullUser), opt => opt.MapFrom(src => FullName(src.CreatedByUser)));
+            expr.ForMember(nameof(BaseEntityDto.UpdatedByFullUser), opt => opt.MapFrom(src => FullName(src.UpdatedByUser)));
+            expr.ForMember(nameof(BaseEntityDto.DeletedByFullUser), opt => opt.MapFrom(src => FullName(src.DeletedByUser)));
+            return expr;
+        }
+    }
 }

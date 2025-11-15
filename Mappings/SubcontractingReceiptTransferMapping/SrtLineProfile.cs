@@ -9,9 +9,7 @@ namespace WMS_WEBAPI.Mappings
         public SrtLineProfile()
         {
             CreateMap<SrtLine, SrtLineDto>()
-                .ForMember(dest => dest.CreatedByFullUser, opt => opt.MapFrom(src => src.CreatedByUser != null ? ($"{src.CreatedByUser.FirstName} {src.CreatedByUser.LastName}").Trim() : null))
-                .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? ($"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}").Trim() : null))
-                .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? ($"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}").Trim() : null));
+                .ApplyFullUserNames<SrtLine, SrtLineDto>();
 
             CreateMap<CreateSrtLineDto, SrtLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())

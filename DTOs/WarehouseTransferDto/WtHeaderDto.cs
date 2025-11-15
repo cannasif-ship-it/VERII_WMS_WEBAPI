@@ -47,25 +47,12 @@ namespace WMS_WEBAPI.DTOs
         public string? DeletedByFullUser { get; set; }
     }
 
-    public class CreateWtHeaderDto
+    public class CreateWtHeaderDto : BaseHeaderCreateDto
     {
-        [Required]
-        [StringLength(10)]
-        public string BranchCode { get; set; } = string.Empty;
-
-        [StringLength(20)]
-        public string? ProjectCode { get; set; }
-
-        [Required]
         [StringLength(50)]
         public string DocumentNo { get; set; } = string.Empty;
 
-        [Required]
         public DateTime DocumentDate { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string DocumentType { get; set; } = string.Empty;
 
         [StringLength(20)]
         public string? CustomerCode { get; set; }
@@ -81,38 +68,17 @@ namespace WMS_WEBAPI.DTOs
 
         [StringLength(10)]
         public string? Priority { get; set; }
-
-        [Required]
-        [StringLength(4)]
-        public string YearCode { get; set; } = DateTime.Now.Year.ToString();
-
-        [StringLength(50)]
-        public string? Description1 { get; set; }
-
-        [StringLength(100)]
-        public string? Description2 { get; set; }
-
-        public byte? PriorityLevel { get; set; }
 
         [Required]
         public byte Type { get; set; }
     }
 
-    public class UpdateWtHeaderDto
+    public class UpdateWtHeaderDto : BaseHeaderUpdateDto
     {
-        [StringLength(10)]
-        public string? BranchCode { get; set; }
-
-        [StringLength(20)]
-        public string? ProjectCode { get; set; }
-
         [StringLength(50)]
         public string? DocumentNo { get; set; }
 
         public DateTime? DocumentDate { get; set; }
-
-        [StringLength(10)]
-        public string? DocumentType { get; set; }
 
         [StringLength(20)]
         public string? CustomerCode { get; set; }
@@ -128,17 +94,6 @@ namespace WMS_WEBAPI.DTOs
 
         [StringLength(10)]
         public string? Priority { get; set; }
-
-        [StringLength(4)]
-        public string? YearCode { get; set; }
-
-        [StringLength(50)]
-        public string? Description1 { get; set; }
-
-        [StringLength(100)]
-        public string? Description2 { get; set; }
-
-        public byte? PriorityLevel { get; set; }
 
         public byte? Type { get; set; }
     }

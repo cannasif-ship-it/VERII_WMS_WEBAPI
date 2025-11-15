@@ -5,9 +5,8 @@ namespace WMS_WEBAPI.DTOs
     /// <summary>
     /// GR Line DTO - Veri transfer objesi
     /// </summary>
-    public class GrLineDto
+    public class GrLineDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public long HeaderId { get; set; }
         public int? OrderId { get; set; }
         public decimal Quantity { get; set; }
@@ -20,20 +19,6 @@ namespace WMS_WEBAPI.DTOs
         public string? Description1 { get; set; }
         public string? Description2 { get; set; }
         public string? Description3 { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public bool IsDeleted { get; set; }
-        
-        // User tracking properties
-        public long? CreatedBy { get; set; }
-        public long? UpdatedBy { get; set; }
-        public long? DeletedBy { get; set; }
-        
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
 
     }
 

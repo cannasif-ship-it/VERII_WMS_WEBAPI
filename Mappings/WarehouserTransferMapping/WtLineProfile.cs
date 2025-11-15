@@ -20,9 +20,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.ErpOrderLineNo, opt => opt.MapFrom(src => src.ErpOrderLineNo))
                 .ForMember(dest => dest.ErpLineReference, opt => opt.MapFrom(src => src.ErpLineReference))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.CreatedByFullUser, opt => opt.MapFrom(src => src.CreatedByUser != null ? $"{src.CreatedByUser.FirstName} {src.CreatedByUser.LastName}".Trim() : null))
-                .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? $"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}".Trim() : null))
-                .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? $"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}".Trim() : null));
+                .ApplyFullUserNames<WtLine, WtLineDto>();
 
             // CreateWtLineDto to WtLine
             CreateMap<CreateWtLineDto, WtLine>()
