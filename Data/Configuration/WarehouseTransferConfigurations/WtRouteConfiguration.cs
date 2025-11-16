@@ -10,7 +10,7 @@ namespace WMS_WEBAPI.Data.Configuration
         {
             builder.ToTable("RII_WT_ROUTE");
 
-            builder.Property(x => x.RouteId)
+            builder.Property(x => x.ImportLineId)
                 .IsRequired();
 
             builder.Property(x => x.SourceWarehouse);
@@ -19,8 +19,8 @@ namespace WMS_WEBAPI.Data.Configuration
 
 
             // Indexes
-            builder.HasIndex(x => x.RouteId)
-                .HasDatabaseName("IX_WtRoute_RouteId");
+            builder.HasIndex(x => x.ImportLineId)
+                .HasDatabaseName("IX_WtRoute_ImportLineId");
 
             builder.HasIndex(x => x.SerialNo)
                 .HasDatabaseName("IX_WtRoute_SerialNo");
@@ -34,9 +34,9 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.HasIndex(x => x.IsDeleted)
                 .HasDatabaseName("IX_WtRoute_IsDeleted");
 
-            builder.HasOne(x => x.Route)
-                .WithMany()
-                .HasForeignKey(x => x.RouteId)
+            builder.HasOne(x => x.ImportLine)
+                .WithMany(x => x.Routes)
+                .HasForeignKey(x => x.ImportLineId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
