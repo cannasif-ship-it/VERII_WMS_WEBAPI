@@ -8,9 +8,9 @@ namespace WMS_WEBAPI.Mappings
     {
         public SrtHeaderProfile()
         {
-            CreateMap<SrtHeader, SrtHeaderDto>()
+            CreateMap<SrtHeader, SrtHeaderDto>()    
                 .ApplyFullUserNames<SrtHeader, SrtHeaderDto>();
-
+ 
             CreateMap<CreateSrtHeaderDto, SrtHeader>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())

@@ -9,7 +9,7 @@ namespace WMS_WEBAPI.DTOs
         public string GroupCode { get; set; } = string.Empty;
         public long? MenuHeaderId { get; set; }
         public long? MenuLineId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
         public bool IsDeleted { get; set; }
@@ -36,7 +36,7 @@ namespace WMS_WEBAPI.DTOs
 
         public long? MenuHeaderId { get; set; }
         public long? MenuLineId { get; set; }
-        public string? CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
     }
 
     public class UpdateMobilePageGroupDto
@@ -49,6 +49,6 @@ namespace WMS_WEBAPI.DTOs
 
         public long? MenuHeaderId { get; set; }
         public long? MenuLineId { get; set; }
-        public string? UpdatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
     }
 }
