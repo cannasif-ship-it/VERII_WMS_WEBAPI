@@ -40,12 +40,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<IcRouteDto>>>> GetActive()
-        {
-            var result = await _service.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<IcRouteDto>>> Create([FromBody] CreateIcRouteDto createDto)

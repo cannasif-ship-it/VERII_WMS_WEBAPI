@@ -54,12 +54,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<SitHeaderDto>>>> GetActive()
-        {
-            var result = await _service.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpGet("customer/{customerCode}")]
         public async Task<ActionResult<ApiResponse<IEnumerable<SitHeaderDto>>>> GetByCustomerCode(string customerCode)

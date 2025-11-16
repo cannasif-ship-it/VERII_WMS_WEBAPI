@@ -118,19 +118,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.SrtHeaders.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<SrtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SrtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<SrtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByCustomerCodeAsync(string customerCode)
         {

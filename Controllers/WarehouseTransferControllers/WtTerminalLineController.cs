@@ -130,15 +130,5 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif WtTerminalLine kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif WtTerminalLine listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<WtTerminalLineDto>>>> GetActive()
-        {
-            var result = await _wtTerminalLineService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
     }
 }

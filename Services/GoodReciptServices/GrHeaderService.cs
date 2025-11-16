@@ -515,19 +515,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.GrHeaders.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<GrHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<GrHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<GrHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderRetrievalError"), ex.Message, 500);
-            }
-        }
          
     }
 }

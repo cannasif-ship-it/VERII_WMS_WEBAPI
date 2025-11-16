@@ -144,20 +144,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<WtHeaderDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.WtHeaders
-                    .FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<WtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<WtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<WtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<IEnumerable<WtHeaderDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate)
         {

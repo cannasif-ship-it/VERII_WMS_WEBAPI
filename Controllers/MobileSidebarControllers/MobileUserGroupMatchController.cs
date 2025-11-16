@@ -46,12 +46,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<MobileUserGroupMatchDto>>>> GetActive()
-        {
-            var result = await _mobileUserGroupMatchService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<MobileUserGroupMatchDto>>> Create([FromBody] CreateMobileUserGroupMatchDto createDto)

@@ -20,10 +20,6 @@ namespace WMS_WEBAPI.Controllers
             _localizationService = localizationService;
         }
 
-        /// <summary>
-        /// Tüm GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <returns>GrHeader listesi</returns>
         [HttpGet]
         public async Task<ActionResult<ApiResponse<IEnumerable<GrHeaderDto>>>> GetAll()
         {
@@ -31,11 +27,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// ID'ye göre GrHeader kaydını getirir
-        /// </summary>
-        /// <param name="id">GrHeader ID</param>
-        /// <returns>GrHeader detayı</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse<GrHeaderDto?>>> GetById(int id)
         {
@@ -43,13 +34,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-
-
-        /// <summary>
-        /// Yeni GrHeader kaydı oluşturur
-        /// </summary>
-        /// <param name="createDto">Oluşturulacak GrHeader bilgileri</param>
-        /// <returns>Oluşturulan GrHeader</returns>
         [HttpPost]
         public async Task<ActionResult<ApiResponse<GrHeaderDto>>> Create([FromBody] CreateGrHeaderDto createDto)
         {
@@ -62,12 +46,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Mevcut GrHeader kaydını günceller
-        /// </summary>
-        /// <param name="id">Güncellenecek GrHeader ID</param>
-        /// <param name="updateDto">Güncellenecek bilgiler</param>
-        /// <returns>Güncellenmiş GrHeader</returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<ApiResponse<GrHeaderDto>>> Update(int id, [FromBody] UpdateGrHeaderDto updateDto)
         {
@@ -80,11 +58,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// GrHeader kaydını soft delete yapar
-        /// </summary>
-        /// <param name="id">Silinecek GrHeader ID</param>
-        /// <returns>Silme işlemi sonucu</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse<bool>>> Delete(int id)
         {
@@ -92,11 +65,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// GrHeader kaydını soft delete yapar 
-        /// </summary>
-        /// <param name="id">Soft delete yapılacak GrHeader ID</param>
-        /// <returns>Soft delete işlemi sonucu</returns>
         [HttpDelete("{id}/soft")]
         public async Task<ActionResult<ApiResponse<bool>>> SoftDelete(int id)
         {
@@ -104,12 +72,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// GrHeader kaydını tamamlar (IsCompleted=true, CompletionDate=now, IsPendingApproval=false)
-        /// </summary>
-        /// <param name="id">Tamamlanacak GrHeader ID</param>
-        /// <returns>İşlem sonucu</returns>
-        [HttpPost("{id}/complete")]
+        [HttpPost("complete/{id}")]
         public async Task<ActionResult<ApiResponse<bool>>> Complete(int id)
         {
             var result = await _grHeaderService.CompleteAsync(id);
@@ -120,12 +83,6 @@ namespace WMS_WEBAPI.Controllers
         /// Aktif GrHeader kayıtlarını getirir
         /// </summary>
         /// <returns>Aktif GrHeader listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<GrHeaderDto>>>> GetActive()
-        {
-            var result = await _grHeaderService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         /// <summary>
         /// Şube koduna göre GrHeader kayıtlarını getirir

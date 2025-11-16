@@ -78,16 +78,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif GrImportL kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif GrImportL listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<GrImportLDto>>>> GetActive()
-        {
-            var result = await _grImportLService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         /// <summary>
         /// Yeni GrImportL kaydı oluşturur

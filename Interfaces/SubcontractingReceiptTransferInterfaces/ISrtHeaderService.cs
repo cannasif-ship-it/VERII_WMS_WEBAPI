@@ -9,7 +9,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<SrtHeaderDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByBranchCodeAsync(string branchCode);
         Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
-        Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetActiveAsync();
         Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByCustomerCodeAsync(string customerCode);
         Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByDocumentTypeAsync(string documentType);
         Task<ApiResponse<IEnumerable<SrtHeaderDto>>> GetByDocumentNoAsync(string documentNo);

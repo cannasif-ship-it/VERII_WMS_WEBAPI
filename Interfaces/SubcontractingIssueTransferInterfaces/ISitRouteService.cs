@@ -11,7 +11,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<SitRouteDto>>> GetBySerialNoAsync(string serialNo);
         Task<ApiResponse<IEnumerable<SitRouteDto>>> GetBySourceWarehouseAsync(int sourceWarehouse);
         Task<ApiResponse<IEnumerable<SitRouteDto>>> GetByTargetWarehouseAsync(int targetWarehouse);
-        Task<ApiResponse<IEnumerable<SitRouteDto>>> GetActiveAsync();
         Task<ApiResponse<IEnumerable<SitRouteDto>>> GetByQuantityRangeAsync(decimal minQuantity, decimal maxQuantity);
         Task<ApiResponse<SitRouteDto>> CreateAsync(CreateSitRouteDto createDto);
         Task<ApiResponse<SitRouteDto>> UpdateAsync(long id, UpdateSitRouteDto updateDto);

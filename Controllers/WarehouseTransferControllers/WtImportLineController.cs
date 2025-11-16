@@ -149,15 +149,5 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif WtImportLine kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif WtImportLine listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<WtImportLineDto>>>> GetActive()
-        {
-            var result = await _wtImportLineService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
     }
 }

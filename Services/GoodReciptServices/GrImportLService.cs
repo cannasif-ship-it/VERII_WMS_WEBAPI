@@ -297,28 +297,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<GrImportLDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var grImportLs = await _unitOfWork.GrImportLines.FindAsync(x => !x.IsDeleted);
-                var grImportLDtos = _mapper.Map<IEnumerable<GrImportLDto>>(grImportLs);
-
-                return ApiResponse<IEnumerable<GrImportLDto>>.SuccessResult(
-                    grImportLDtos,
-                    _localizationService.GetLocalizedString("GrImportLRetrievedSuccessfully")
-                );
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<GrImportLDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("GrImportLRetrievalError"),
-                    ex.Message,
-                    500
-                );
-            }
-        }
-
         public async Task<ApiResponse<IEnumerable<GrImportLDto>>> GetImportLinesByHeaderIdAsync(long headerId)
         {
             try

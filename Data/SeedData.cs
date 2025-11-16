@@ -13,23 +13,23 @@ namespace WMS_WEBAPI.Data
             try
             {
                 context.Database.ExecuteSqlRaw(@"
-IF NOT EXISTS (
-    SELECT 1
-    FROM sys.default_constraints dc
-    INNER JOIN sys.columns c ON dc.parent_object_id = c.object_id AND dc.parent_column_id = c.column_id
-    WHERE dc.parent_object_id = OBJECT_ID('[dbo].[RII_USER_SESSION]') AND c.name = 'IsDeleted'
-)
-BEGIN
-    ALTER TABLE [dbo].[RII_USER_SESSION]
-    ADD CONSTRAINT [DF_RII_USER_SESSION_IsDeleted] DEFAULT(0) FOR [IsDeleted];
-END
+                    IF NOT EXISTS (
+                        SELECT 1
+                        FROM sys.default_constraints dc
+                        INNER JOIN sys.columns c ON dc.parent_object_id = c.object_id AND dc.parent_column_id = c.column_id
+                        WHERE dc.parent_object_id = OBJECT_ID('[dbo].[RII_USER_SESSION]') AND c.name = 'IsDeleted'
+                    )
+                    BEGIN
+                        ALTER TABLE [dbo].[RII_USER_SESSION]
+                        ADD CONSTRAINT [DF_RII_USER_SESSION_IsDeleted] DEFAULT(0) FOR [IsDeleted];
+                    END
 
-UPDATE [dbo].[RII_USER_SESSION]
-SET [IsDeleted] = 0
-WHERE [IsDeleted] IS NULL;
+                    UPDATE [dbo].[RII_USER_SESSION]
+                    SET [IsDeleted] = 0
+                    WHERE [IsDeleted] IS NULL;
 
 
-");
+                    ");
             }
             catch { }
 

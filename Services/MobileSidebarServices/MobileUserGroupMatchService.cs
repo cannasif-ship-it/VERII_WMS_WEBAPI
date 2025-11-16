@@ -155,20 +155,5 @@ namespace WMS_WEBAPI.Services
                 return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, "Error occurred");
             }
         }
-
-        public async Task<ApiResponse<IEnumerable<MobileUserGroupMatchDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.MobileUserGroupMatches.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<MobileUserGroupMatchDto>>(entities);
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, "Data retrieved successfully");
-            }
-            catch (Exception ex)
-            {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message, 500, default);
-            }
-        }
     }
 }

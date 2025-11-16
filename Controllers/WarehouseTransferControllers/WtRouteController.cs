@@ -149,16 +149,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif WtRoute kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif WtRoute listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<WtRouteDto>>>> GetActive()
-        {
-            var result = await _wtRouteService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         /// <summary>
         /// Miktar aralığına göre WtRoute kayıtlarını getirir

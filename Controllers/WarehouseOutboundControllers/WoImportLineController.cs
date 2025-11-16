@@ -49,12 +49,6 @@ namespace WMS_WEBAPI.Controllers
         }
 
 
-        [HttpGet("active")]
-        public async Task<IActionResult> GetActive()
-        {
-            var result = await _service.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateWoImportLineDto createDto)

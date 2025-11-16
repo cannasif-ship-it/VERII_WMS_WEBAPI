@@ -123,19 +123,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<SitRouteDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.SitRoutes.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<SitRouteDto>>(entities);
-                return ApiResponse<IEnumerable<SitRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<SitRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<IEnumerable<SitRouteDto>>> GetByQuantityRangeAsync(decimal minQuantity, decimal maxQuantity)
         {

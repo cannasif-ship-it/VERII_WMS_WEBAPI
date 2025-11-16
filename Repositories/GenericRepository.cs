@@ -44,6 +44,7 @@ namespace WMS_WEBAPI.Repositories
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet
+                .Where(e => !e.IsDeleted)
                 .Include(e => e.CreatedByUser)
                 .Include(e => e.UpdatedByUser)
                 .Include(e => e.DeletedByUser)

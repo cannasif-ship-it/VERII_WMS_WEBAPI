@@ -33,12 +33,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<IcHeaderDto>>>> GetActive()
-        {
-            var result = await _service.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<IcHeaderDto>>> Create([FromBody] CreateIcHeaderDto createDto)

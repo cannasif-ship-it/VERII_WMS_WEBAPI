@@ -132,19 +132,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<SrtLineDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.SrtLines.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<SrtLineDto>>(entities);
-                return ApiResponse<IEnumerable<SrtLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<SrtLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
 
         public async Task<ApiResponse<IEnumerable<SrtLineDto>>> GetByQuantityRangeAsync(decimal minQuantity, decimal maxQuantity)
         {

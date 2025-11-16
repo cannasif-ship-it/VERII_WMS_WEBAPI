@@ -53,12 +53,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<MobilePageGroupDto>>>> GetActive()
-        {
-            var result = await _mobilePageGroupService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         // Yeni: GroupCode'a göre gruplandırılmış sayfa grupları (her GroupCode için ilk kayıt)
         [HttpGet("grouped-by-group-code")]

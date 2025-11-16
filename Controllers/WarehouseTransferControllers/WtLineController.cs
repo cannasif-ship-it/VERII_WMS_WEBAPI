@@ -125,16 +125,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif WtLine kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif WtLine listesi</returns>
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<WtLineDto>>>> GetActive()
-        {
-            var result = await _wtLineService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         /// <summary>
         /// Miktar aralığına göre WtLine kayıtlarını getirir

@@ -179,19 +179,5 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<MobilemenuHeaderDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.MobilemenuHeaders.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<MobilemenuHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.SuccessResult(dtos, "Data retrieved successfully");
-            }
-            catch (Exception ex)
-            {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message, 500, default);
-            }
-        }
     }
 }

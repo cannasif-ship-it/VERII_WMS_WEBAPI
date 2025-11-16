@@ -66,20 +66,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<IcImportLineDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.IcImportLines.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<IcImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<IcImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<IcImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
-            }
-        }
-
         public async Task<ApiResponse<IcImportLineDto>> CreateAsync(CreateIcImportLineDto createDto)
         {
             try

@@ -12,6 +12,5 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<MobileUserGroupMatchDto>> CreateAsync(CreateMobileUserGroupMatchDto createDto);
         Task<ApiResponse<MobileUserGroupMatchDto>> UpdateAsync(long id, UpdateMobileUserGroupMatchDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);
-        Task<ApiResponse<IEnumerable<MobileUserGroupMatchDto>>> GetActiveAsync();
     }
 }

@@ -13,6 +13,5 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<MobilemenuLineDto>> CreateAsync(CreateMobilemenuLineDto createDto);
         Task<ApiResponse<MobilemenuLineDto>> UpdateAsync(long id, UpdateMobilemenuLineDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);
-        Task<ApiResponse<IEnumerable<MobilemenuLineDto>>> GetActiveAsync();
     }
 }

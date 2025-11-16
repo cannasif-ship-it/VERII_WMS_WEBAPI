@@ -61,12 +61,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<PtRouteDto>>>> GetActive()
-        {
-            var result = await _service.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpGet("quantity-range")]
         public async Task<ActionResult<ApiResponse<IEnumerable<PtRouteDto>>>> GetByQuantityRange([FromQuery] decimal minQuantity, [FromQuery] decimal maxQuantity)

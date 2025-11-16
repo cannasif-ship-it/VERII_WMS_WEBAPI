@@ -171,21 +171,6 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<MobilePageGroupDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var entities = await _unitOfWork.MobilePageGroups.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(entities);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Data retrieved successfully");
-            }
-            catch (Exception ex)
-            {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
-            }
-        }
-
         public async Task<ApiResponse<IEnumerable<MobilePageGroupDto>>> GetMobilPageGroupsByGroupCodeAsync()
         {
             try

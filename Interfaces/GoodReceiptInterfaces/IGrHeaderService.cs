@@ -20,6 +20,5 @@ namespace WMS_WEBAPI.Interfaces
 
         // Yeni eklenenler:
         Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByBranchCodeAsync(string branchCode);
-        Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetActiveAsync();
     }
 }

@@ -13,6 +13,5 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<MobilemenuHeaderDto>> CreateAsync(CreateMobilemenuHeaderDto createDto);
         Task<ApiResponse<MobilemenuHeaderDto>> UpdateAsync(long id, UpdateMobilemenuHeaderDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);
-        Task<ApiResponse<IEnumerable<MobilemenuHeaderDto>>> GetActiveAsync();
     }
 }

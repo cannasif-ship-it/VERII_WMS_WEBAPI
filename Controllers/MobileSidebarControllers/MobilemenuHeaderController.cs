@@ -53,12 +53,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<MobilemenuHeaderDto>>>> GetActive()
-        {
-            var result = await _mobilemenuHeaderService.GetActiveAsync();
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpPost]
         public async Task<ActionResult<ApiResponse<MobilemenuHeaderDto>>> Create([FromBody] CreateMobilemenuHeaderDto createDto)
