@@ -79,16 +79,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Aktif GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <returns>Aktif GrHeader listesi</returns>
-
-        /// <summary>
-        /// Şube koduna göre GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <param name="branchCode">Şube kodu</param>
-        /// <returns>Şubeye ait GrHeader listesi</returns>
         [HttpGet("by-branch/{branchCode}")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GrHeaderDto>>>> GetByBranchCode(string branchCode)
         {
@@ -96,11 +86,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Müşteri koduna göre GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <param name="customerCode">Müşteri kodu</param>
-        /// <returns>Müşteriye ait GrHeader listesi</returns>
         [HttpGet("by-customer/{customerCode}")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GrHeaderDto>>>> GetByCustomerCode(string customerCode)
         {
@@ -108,12 +93,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Tarih aralığına göre GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <param name="startDate">Başlangıç tarihi</param>
-        /// <param name="endDate">Bitiş tarihi</param>
-        /// <returns>Tarih aralığındaki GrHeader listesi</returns>
         [HttpGet("by-date-range")]
         public async Task<ActionResult<ApiResponse<IEnumerable<GrHeaderDto>>>> GetByDateRange(
             [FromQuery] DateTime startDate, 
@@ -123,14 +102,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// Sayfalı GrHeader kayıtlarını getirir
-        /// </summary>
-        /// <param name="pageNumber">Sayfa numarası</param>
-        /// <param name="pageSize">Sayfa boyutu</param>
-        /// <param name="sortBy">Sıralama alanı (Id, DocumentDate, ERPDocumentNo, CreatedDate)</param>
-        /// <param name="sortDirection">Sıralama yönü (asc/desc)</param>
-        /// <returns>Sayfalı GrHeader listesi</returns>
         [HttpGet("paged")]
         public async Task<ActionResult<ApiResponse<PagedResponse<GrHeaderDto>>>> GetPaged(
             [FromQuery] int pageNumber = 1,

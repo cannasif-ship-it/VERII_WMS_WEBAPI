@@ -8,8 +8,9 @@ namespace WMS_WEBAPI.Models
     [Table("RII_SRT_IMPORT_LINE")]
     public class SrtImportLine : BaseImportLineEntity
     {
-        [Required, ForeignKey(nameof(Header))]
+
         public long HeaderId { get; set; }
+        [ForeignKey(nameof(HeaderId))]
         public virtual SrtHeader Header { get; set; } = null!;
 
         public long? LineId { get; set; }

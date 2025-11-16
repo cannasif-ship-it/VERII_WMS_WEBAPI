@@ -40,6 +40,13 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("header/{headerId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<PtImportLineDto>>>> GetByHeaderId(long headerId)
+        {
+            var result = await _service.GetByHeaderIdAsync(headerId);
+            return StatusCode(result.StatusCode, result);
+        }
+
 
         [HttpGet("stock/{stockCode}")]
         public async Task<ActionResult<ApiResponse<IEnumerable<PtImportLineDto>>>> GetByStockCode(string stockCode)

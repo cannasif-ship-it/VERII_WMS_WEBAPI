@@ -64,11 +64,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("{id:long}/exists")]
-        public async Task<ActionResult<ApiResponse<bool>>> Exists(long id)
-        {
-            var result = await _userAuthorityService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
     }
 }

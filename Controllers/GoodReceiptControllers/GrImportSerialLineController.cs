@@ -101,17 +101,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// GR Import Serial Line kaydının varlığını kontrol eder
-        /// </summary>
-        /// <param name="id">Kontrol edilecek GR Import Serial Line ID</param>
-        /// <returns>Kayıt varlık durumu</returns>
-        [HttpGet("{id}/exists")]
-        public async Task<ActionResult<ApiResponse<bool>>> Exists(long id)
-        {
-            var result = await _grImportSerialLineService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// Sayfalı GrImportSerialLine kayıtlarını getirir

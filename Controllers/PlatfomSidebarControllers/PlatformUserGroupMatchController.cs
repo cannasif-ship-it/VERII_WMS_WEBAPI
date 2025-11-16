@@ -87,17 +87,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// PlatformUserGroupMatch kaydının var olup olmadığını kontrol eder
-        /// </summary>
-        /// <param name="id">Kontrol edilecek PlatformUserGroupMatch ID</param>
-        /// <returns>Kayıt varlık durumu</returns>
-        [HttpGet("{id}/exists")]
-        public async Task<ActionResult<bool>> Exists(long id)
-        {
-            var result = await _platformUserGroupMatchService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// UserId'ye göre PlatformUserGroupMatch kayıtlarını getirir

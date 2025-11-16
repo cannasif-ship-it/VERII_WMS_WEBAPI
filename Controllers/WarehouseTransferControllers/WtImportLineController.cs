@@ -54,6 +54,13 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("header/{headerId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<WtImportLineDto>>>> GetByHeaderId(long headerId)
+        {
+            var result = await _wtImportLineService.GetByHeaderIdAsync(headerId);
+            return StatusCode(result.StatusCode, result);
+        }
+
         /// <summary>
         /// Route ID'ye göre WtImportLine kayıtlarını getirir
         /// </summary>

@@ -87,17 +87,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// SidebarmenuLine kaydının var olup olmadığını kontrol eder
-        /// </summary>
-        /// <param name="id">Kontrol edilecek SidebarmenuLine ID</param>
-        /// <returns>Kayıt varlık durumu</returns>
-        [HttpGet("{id}/exists")]
-        public async Task<ActionResult<bool>> Exists(long id)
-        {
-            var result = await _sidebarmenuLineService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// HeaderId'ye göre SidebarmenuLine kayıtlarını getirir

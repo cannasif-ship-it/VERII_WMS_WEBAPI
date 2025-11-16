@@ -87,17 +87,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// PlatformPageGroup kaydının varlığını kontrol eder
-        /// </summary>
-        /// <param name="id">PlatformPageGroup ID</param>
-        /// <returns>Kayıt var mı?</returns>
-        [HttpGet("exists/{id}")]
-        public async Task<ActionResult<bool>> Exists(long id)
-        {
-            var result = await _platformPageGroupService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// GroupCode'a göre PlatformPageGroup kayıtlarını getirir

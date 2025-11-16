@@ -49,6 +49,20 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<IEnumerable<WoImportLineDto>>> GetByHeaderIdAsync(long headerId)
+        {
+            try
+            {
+                var entities = await _unitOfWork.WoImportLines.FindAsync(x => x.HeaderId == headerId);
+                var dtos = _mapper.Map<IEnumerable<WoImportLineDto>>(entities);
+                return ApiResponse<IEnumerable<WoImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<WoImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<WoImportLineDto>>> GetByLineIdAsync(long lineId)
         {
             try

@@ -88,17 +88,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// SidebarmenuHeader kaydının var olup olmadığını kontrol eder
-        /// </summary>
-        /// <param name="id">Kontrol edilecek SidebarmenuHeader ID</param>
-        /// <returns>Kayıt varlık durumu</returns>
-        [HttpGet("{id}/exists")]
-        public async Task<ActionResult<bool>> Exists(long id)
-        {
-            var result = await _sidebarmenuHeaderService.ExistsAsync(id);
-            return StatusCode(result.StatusCode, result);
-        }
+        
 
         /// <summary>
         /// MenuKey'e göre SidebarmenuHeader kaydını getirir

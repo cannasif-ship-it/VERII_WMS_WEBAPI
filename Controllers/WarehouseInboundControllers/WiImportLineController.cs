@@ -40,6 +40,13 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("header/{headerId}")]
+        public async Task<IActionResult> GetByHeaderId(long headerId)
+        {
+            var result = await _service.GetByHeaderIdAsync(headerId);
+            return StatusCode(result.StatusCode, result);
+        }
+
 
         [HttpGet("stock/{stockCode}")]
         public async Task<IActionResult> GetByStockCode(string stockCode)
