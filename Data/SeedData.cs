@@ -34,7 +34,7 @@ namespace WMS_WEBAPI.Data
             catch { }
 
             // Admin kullanıcısı zaten var mı kontrol et
-            if (context.Users.Any(u => u.Email == "admin@verii.com"))
+            if (context.Users.Any(u => u.Email == "admin@v3rii.com"))
             {
                 return; // Zaten var, seed data'ya gerek yok
             }
@@ -42,8 +42,8 @@ namespace WMS_WEBAPI.Data
             // Admin kullanıcısını oluştur
             var adminUser = new User
             {
-                Username = "admin@verii.com",
-                Email = "admin@verii.com",
+                Username = "admin@v3rii.com",
+                Email = "admin@v3rii.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Veriipass123!"),
                 FirstName = "Admin",
                 LastName = "User",

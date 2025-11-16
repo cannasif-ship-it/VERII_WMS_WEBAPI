@@ -135,7 +135,7 @@ namespace WMS_WEBAPI.Controllers
             try
             {
                 // Verii.com admin bilgileri
-                var adminEmail = "admin@verii.com";
+                var adminEmail = "admin@v3rii.com";
                 var adminPassword = "Veriipass123!";
 
                 // AuthService'i kullanarak login işlemini gerçekleştir
