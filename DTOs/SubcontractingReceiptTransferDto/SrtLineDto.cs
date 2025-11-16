@@ -2,28 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WMS_WEBAPI.DTOs
 {
-    public class SrtLineDto
+    public class SrtLineDto : BaseLineEntityDto
     {
-        public long Id { get; set; }
         public long HeaderId { get; set; }
-        public string StockCode { get; set; } = string.Empty;
         public int? OrderId { get; set; }
-        public decimal Quantity { get; set; }
-        public string? Unit { get; set; }
-        public string? ErpOrderNo { get; set; }
-        public string? ErpOrderLineNo { get; set; }
         public string? ErpLineReference { get; set; }
-        public string? Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public bool IsDeleted { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? UpdatedBy { get; set; }
-        public long? DeletedBy { get; set; }
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
     }
 
     public class CreateSrtLineDto

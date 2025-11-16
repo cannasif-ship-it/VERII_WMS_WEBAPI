@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WMS_WEBAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58153f7a457ef61db169bd8eca5ea0d069162849")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcc5baaf629bd77952532972e72490b0a98237fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("WMS_WEBAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WMS_WEBAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

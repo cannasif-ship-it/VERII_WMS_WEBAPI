@@ -7,7 +7,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<WiImportLineDto>>> GetAllAsync();
         Task<ApiResponse<WiImportLineDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<WiImportLineDto>>> GetByLineIdAsync(long lineId);
-        Task<ApiResponse<IEnumerable<WiImportLineDto>>> GetByRouteIdAsync(long routeId);
         Task<ApiResponse<IEnumerable<WiImportLineDto>>> GetByStockCodeAsync(string stockCode);
         Task<ApiResponse<IEnumerable<WiImportLineDto>>> GetActiveAsync();
         Task<ApiResponse<WiImportLineDto>> CreateAsync(CreateWiImportLineDto createDto);

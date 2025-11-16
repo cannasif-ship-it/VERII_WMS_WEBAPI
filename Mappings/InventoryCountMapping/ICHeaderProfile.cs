@@ -8,12 +8,12 @@ namespace WMS_WEBAPI.Mappings
     {
         public ICHeaderProfile()
         {
-            CreateMap<IcHeader, ICHeaderDto>()
+            CreateMap<IcHeader, IcHeaderDto>()
                 .ForMember(dest => dest.CreatedByFullUser, opt => opt.MapFrom(src => src.CreatedByUser != null ? ($"{src.CreatedByUser.FirstName} {src.CreatedByUser.LastName}").Trim() : null))
                 .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? ($"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}").Trim() : null))
                 .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? ($"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}").Trim() : null));
 
-            CreateMap<CreateICHeaderDto, IcHeader>()
+            CreateMap<CreateIcHeaderDto, IcHeader>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.ImportLines, opt => opt.Ignore())
                 .ForMember(dest => dest.TerminalLines, opt => opt.Ignore())
@@ -25,7 +25,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
-            CreateMap<UpdateICHeaderDto, IcHeader>()
+            CreateMap<UpdateIcHeaderDto, IcHeader>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.ImportLines, opt => opt.Ignore())
                 .ForMember(dest => dest.TerminalLines, opt => opt.Ignore())

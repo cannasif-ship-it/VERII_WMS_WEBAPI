@@ -12380,31 +12380,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\veriiadmin\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Can\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Can\\Desktop\\Github\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
       "projectName": "WMS_WEBAPI",
-      "projectPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
-      "packagesPath": "C:\\Users\\veriiadmin\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\obj\\",
+      "projectPath": "C:\\Users\\Can\\Desktop\\Github\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
+      "packagesPath": "C:\\Users\\Can\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Can\\Desktop\\Github\\VERII_WMS_WEBAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\veriiadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12531,7 +12524,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

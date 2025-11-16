@@ -20,53 +20,53 @@ namespace WMS_WEBAPI.Services
             _localizationService = localizationService;
         }
 
-        public async Task<ApiResponse<IEnumerable<ICHeaderDto>>> GetAllAsync()
+        public async Task<ApiResponse<IEnumerable<IcHeaderDto>>> GetAllAsync()
         {
             try
             {
                 var entities = await _unitOfWork.ICHeaders.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<ICHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<ICHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                var dtos = _mapper.Map<IEnumerable<IcHeaderDto>>(entities);
+                return ApiResponse<IEnumerable<IcHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<ICHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<IcHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
 
-        public async Task<ApiResponse<ICHeaderDto>> GetByIdAsync(long id)
+        public async Task<ApiResponse<IcHeaderDto>> GetByIdAsync(long id)
         {
             try
             {
                 var entity = await _unitOfWork.ICHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<ICHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
-                var dto = _mapper.Map<ICHeaderDto>(entity);
-                return ApiResponse<ICHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                var dto = _mapper.Map<IcHeaderDto>(entity);
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<ICHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<ICHeaderDto>>> GetActiveAsync()
+        public async Task<ApiResponse<IEnumerable<IcHeaderDto>>> GetActiveAsync()
         {
             try
             {
                 var entities = await _unitOfWork.ICHeaders.FindAsync(x => !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<ICHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<ICHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                var dtos = _mapper.Map<IEnumerable<IcHeaderDto>>(entities);
+                return ApiResponse<IEnumerable<IcHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<ICHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<IcHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
 
-        public async Task<ApiResponse<ICHeaderDto>> CreateAsync(CreateICHeaderDto createDto)
+        public async Task<ApiResponse<IcHeaderDto>> CreateAsync(CreateIcHeaderDto createDto)
         {
             try
             {
@@ -75,34 +75,34 @@ namespace WMS_WEBAPI.Services
                 entity.IsDeleted = false;
                 await _unitOfWork.ICHeaders.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
-                var dto = _mapper.Map<ICHeaderDto>(entity);
-                return ApiResponse<ICHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                var dto = _mapper.Map<IcHeaderDto>(entity);
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<ICHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
 
-        public async Task<ApiResponse<ICHeaderDto>> UpdateAsync(long id, UpdateICHeaderDto updateDto)
+        public async Task<ApiResponse<IcHeaderDto>> UpdateAsync(long id, UpdateIcHeaderDto updateDto)
         {
             try
             {
                 var entity = await _unitOfWork.ICHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<ICHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.ICHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
-                var dto = _mapper.Map<ICHeaderDto>(entity);
-                return ApiResponse<ICHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                var dto = _mapper.Map<IcHeaderDto>(entity);
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<ICHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
             }
         }
 

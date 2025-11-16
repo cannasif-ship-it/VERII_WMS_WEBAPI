@@ -104,14 +104,7 @@ namespace WMS_WEBAPI.Data
             modelBuilder.ApplyConfiguration(new SidebarmenuHeaderConfiguration());
             modelBuilder.ApplyConfiguration(new SidebarmenuLineConfiguration());
             
-            // Apply WarehouseTransfer configurations
-            modelBuilder.ApplyConfiguration(new TrBoxConfiguration());
-            modelBuilder.ApplyConfiguration(new TrHeaderConfiguration());
-            modelBuilder.ApplyConfiguration(new TrImportLineConfiguration());
-            modelBuilder.ApplyConfiguration(new TrLineConfiguration());
-            modelBuilder.ApplyConfiguration(new TrRouteConfiguration());
-            modelBuilder.ApplyConfiguration(new TrSBoxConfiguration());
-            modelBuilder.ApplyConfiguration(new TrTerminalLineConfiguration());
+            // WarehouseTransfer configurations temporarily disabled
 
             modelBuilder.ApplyConfiguration(new PtHeaderConfiguration());
             modelBuilder.ApplyConfiguration(new PtLineConfiguration());
@@ -147,19 +140,13 @@ namespace WMS_WEBAPI.Data
             modelBuilder.ApplyConfiguration(new WiRouteConfiguration());
             modelBuilder.ApplyConfiguration(new WiTerminalLineConfiguration());
 
-            // InventoryCount configurations
-            modelBuilder.ApplyConfiguration(new ICHeaderConfiguration());
-            modelBuilder.ApplyConfiguration(new IcImportLineConfiguration());
-            modelBuilder.ApplyConfiguration(new IcRouteConfiguration());
-            modelBuilder.ApplyConfiguration(new IcTerminalLineConfiguration());
+            // InventoryCount configurations temporarily disabled
                         
             // GoodReciptFunctions - Function olduğu için HasNoKey kullanıyoruz
             modelBuilder.Entity<FN_GoodsOpenOrders_Header>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Header");
             modelBuilder.Entity<FN_GoodsOpenOrders_Line>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Line");
             
-            // TRFunctions - Function olduğu için HasNoKey kullanıyoruz
-            modelBuilder.Entity<FN_TransferOpenOrder_Header>().HasNoKey().ToFunction("RII_FN_TransferOpenOrder_Header");
-            modelBuilder.Entity<FN_TransferOpenOrder_Line>().HasNoKey().ToFunction("RII_FN_TransferOpenOrder_Line");
+            // TRFunctions temporarily disabled
         }
     }
 }

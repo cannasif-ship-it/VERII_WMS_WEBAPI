@@ -7,6 +7,11 @@ namespace WMS_WEBAPI.Models
     public abstract class BaseHeaderEntity : BaseEntity
     {
 
+        [MaxLength(50)]
+        public string? DocumentNo { get; set; }
+
+        public DateTime? DocumentDate { get; set; }
+
         // Yıl kodu – ERP’de dönemsel kayıtlar için kullanılır (örn. 2025)
         [Required, MaxLength(4)]
         public string YearCode { get; set; } = DateTime.Now.Year.ToString();

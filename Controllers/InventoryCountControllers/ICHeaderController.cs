@@ -20,35 +20,35 @@ namespace WMS_WEBAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<ICHeaderDto>>>> GetAll()
+        public async Task<ActionResult<ApiResponse<IEnumerable<IcHeaderDto>>>> GetAll()
         {
             var result = await _service.GetAllAsync();
             return StatusCode(result.StatusCode, result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponse<ICHeaderDto>>> GetById(long id)
+        public async Task<ActionResult<ApiResponse<IcHeaderDto>>> GetById(long id)
         {
             var result = await _service.GetByIdAsync(id);
             return StatusCode(result.StatusCode, result);
         }
 
         [HttpGet("active")]
-        public async Task<ActionResult<ApiResponse<IEnumerable<ICHeaderDto>>>> GetActive()
+        public async Task<ActionResult<ApiResponse<IEnumerable<IcHeaderDto>>>> GetActive()
         {
             var result = await _service.GetActiveAsync();
             return StatusCode(result.StatusCode, result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<ICHeaderDto>>> Create([FromBody] CreateICHeaderDto createDto)
+        public async Task<ActionResult<ApiResponse<IcHeaderDto>>> Create([FromBody] CreateIcHeaderDto createDto)
         {
             var result = await _service.CreateAsync(createDto);
             return StatusCode(result.StatusCode, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponse<ICHeaderDto>>> Update(long id, [FromBody] UpdateICHeaderDto updateDto)
+        public async Task<ActionResult<ApiResponse<IcHeaderDto>>> Update(long id, [FromBody] UpdateIcHeaderDto updateDto)
         {
             var result = await _service.UpdateAsync(id, updateDto);
             return StatusCode(result.StatusCode, result);

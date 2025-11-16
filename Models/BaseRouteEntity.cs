@@ -6,11 +6,24 @@ namespace WMS_WEBAPI.Models
 {
     public abstract class BaseRouteEntity : BaseEntity
     {
+        public long? LineId { get; set; }
+
         [MaxLength(75)]
         public string ScannedBarcode { get; set; } = string.Empty;
 
         [Required, Column(TypeName = "decimal(18,6)")]
         public decimal Quantity { get; set; }
+
+        [MaxLength(35)]
+        public string? StockCode { get; set; }
+
+        [MaxLength(50)]
+        public string? RouteCode { get; set; }
+
+        public int? Priority { get; set; }
+
+        [MaxLength(255)]
+        public string? Description { get; set; }
 
         // Seri bilgileri (isteğe bağlı, kalabilir veya kaldırılabilir)
         [MaxLength(50)]

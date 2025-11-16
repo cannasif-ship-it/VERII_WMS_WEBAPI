@@ -18,7 +18,7 @@ namespace WMS_WEBAPI.Data.Configuration
 
             builder.Property(x => x.Token)
                 .IsRequired()
-                .HasMaxLength(500);
+                .HasMaxLength(2000);
 
             builder.Property(x => x.CreatedAt)
                 .IsRequired();

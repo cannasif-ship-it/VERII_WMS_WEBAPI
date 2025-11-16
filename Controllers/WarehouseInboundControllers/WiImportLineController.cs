@@ -40,12 +40,6 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("route/{routeId}")]
-        public async Task<IActionResult> GetByRouteId(long routeId)
-        {
-            var result = await _service.GetByRouteIdAsync(routeId);
-            return StatusCode(result.StatusCode, result);
-        }
 
         [HttpGet("stock/{stockCode}")]
         public async Task<IActionResult> GetByStockCode(string stockCode)

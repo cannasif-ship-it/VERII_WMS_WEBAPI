@@ -20,9 +20,8 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
-                .ForMember(dest => dest.Routes, opt => opt.Ignore())
                 .ForMember(dest => dest.ImportLines, opt => opt.Ignore())
-                .ForMember(dest => dest.TerminalLines, opt => opt.Ignore());
+                .ForMember(dest => dest.SerialLines, opt => opt.Ignore());
 
             CreateMap<UpdateWoLineDto, WoLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -33,9 +32,8 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.Header, opt => opt.Ignore())
-                .ForMember(dest => dest.Routes, opt => opt.Ignore())
                 .ForMember(dest => dest.ImportLines, opt => opt.Ignore())
-                .ForMember(dest => dest.TerminalLines, opt => opt.Ignore());
+                .ForMember(dest => dest.SerialLines, opt => opt.Ignore());
         }
     }
 }

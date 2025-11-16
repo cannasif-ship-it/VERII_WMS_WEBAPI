@@ -5,6 +5,7 @@ using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
 using WMS_WEBAPI.Models;
 using WMS_WEBAPI.UnitOfWork;
+using System.Linq;
 
 namespace WMS_WEBAPI.Services
 {
@@ -38,11 +39,11 @@ namespace WMS_WEBAPI.Services
                 bool desc = string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
                 switch (sortBy?.Trim())
                 {
-                    case "DocumentDate":
-                        query = desc ? query.OrderByDescending(x => x.DocumentDate) : query.OrderBy(x => x.DocumentDate);
+                    case "PlannedDate":
+                        query = desc ? query.OrderByDescending(x => x.PlannedDate) : query.OrderBy(x => x.PlannedDate);
                         break;
-                    case "ERPDocumentNo":
-                        query = desc ? query.OrderByDescending(x => x.ERPDocumentNo) : query.OrderBy(x => x.ERPDocumentNo);
+                    case "ERPReferenceNumber":
+                        query = desc ? query.OrderByDescending(x => x.ERPReferenceNumber) : query.OrderBy(x => x.ERPReferenceNumber);
                         break;
                     case "CreatedDate":
                         query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
@@ -119,39 +120,6 @@ namespace WMS_WEBAPI.Services
                 return ApiResponse<GrHeaderDto?>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderRetrievalError"), ex.Message, 500, "Error retrieving GrHeader data");
             }
         }
-
-        public async Task<ApiResponse<GrHeaderDto?>> GetByERPDocumentNoAsync(string erpDocumentNo)
-        {
-            try
-            {
-                var grHeader = await _unitOfWork.GrHeaders.GetFirstOrDefaultAsync(x => x.ERPDocumentNo == erpDocumentNo);
-                
-                if (grHeader == null)
-                {
-                    return ApiResponse<GrHeaderDto?>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        "Record not found",
-                        404,
-                        "GrHeader not found"
-                    );
-                }
-
-                var grHeaderDto = _mapper.Map<GrHeaderDto>(grHeader);
-                return ApiResponse<GrHeaderDto?>.SuccessResult(
-                    grHeaderDto,
-                    _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully")
-                );
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<GrHeaderDto?>.ErrorResult(
-                    _localizationService.GetLocalizedString("GrHeaderRetrievalError"),
-                    ex.Message,
-                    500
-                );
-            }
-        }
-
         public async Task<ApiResponse<GrHeaderDto>> CreateAsync(CreateGrHeaderDto createDto)
         {
             try
@@ -192,60 +160,14 @@ namespace WMS_WEBAPI.Services
                     );
                 }
 
-                // Update only non-null properties
-                if (!string.IsNullOrEmpty(updateDto.BranchCode))
-                    grHeader.BranchCode = updateDto.BranchCode;
-                
-                if (updateDto.ProjectCode != null)
-                    grHeader.ProjectCode = updateDto.ProjectCode;
-                
-                if (!string.IsNullOrEmpty(updateDto.CustomerCode))
-                    grHeader.CustomerCode = updateDto.CustomerCode;
-                
-                if (!string.IsNullOrEmpty(updateDto.ERPDocumentNo))
-                    grHeader.ERPDocumentNo = updateDto.ERPDocumentNo;
-                
-                if (!string.IsNullOrEmpty(updateDto.DocumentType))
-                    grHeader.DocumentType = updateDto.DocumentType;
-                
-                if (updateDto.DocumentDate.HasValue)
-                    grHeader.DocumentDate = updateDto.DocumentDate.Value;
-                
-                if (!string.IsNullOrEmpty(updateDto.YearCode))
-                    grHeader.YearCode = updateDto.YearCode;
-                
-                if (updateDto.ReturnCode.HasValue)
-                    grHeader.ReturnCode = updateDto.ReturnCode.Value;
-                
-                if (updateDto.OCRSource.HasValue)
-                    grHeader.OCRSource = updateDto.OCRSource.Value;
-                
-                if (updateDto.IsPlanned.HasValue)
-                    grHeader.IsPlanned = updateDto.IsPlanned.Value;
-
-                if (updateDto.Description1 != null)
-                    grHeader.Description1 = updateDto.Description1;
-                
-                if (updateDto.Description2 != null)
-                    grHeader.Description2 = updateDto.Description2;
-                
-                if (updateDto.Description3 != null)
-                    grHeader.Description3 = updateDto.Description3;
-                
-                if (updateDto.Description4 != null)
-                    grHeader.Description4 = updateDto.Description4;
-                
-                if (updateDto.Description5 != null)
-                    grHeader.Description5 = updateDto.Description5;
+                // Map updateDto to grHeader
+                _mapper.Map(updateDto, grHeader);
 
                 _unitOfWork.GrHeaders.Update(grHeader);
                 await _unitOfWork.SaveChangesAsync();
 
                 var grHeaderDto = _mapper.Map<GrHeaderDto>(grHeader);
-                return ApiResponse<GrHeaderDto>.SuccessResult(
-                    grHeaderDto,
-                    _localizationService.GetLocalizedString("GrHeaderUpdatedSuccessfully")
-                );
+                return ApiResponse<GrHeaderDto>.SuccessResult(grHeaderDto,_localizationService.GetLocalizedString("GrHeaderUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -264,73 +186,19 @@ namespace WMS_WEBAPI.Services
                 var grHeader = await _unitOfWork.GrHeaders.GetByIdAsync(id);
                 if (grHeader == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        "Record not found",
-                        404,
-                        "GrHeader not found"
-                    );
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderNotFound"),"Record not found",404,"GrHeader not found");
                 }
 
                 await _unitOfWork.GrHeaders.SoftDelete(grHeader.Id);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ApiResponse<bool>.SuccessResult(
-                    true,
-                    _localizationService.GetLocalizedString("GrHeaderDeletedSuccessfully")
-                );
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("GrHeaderDeletedSuccessfully"));
+                
             }
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
                     _localizationService.GetLocalizedString("GrHeaderSoftDeletionError"),
-                    ex.Message,
-                    500
-                );
-            }
-        }
-
-        public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetActiveAsync()
-        {
-            try
-            {
-                var grHeaders = await _unitOfWork.GrHeaders.GetAllAsync();
-                
-                var grHeaderDtos = _mapper.Map<IEnumerable<GrHeaderDto>>(grHeaders);
-                
-                return ApiResponse<IEnumerable<GrHeaderDto>>.SuccessResult(
-                    grHeaderDtos,
-                    _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully")
-                );
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<GrHeaderDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("GrHeaderRetrievalError"),
-                    ex.Message,
-                    500
-                );
-            }
-        }
-
-        public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByBranchCodeAsync(string branchCode)
-        {
-            try
-            {
-                var grHeaders = await _unitOfWork.GrHeaders
-                    .FindAsync(x => x.BranchCode == branchCode);
-                
-                var grHeaderDtos = _mapper.Map<IEnumerable<GrHeaderDto>>(grHeaders);
-                
-                return ApiResponse<IEnumerable<GrHeaderDto>>.SuccessResult(
-                    grHeaderDtos,
-                    _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully")
-                );
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<GrHeaderDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("GrHeaderRetrievalError"),
                     ex.Message,
                     500
                 );
@@ -361,12 +229,37 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+
+        public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByBranchCodeAsync(string branchCode)
+        {
+            try
+            {
+                var grHeaders = await _unitOfWork.GrHeaders
+                    .FindAsync(x => x.BranchCode == branchCode);
+
+                var grHeaderDtos = _mapper.Map<IEnumerable<GrHeaderDto>>(grHeaders);
+
+                return ApiResponse<IEnumerable<GrHeaderDto>>.SuccessResult(
+                    grHeaderDtos,
+                    _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully")
+                );
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<GrHeaderDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("GrHeaderRetrievalError"),
+                    ex.Message,
+                    500
+                );
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             try
             {
                 var grHeaders = await _unitOfWork.GrHeaders
-                    .FindAsync(x => x.DocumentDate >= startDate && x.DocumentDate <= endDate);
+                    .FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate);
                 
                 var grHeaderDtos = _mapper.Map<IEnumerable<GrHeaderDto>>(grHeaders);
                 
@@ -619,6 +512,20 @@ namespace WMS_WEBAPI.Services
                     _localizationService.GetLocalizedString("GrHeaderCompletionError"),
                     ex.Message,
                     500);
+            }
+        }
+
+        public async Task<ApiResponse<IEnumerable<GrHeaderDto>>> GetActiveAsync()
+        {
+            try
+            {
+                var entities = await _unitOfWork.GrHeaders.FindAsync(x => !x.IsDeleted);
+                var dtos = _mapper.Map<IEnumerable<GrHeaderDto>>(entities);
+                return ApiResponse<IEnumerable<GrHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<GrHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderRetrievalError"), ex.Message, 500);
             }
         }
          

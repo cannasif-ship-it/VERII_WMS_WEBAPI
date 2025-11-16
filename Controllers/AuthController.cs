@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.SignalR;
 using WMS_WEBAPI.Hubs;
 using WMS_WEBAPI.Interfaces;
 using WMS_WEBAPI.DTOs;
+using System.Security.Cryptography;
 
 namespace WMS_WEBAPI.Controllers
 {
@@ -97,7 +98,9 @@ namespace WMS_WEBAPI.Controllers
                     UserId = user.Id,
                     SessionId = Guid.NewGuid(),
                     CreatedAt = DateTime.UtcNow,
-                    Token = loginResult.Data! // AuthService'den gelen token
+                    Token = ComputeSha256Hash(loginResult.Data!),
+                    IsDeleted = false,
+                    CreatedDate = DateTime.UtcNow
                 };
                 _context.UserSessions.Add(session);
                 _context.SaveChanges();
@@ -117,7 +120,7 @@ namespace WMS_WEBAPI.Controllers
                 {
                     Success = false,
                     Message = _localizationService.GetLocalizedString("Error.User.LoginFailed"),
-                    ExceptionMessage = ex.Message,
+                    ExceptionMessage = ex.InnerException?.Message ?? ex.Message,
                     StatusCode = 500,
                     Data = null
                 };
@@ -193,7 +196,9 @@ namespace WMS_WEBAPI.Controllers
                     UserId = user.Id,
                     SessionId = Guid.NewGuid(),
                     CreatedAt = DateTime.UtcNow,
-                    Token = loginResult.Data! // AuthService'den gelen token
+                    Token = ComputeSha256Hash(loginResult.Data!),
+                    IsDeleted = false,
+                    CreatedDate = DateTime.UtcNow
                 };
                 _context.UserSessions.Add(session);
                 _context.SaveChanges();
@@ -213,7 +218,7 @@ namespace WMS_WEBAPI.Controllers
                 {
                     Success = false,
                     Message = "Admin giriş işlemi başarısız",
-                    ExceptionMessage = ex.Message,
+                    ExceptionMessage = ex.InnerException?.Message ?? ex.Message,
                     StatusCode = 500,
                     Data = null
                 };
@@ -288,6 +293,18 @@ namespace WMS_WEBAPI.Controllers
                 };
                 return StatusCode(errorResponse.StatusCode, errorResponse);
             }
+        }
+
+        static string ComputeSha256Hash(string rawData)
+        {
+            using var sha256Hash = SHA256.Create();
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+            var builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
     }
 }

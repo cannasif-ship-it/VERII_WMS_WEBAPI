@@ -49,11 +49,8 @@ namespace WMS_WEBAPI.Services
                     case "BranchCode":
                         query = desc ? query.OrderByDescending(x => x.BranchCode) : query.OrderBy(x => x.BranchCode);
                         break;
-                    case "DocumentNo":
-                        query = desc ? query.OrderByDescending(x => x.DocumentNo) : query.OrderBy(x => x.DocumentNo);
-                        break;
-                    case "DocumentDate":
-                        query = desc ? query.OrderByDescending(x => x.DocumentDate) : query.OrderBy(x => x.DocumentDate);
+                    case "ERPReferenceNumber":
+                        query = desc ? query.OrderByDescending(x => x.ERPReferenceNumber) : query.OrderBy(x => x.ERPReferenceNumber);
                         break;
                     case "CreatedDate":
                         query = desc ? query.OrderByDescending(x => x.CreatedDate) : query.OrderBy(x => x.CreatedDate);
@@ -111,7 +108,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.SrtHeaders.FindAsync(x => x.DocumentDate >= startDate && x.DocumentDate <= endDate && !x.IsDeleted);
+                var entities = await _unitOfWork.SrtHeaders.FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtHeaderDto>>(entities);
                 return ApiResponse<IEnumerable<SrtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -167,7 +164,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.SrtHeaders.FindAsync(x => x.DocumentNo == documentNo && !x.IsDeleted);
+                var entities = await _unitOfWork.SrtHeaders.FindAsync(x => x.ERPReferenceNumber == documentNo && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtHeaderDto>>(entities);
                 return ApiResponse<IEnumerable<SrtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

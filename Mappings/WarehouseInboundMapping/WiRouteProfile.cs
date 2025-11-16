@@ -21,8 +21,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.UpdatedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
-                .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.ImportLines, opt => opt.Ignore());
+                ;
 
             CreateMap<UpdateWiRouteDto, WiRoute>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -32,8 +31,7 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.UpdatedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
-                .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.ImportLines, opt => opt.Ignore());
+                ;
         }
     }
 }

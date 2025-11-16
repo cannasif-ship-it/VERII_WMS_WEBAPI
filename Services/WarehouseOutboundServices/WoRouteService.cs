@@ -53,7 +53,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.LineId == lineId);
+                var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.ImportLineId == lineId);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
                 return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -67,7 +67,8 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.StockCode == stockCode);
+                var query = _unitOfWork.WoRoutes.AsQueryable().Where(r => r.ImportLine.StockCode == stockCode);
+                var entities = await query.ToListAsync();
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
                 return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

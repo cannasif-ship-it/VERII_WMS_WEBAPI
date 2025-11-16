@@ -37,4 +37,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\WarehouseTransferControllers\**\*.cs" />
+    <Compile Remove="Services\WarehouseTransfer\**\*.cs" />
+    <Compile Remove="Mappings\WarehouserTransferMapping\**\*.cs" />
+    <Compile Remove="Data\Configuration\WarehouseTransferConfigurations\**\*.cs" />
+    <Compile Remove="Controllers\InventoryCountControllers\**\*.cs" />
+    <Compile Remove="Mappings\InventoryCountMapping\**\*.cs" />
+    <Compile Remove="Services\GoodReciptServices\GrImportSerialLineService.cs" />
+  </ItemGroup>
+
 </Project>

@@ -43,17 +43,7 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        /// <summary>
-        /// ERP Belge Numarasına göre GrHeader kaydını getirir
-        /// </summary>
-        /// <param name="erpDocumentNo">ERP Belge Numarası</param>
-        /// <returns>GrHeader detayı</returns>
-        [HttpGet("by-erp-document/{erpDocumentNo}")]
-        public async Task<ActionResult<ApiResponse<GrHeaderDto?>>> GetByERPDocumentNo(string erpDocumentNo)
-        {
-            var result = await _grHeaderService.GetByERPDocumentNoAsync(erpDocumentNo);
-            return StatusCode(result.StatusCode, result);
-        }
+
 
         /// <summary>
         /// Yeni GrHeader kaydı oluşturur

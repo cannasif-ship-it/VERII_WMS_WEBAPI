@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WMS_WEBAPI.DTOs
 {
-    public class ICHeaderDto : BaseHeaderEntityDto
+    public class IcHeaderDto : BaseHeaderEntityDto
     {
         public DateTime DocumentDate { get; set; }
         public string? CellCode { get; set; }
@@ -11,7 +11,7 @@ namespace WMS_WEBAPI.DTOs
         public byte Type { get; set; }
     }
 
-    public class CreateICHeaderDto : BaseHeaderCreateDto
+    public class CreateIcHeaderDto : BaseHeaderCreateDto
     {
         public DateTime DocumentDate { get; set; }
         
@@ -28,7 +28,7 @@ namespace WMS_WEBAPI.DTOs
         public byte Type { get; set; }
     }
 
-    public class UpdateICHeaderDto : BaseHeaderUpdateDto
+    public class UpdateIcHeaderDto : BaseHeaderUpdateDto
     {
         public DateTime? DocumentDate { get; set; }
         
@@ -42,6 +42,5 @@ namespace WMS_WEBAPI.DTOs
         public string? ProductCode { get; set; }
         
         public byte? Type { get; set; }
-        public byte? PriorityLevel { get; set; }
     }
 }

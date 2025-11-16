@@ -56,7 +56,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.SrtRoutes.FindAsync(x => x.LineId == lineId && !x.IsDeleted);
+                var entities = await _unitOfWork.SrtRoutes.FindAsync(x => x.ImportLineId == lineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtRouteDto>>(entities);
                 return ApiResponse<IEnumerable<SrtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -70,7 +70,8 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.SrtRoutes.FindAsync(x => x.StockCode == stockCode && !x.IsDeleted);
+                var query = _unitOfWork.SrtRoutes.AsQueryable().Where(r => r.ImportLine.StockCode == stockCode && !r.IsDeleted);
+                var entities = await query.ToListAsync();
                 var dtos = _mapper.Map<IEnumerable<SrtRouteDto>>(entities);
                 return ApiResponse<IEnumerable<SrtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

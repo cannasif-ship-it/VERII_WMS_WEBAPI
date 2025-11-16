@@ -11,7 +11,6 @@ namespace WMS_WEBAPI.Mappings
             // WtImportLine to WtImportLineDto
             CreateMap<WtImportLine, WtImportLineDto>()
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.ProductDescription, opt => opt.MapFrom(src => src.Description1))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
@@ -26,7 +25,6 @@ namespace WMS_WEBAPI.Mappings
             CreateMap<CreateWtImportLineDto, WtImportLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.Description1, opt => opt.MapFrom(src => src.ProductDescription))
                 
@@ -38,14 +36,12 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
-                .ForMember(dest => dest.Boxes, opt => opt.Ignore());
+                ;
 
             // UpdateWtImportLineDto to WtImportLine
             CreateMap<UpdateWtImportLineDto, WtImportLine>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.LineId, opt => opt.MapFrom(src => src.LineId))
-                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.RouteId))
                 .ForMember(dest => dest.StockCode, opt => opt.MapFrom(src => src.StockCode))
                 .ForMember(dest => dest.Description1, opt => opt.MapFrom(src => src.ProductDescription))
                 
@@ -57,8 +53,6 @@ namespace WMS_WEBAPI.Mappings
                 .ForMember(dest => dest.DeletedDate, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
                 .ForMember(dest => dest.Line, opt => opt.Ignore())
-                .ForMember(dest => dest.Route, opt => opt.Ignore())
-                .ForMember(dest => dest.Boxes, opt => opt.Ignore())
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
     }

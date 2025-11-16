@@ -7,7 +7,6 @@ namespace WMS_WEBAPI.Interfaces
         Task<ApiResponse<IEnumerable<IcTerminalLineDto>>> GetAllAsync();
         Task<ApiResponse<IcTerminalLineDto>> GetByIdAsync(long id);
         Task<ApiResponse<IEnumerable<IcTerminalLineDto>>> GetByHeaderIdAsync(long headerId);
-        Task<ApiResponse<IEnumerable<IcTerminalLineDto>>> GetActiveAsync();
         Task<ApiResponse<IcTerminalLineDto>> CreateAsync(CreateIcTerminalLineDto createDto);
         Task<ApiResponse<IcTerminalLineDto>> UpdateAsync(long id, UpdateIcTerminalLineDto updateDto);
         Task<ApiResponse<bool>> SoftDeleteAsync(long id);

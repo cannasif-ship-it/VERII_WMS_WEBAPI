@@ -45,8 +45,8 @@ namespace WMS_WEBAPI.Services
                     var ascending = string.Equals(sortDirection, "asc", StringComparison.OrdinalIgnoreCase);
                     query = sortBy switch
                     {
-                        nameof(WoHeader.DocumentNo) => ascending ? query.OrderBy(x => x.DocumentNo) : query.OrderByDescending(x => x.DocumentNo),
-                        nameof(WoHeader.DocumentDate) => ascending ? query.OrderBy(x => x.DocumentDate) : query.OrderByDescending(x => x.DocumentDate),
+                        nameof(WoHeader.ERPReferenceNumber) => ascending ? query.OrderBy(x => x.ERPReferenceNumber) : query.OrderByDescending(x => x.ERPReferenceNumber),
+                        nameof(WoHeader.CreatedDate) => ascending ? query.OrderBy(x => x.CreatedDate) : query.OrderByDescending(x => x.CreatedDate),
                         _ => query
                     };
                 }
@@ -96,7 +96,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.WoHeaders.FindAsync(x => x.DocumentDate >= startDate && x.DocumentDate <= endDate);
+                var entities = await _unitOfWork.WoHeaders.FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate);
                 var dtos = _mapper.Map<IEnumerable<WoHeaderDto>>(entities);
                 return ApiResponse<IEnumerable<WoHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }
@@ -152,7 +152,7 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.WoHeaders.FindAsync(x => x.DocumentNo == documentNo);
+                var entities = await _unitOfWork.WoHeaders.FindAsync(x => x.ERPReferenceNumber == documentNo);
                 var dtos = _mapper.Map<IEnumerable<WoHeaderDto>>(entities);
                 return ApiResponse<IEnumerable<WoHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
             }

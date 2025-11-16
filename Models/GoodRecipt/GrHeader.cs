@@ -12,7 +12,9 @@ namespace WMS_WEBAPI.Models
         [Required, StringLength(30)]
         public string CustomerCode { get; set; } = null!; // Müşteri kodu
 
-        // 🔸 Ek özellikler
+        [Required]
+        public bool ElectronicWaybill { get; set; } = false; // Elektronik yolcu reçetesi
+        
         public bool ReturnCode { get; set; } = false; // İade işlemi mi?
         public bool OCRSource { get; set; } = false; // OCR’dan mı geldi?
 
