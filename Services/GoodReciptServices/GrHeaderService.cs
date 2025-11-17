@@ -409,7 +409,73 @@ namespace WMS_WEBAPI.Services
                         }
                     }
 
-                    // 5) SerialLines ekle ve ImportLineClientKey/ImportLineGroupGuid'den ImportLineId set et
+                    // 5) Routes ekle ve ImportLineClientKey/ImportLineGroupGuid'den ImportLineId set et
+                    if (request.Routes != null && request.Routes.Count > 0)
+                    {
+                        var routes = new List<GrRoute>(request.Routes.Count);
+                        foreach (var rDto in request.Routes)
+                        {
+                            long importLineId = 0;
+                            if (rDto.ImportLineGroupGuid.HasValue)
+                            {
+                                var ig = rDto.ImportLineGroupGuid.Value;
+                                if (!importLineGuidToId.TryGetValue(ig, out importLineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": ImportLineGroupGuid bulunamadı: {ig}",
+                                        "ImportLineGroupGuidNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(rDto.ImportLineClientKey))
+                            {
+                                if (!importLineKeyToId.TryGetValue(rDto.ImportLineClientKey, out importLineId))
+                                {
+                                    return ApiResponse<int>.ErrorResult(
+                                        _localizationService.GetLocalizedString("InvalidCorrelationKey") + $": ImportLineClientKey bulunamadı: {rDto.ImportLineClientKey}",
+                                        "ImportLineClientKeyNotFound",
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<int>.ErrorResult(
+                                    _localizationService.GetLocalizedString("InvalidCorrelationKey") + ": Route için ImportLine referansı (ImportLineGroupGuid veya ImportLineClientKey) zorunlu",
+                                    "ImportLineReferenceMissing",
+                                    400
+                                );
+                            }
+
+                            var route = new GrRoute
+                            {
+                                ImportLineId = importLineId,
+                                LineId = null,
+                                ScannedBarcode = rDto.ScannedBarcode,
+                                Quantity = rDto.Quantity,
+                                StockCode = !string.IsNullOrWhiteSpace(rDto.StockCode) ? rDto.StockCode : (importLineIdToStockCode.TryGetValue(importLineId, out var sc) ? sc : null),
+                                RouteCode = rDto.RouteCode,
+                                Priority = rDto.Priority,
+                                Description = rDto.Description,
+                                SerialNo = rDto.SerialNo,
+                                SerialNo2 = rDto.SerialNo2,
+                                SerialNo3 = rDto.SerialNo3,
+                                SerialNo4 = rDto.SerialNo4,
+                                SourceWarehouse = rDto.SourceWarehouse,
+                                TargetWarehouse = rDto.TargetWarehouse,
+                                SourceCellCode = rDto.SourceCellCode,
+                                TargetCellCode = rDto.TargetCellCode,
+                                CreatedDate = DateTime.UtcNow
+                            };
+
+                            routes.Add(route);
+                        }
+                        await _unitOfWork.GrRoutes.AddRangeAsync(routes);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    // 6) SerialLines ekle ve ImportLineClientKey/ImportLineGroupGuid'den ImportLineId set et
                     if (request.SerialLines != null && request.SerialLines.Count > 0)
                     {
                         var serialLines = new List<GrLineSerial>(request.SerialLines.Count);

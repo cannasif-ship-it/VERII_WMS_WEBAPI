@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSharpInterfacesToTs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aad3edc33b90f9478da51f5bf3093d36eb02cdd4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+523c4c61aa595e398e678f349e262f6216770277")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSharpInterfacesToTs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSharpInterfacesToTs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
