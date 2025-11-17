@@ -45,6 +45,7 @@
     <Compile Remove="Controllers\InventoryCountControllers\**\*.cs" />
     <Compile Remove="Mappings\InventoryCountMapping\**\*.cs" />
     <Compile Remove="Services\GoodReciptServices\GrImportSerialLineService.cs" />
+    <Compile Remove="WebApi\Codegen\**\*.cs" />
   </ItemGroup>
 
 </Project>

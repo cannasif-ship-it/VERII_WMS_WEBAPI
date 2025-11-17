@@ -7,7 +7,7 @@ using WMS_WEBAPI.UnitOfWork;
 
 namespace WMS_WEBAPI.Services
 {
-    public class ICHeaderService : IICHeaderService
+    public class ICHeaderService : IIcHeaderService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
