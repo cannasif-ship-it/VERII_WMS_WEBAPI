@@ -26,7 +26,7 @@ namespace WMS_WEBAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse<IEnumerable<WtImportLineDto>>>> GetAll()
         {
-            var result = await _trImportLineService.GetAllAsync();
+            var result = await _wtImportLineService.GetAllAsync();
             return StatusCode(result.StatusCode, result);
         }
 

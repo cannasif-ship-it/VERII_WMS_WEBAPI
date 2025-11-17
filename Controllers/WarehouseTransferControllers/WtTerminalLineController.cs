@@ -78,7 +78,7 @@ namespace WMS_WEBAPI.Controllers
         [HttpGet("daterange")]
         public async Task<ActionResult<ApiResponse<IEnumerable<WtTerminalLineDto>>>> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            var result = await _trTerminalLineService.GetByDateRangeAsync(startDate, endDate);
+            var result = await _wtTerminalLineService.GetByDateRangeAsync(startDate, endDate);
             return StatusCode(result.StatusCode, result);
         }
         

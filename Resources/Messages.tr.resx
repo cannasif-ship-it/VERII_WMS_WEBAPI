@@ -118,6 +118,12 @@
   <data name="DepoRetrievedSuccessfully" xml:space="preserve">
     <value>Depo bilgileri başarıyla getirildi</value>
   </data>
+  <data name="WtHeaderCompletedAwaitingErpApprovalRetrievedSuccessfully" xml:space="preserve">
+    <value>Tamamlanmış ve ERP onayı bekleyen başlıklar başarıyla getirildi</value>
+  </data>
+  <data name="WtHeaderCompletedAwaitingErpApprovalRetrievalError" xml:space="preserve">
+    <value>Tamamlanmış ve ERP onayı bekleyen başlıklar getirilirken hata oluştu</value>
+  </data>
   <data name="DepoRetrievalError" xml:space="preserve">
     <value>Depo bilgileri getirilirken hata oluştu</value>
   </data>
@@ -722,6 +728,12 @@
   </data>
   <data name="WtHeaderNotFound" xml:space="preserve">
     <value>Depolar arası transfer başlık bulunamadı</value>
+  </data>
+  <data name="WtHeaderAssignedOrdersRetrievedSuccessfully" xml:space="preserve">
+    <value>Atanmış transfer siparişleri başarıyla getirildi</value>
+  </data>
+  <data name="WtHeaderAssignedOrdersRetrievalError" xml:space="preserve">
+    <value>Atanmış transfer siparişleri getirilirken hata oluştu</value>
   </data>
   <data name="WtHeaderBulkCreateCompletedSuccessfully" xml:space="preserve">
     <value>Toplu depolar arası transfer oluşturma başarıyla tamamlandı</value>

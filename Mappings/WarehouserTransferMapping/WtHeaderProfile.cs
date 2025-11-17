@@ -9,8 +9,7 @@ namespace WMS_WEBAPI.Mappings
         public WtHeaderProfile()
         {
             // WtHeader to WtHeaderDto
-            CreateMap<WtHeader, WtHeaderDto>()
-                .ApplyFullUserNames<WtHeader, WtHeaderDto>();
+            CreateMap<WtHeader, WtHeaderDto>();
 
             // CreateWtHeaderDto to WtHeader
             CreateMap<CreateWtHeaderDto, WtHeader>()

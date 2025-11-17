@@ -25,7 +25,7 @@ namespace WMS_WEBAPI.Controllers
         [HttpGet("headers/{customerCode}")]
         public async Task<ActionResult<ApiResponse<List<TransferOpenOrderHeaderDto>>>> GetTransferOpenOrderHeader(string customerCode)
         {
-            var result = await _trFunctionService.GetTransferOpenOrderHeaderAsync(customerCode);
+            var result = await _wtFunctionService.GetTransferOpenOrderHeaderAsync(customerCode);
             return StatusCode(result.StatusCode, result);
         }
 
@@ -37,7 +37,7 @@ namespace WMS_WEBAPI.Controllers
         [HttpGet("lines/{siparisNoCsv}")]
         public async Task<ActionResult<ApiResponse<List<TransferOpenOrderLineDto>>>> GetTransferOpenOrderLine(string siparisNoCsv)
         {
-            var result = await _trFunctionService.GetTransferOpenOrderLineAsync(siparisNoCsv);
+            var result = await _wtFunctionService.GetTransferOpenOrderLineAsync(siparisNoCsv);
             return StatusCode(result.StatusCode, result);
         }
     }

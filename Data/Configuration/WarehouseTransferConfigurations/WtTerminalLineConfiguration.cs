@@ -16,9 +16,7 @@ namespace WMS_WEBAPI.Data.Configuration
             builder.Property(x => x.TerminalUserId)
                 .IsRequired();
 
-            builder.Property(x => x.Quantity)
-                .HasColumnType("decimal(18,6)")
-                .IsRequired();
+            // Quantity alanı WtTerminalLine modelinde bulunmuyor
 
             // Indexes
             builder.HasIndex(x => x.HeaderId)

@@ -285,6 +285,34 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<IEnumerable<WtHeaderDto>>> GetAssignedTransferOrdersAsync(long userId)
+        {
+            try
+            {
+                var headersQuery = _unitOfWork.WtHeaders.AsQueryable();
+                var terminalsQuery = _unitOfWork.WtTerminalLines.AsQueryable();
+
+                var query = headersQuery
+                    .Join(
+                        terminalsQuery,
+                        h => h.Id,
+                        t => t.HeaderId,
+                        (h, t) => new { h, t }
+                    )
+                    .Where(x => !x.h.IsDeleted && !x.h.IsCompleted && !x.t.IsDeleted && x.t.TerminalUserId == userId)
+                    .Select(x => x.h)
+                    .Distinct();
+
+                var entities = await query.ToListAsync();
+                var dtos = _mapper.Map<IEnumerable<WtHeaderDto>>(entities);
+                return ApiResponse<IEnumerable<WtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtHeaderAssignedOrdersRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<WtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("WtHeaderAssignedOrdersRetrievalError"), ex.Message ?? string.Empty, 500);
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<WtHeaderDto>>> GetByDocumentTypeAsync(string documentType)
         {
             try
@@ -297,6 +325,21 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 return ApiResponse<IEnumerable<WtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("WtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
+            }
+        }
+
+        public async Task<ApiResponse<IEnumerable<WtHeaderDto>>> GetCompletedAwaitingErpApprovalAsync()
+        {
+            try
+            {
+                var entities = await _unitOfWork.WtHeaders
+                    .FindAsync(x => !x.IsDeleted && x.IsCompleted && x.IsPendingApproval && !x.IsERPIntegrated && x.ApprovalStatus == null);
+                var dtos = _mapper.Map<IEnumerable<WtHeaderDto>>(entities);
+                return ApiResponse<IEnumerable<WtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtHeaderCompletedAwaitingErpApprovalRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<WtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("WtHeaderCompletedAwaitingErpApprovalRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -322,14 +365,12 @@ namespace WMS_WEBAPI.Services
                         {
                             var line = new WtLine
                             {
-                                HeaderId = trHeader.Id,
+                                HeaderId = wtHeader.Id,
                                 StockCode = lineDto.StockCode,
-                                OrderId = lineDto.OrderId,
                                 Quantity = lineDto.Quantity,
                                 Unit = lineDto.Unit,
                                 ErpOrderNo = lineDto.ErpOrderNo,
                                 ErpOrderLineNo = lineDto.ErpOrderLineNo,
-                                ErpLineReference = lineDto.ErpLineReference,
                                 Description = lineDto.Description
                             };
                             lines.Add(line);
@@ -502,22 +543,11 @@ namespace WMS_WEBAPI.Services
                             {
                                 HeaderId = wtHeader.Id,
                                 LineId = lineId,
-                                LineId1 = lineId, // DB'deki ek FK sütunu ile uyum
-                                RouteId = routeId,
-                                StockCode = importDto.StockCode,
-                                Quantity = importDto.Quantity,
-                                SerialNo = importDto.SerialNo,
-                                SerialNo2 = importDto.SerialNo2,
-                                SerialNo3 = importDto.SerialNo3,
-                                SerialNo4 = importDto.SerialNo4,
-                                ScannedBarkod = importDto.ScannedBarkod,
-                                ErpOrderNumber = importDto.ErpOrderNumber,
-                                ErpOrderNo = importDto.ErpOrderNo,
-                                ErpOrderLineNumber = int.TryParse(importDto.ErpOrderLineNumber, out var ln) ? ln : null
+                                StockCode = importDto.StockCode
                             };
                             importLines.Add(importLine);
                         }
-                        await _unitOfWork.TrImportLines.AddRangeAsync(importLines);
+                        await _unitOfWork.WtImportLines.AddRangeAsync(importLines);
                         await _unitOfWork.SaveChangesAsync();
                     }
 

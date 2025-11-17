@@ -38,10 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\WarehouseTransferControllers\**\*.cs" />
-    <Compile Remove="Services\WarehouseTransfer\**\*.cs" />
-    <Compile Remove="Mappings\WarehouserTransferMapping\**\*.cs" />
-    <Compile Remove="Data\Configuration\WarehouseTransferConfigurations\**\*.cs" />
+    <!-- Enable WarehouseTransfer compilation -->
     <Compile Remove="Controllers\InventoryCountControllers\**\*.cs" />
     <Compile Remove="Mappings\InventoryCountMapping\**\*.cs" />
     <Compile Remove="Services\GoodReciptServices\GrImportSerialLineService.cs" />

@@ -61,7 +61,7 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var entities = await _unitOfWork.WtTerminalLines
-                    .FindAsync(x => x.TerminalId == terminalId && !x.IsDeleted);
+                    .FindAsync(x => x.TerminalUserId == terminalId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<WtTerminalLineDto>>(entities);
                 return ApiResponse<IEnumerable<WtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtTerminalLineRetrievedSuccessfully"));
             }

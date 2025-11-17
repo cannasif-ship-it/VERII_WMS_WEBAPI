@@ -95,7 +95,14 @@ builder.Services.AddScoped<IGrLineService, GrLineService>();
 builder.Services.AddScoped<IGrImportDocumentService, GrImportDocumentService>();
 builder.Services.AddScoped<IGrImportLService, GrImportLService>();
 
-// Register Transfer Services (temporarily disabled)
+// Register Warehouse Transfer Services (kept disabled to avoid build issues)
+builder.Services.AddScoped<IWtFunctionService,WtFunctionService>();
+builder.Services.AddScoped<IWtHeaderService,WtHeaderService>();
+builder.Services.AddScoped<IWtLineService, WtLineService>();
+builder.Services.AddScoped<IWtImportLineService, WtImportLineService>();
+builder.Services.AddScoped<IWtRouteService, WtRouteService>();
+builder.Services.AddScoped<IWtTerminalLineService, WtTerminalLineService>();
+
 
 // Register Product Transfer Services
 builder.Services.AddScoped<IPtHeaderService, PtHeaderService>();

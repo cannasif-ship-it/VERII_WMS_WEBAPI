@@ -725,6 +725,18 @@
   <data name="WtHeaderNotFound" xml:space="preserve">
     <value>Warehouse Transfer Header not found</value>
   </data>
+  <data name="WtHeaderAssignedOrdersRetrievedSuccessfully" xml:space="preserve">
+    <value>Assigned transfer orders retrieved successfully</value>
+  </data>
+  <data name="WtHeaderAssignedOrdersRetrievalError" xml:space="preserve">
+    <value>Error occurred while retrieving assigned transfer orders</value>
+  </data>
+  <data name="WtHeaderCompletedAwaitingErpApprovalRetrievedSuccessfully" xml:space="preserve">
+    <value>Completed headers awaiting ERP approval retrieved successfully</value>
+  </data>
+  <data name="WtHeaderCompletedAwaitingErpApprovalRetrievalError" xml:space="preserve">
+    <value>Error occurred while retrieving completed headers awaiting ERP approval</value>
+  </data>
   <data name="WtHeaderBulkCreateCompletedSuccessfully" xml:space="preserve">
     <value>Bulk Warehouse Transfer creation completed successfully</value>
   </data>

@@ -88,19 +88,7 @@ namespace WMS_WEBAPI.Services
 
 
 
-        public async Task<ApiResponse<IEnumerable<WtImportLineDto>>> GetByQuantityRangeAsync(decimal minQuantity, decimal maxQuantity)
-        {
-            try
-            {
-                var entities = await _unitOfWork.WtImportLines.FindAsync(x => x.Quantity >= minQuantity && x.Quantity <= maxQuantity && !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<WtImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<WtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtImportLineRetrievedSuccessfully"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<WtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
-            }
-        }
+        // Quantity alanı WtImportLine modelinde bulunmuyor, bu nedenle kapsam dışında bırakıldı
 
         public async Task<ApiResponse<WtImportLineDto>> CreateAsync(CreateWtImportLineDto createDto)
         {
@@ -187,8 +175,33 @@ namespace WMS_WEBAPI.Services
         {
             try
             {
-                var entities = await _unitOfWork.WtImportLines
-                    .FindAsync(x => x.RouteId == routeId && !x.IsDeleted);
+                var routes = await _unitOfWork.WtRoutes.FindAsync(r => r.Id == routeId && !r.IsDeleted);
+                var importLineIds = routes.Select(r => r.ImportLineId).ToList();
+
+                var entities = importLineIds.Count == 0
+                    ? new List<WtImportLine>()
+                    : await _unitOfWork.WtImportLines.FindAsync(x => importLineIds.Contains(x.Id) && !x.IsDeleted);
+
+                var dtos = _mapper.Map<IEnumerable<WtImportLineDto>>(entities);
+                return ApiResponse<IEnumerable<WtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtImportLineRetrievedSuccessfully"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<WtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
+            }
+        }
+
+        public async Task<ApiResponse<IEnumerable<WtImportLineDto>>> GetByErpOrderNoAsync(string erpOrderNo)
+        {
+            try
+            {
+                var lines = await _unitOfWork.WtLines.FindAsync(l => l.ErpOrderNo == erpOrderNo && !l.IsDeleted);
+                var lineIds = lines.Select(l => l.Id).ToList();
+
+                var entities = lineIds.Count == 0
+                    ? new List<WtImportLine>()
+                    : await _unitOfWork.WtImportLines.FindAsync(x => x.LineId.HasValue && lineIds.Contains(x.LineId.Value) && !x.IsDeleted);
+
                 var dtos = _mapper.Map<IEnumerable<WtImportLineDto>>(entities);
                 return ApiResponse<IEnumerable<WtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtImportLineRetrievedSuccessfully"));
             }
