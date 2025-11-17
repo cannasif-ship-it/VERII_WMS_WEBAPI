@@ -1,0 +1,15 @@
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\bin\Debug\net8.0\CSharpToTs.exe
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\bin\Debug\net8.0\CSharpToTs.deps.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\bin\Debug\net8.0\CSharpToTs.runtimeconfig.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\bin\Debug\net8.0\CSharpToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\bin\Debug\net8.0\CSharpToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.AssemblyInfoInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.AssemblyInfo.cs
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.csproj.CoreCompileInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.sourcelink.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\refint\CSharpToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\CSharpToTs.genruntimeconfig.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpToTs\obj\Debug\net8.0\ref\CSharpToTs.dll

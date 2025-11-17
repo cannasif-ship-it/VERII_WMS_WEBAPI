@@ -146,7 +146,8 @@ namespace WMS_WEBAPI.Data
             modelBuilder.Entity<FN_GoodsOpenOrders_Header>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Header");
             modelBuilder.Entity<FN_GoodsOpenOrders_Line>().HasNoKey().ToFunction("RII_FN_GoodsOpenOrders_Line");
             
-            // TRFunctions temporarily disabled
+            // WtFunctions temporarily disabled
+            
         }
     }
 }
