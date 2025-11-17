@@ -18,7 +18,7 @@ export interface CariDto {
   CariIl?: string;
   UlkeKodu?: string;
   CariIsim?: string;
-  CariTip?: char;
+  CariTip?: string;
   GrupKodu?: string;
   RaporKodu1?: string;
   RaporKodu2?: string;
@@ -52,8 +52,8 @@ export interface CariDto {
   MKod?: string;
   DovizTipi?: number;
   DovizTuru?: number;
-  HesapTutmaSekli?: char;
-  DovizLimi?: char;
+  HesapTutmaSekli?: string;
+  DovizLimi?: string;
 }
 
 export interface StokDto {

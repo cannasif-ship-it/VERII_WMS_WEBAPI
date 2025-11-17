@@ -10,6 +10,7 @@ class Program
         { "long", "number" },
         { "short", "number" },
         { "byte", "number" },
+        { "char", "string" },
         { "double", "number" },
         { "float", "number" },
         { "decimal", "number" },
