@@ -130,7 +130,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<List<OpenGoodsForOrderDetailDto>>.ErrorResult(_localizationService.GetLocalizedString("OrderDetailRetrievalError"), ex.Message, 500, "Error retrieving order detail data");
+                return ApiResponse<List<OpenGoodsForOrderDetailDto>>.ErrorResult(_localizationService.GetLocalizedString("OrderDetailRetrievalError"), ex.Message, 500);
             }
         }
     }

@@ -31,7 +31,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404, default);
+                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 var dto = _mapper.Map<MobilePageGroupDto>(entity);
@@ -52,7 +52,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -67,7 +67,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -82,7 +82,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -97,7 +97,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -117,7 +117,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -129,7 +129,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404, default);
+                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -144,7 +144,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -156,7 +156,7 @@ namespace WMS_WEBAPI.Services
                 if (!exists)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404);
                 }
 
                 await _unitOfWork.MobilePageGroups.SoftDelete(id);
@@ -167,7 +167,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, "Error occurred");
+                return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -187,7 +187,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
     }

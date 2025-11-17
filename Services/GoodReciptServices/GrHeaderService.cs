@@ -107,9 +107,9 @@ namespace WMS_WEBAPI.Services
                 {
                     return ApiResponse<GrHeaderDto?>.ErrorResult(
                         _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        "Record not found",
+                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
                         404,
-                        "GrHeader not found"
+                        _localizationService.GetLocalizedString("GrHeaderNotFound")
                     );
                 }
                 var grHeaderDto = _mapper.Map<GrHeaderDto>(grHeader);

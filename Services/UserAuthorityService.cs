@@ -30,7 +30,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<UserAuthorityDto>>.ErrorResult(_localizationService.GetLocalizedString("Error_GetAll"), ex.Message, 500, ex.Message);
+                return ApiResponse<IEnumerable<UserAuthorityDto>>.ErrorResult(_localizationService.GetLocalizedString("Error_GetAll"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,7 +41,7 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.UserAuthorities.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404, default);
+                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
 
                 var dto = _mapper.Map<UserAuthorityDto>(entity);
@@ -49,7 +49,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_GetById"), ex.Message, 500, ex.Message);
+                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_GetById"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -66,7 +66,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_Create"), ex.Message, 500, ex.Message);
+                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_Create"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -77,7 +77,7 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.UserAuthorities.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404, default);
+                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -89,7 +89,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_Update"), ex.Message, 500, ex.Message);
+                return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("Error_Update"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -100,7 +100,7 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.UserAuthorities.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404, default);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
 
                 await _unitOfWork.UserAuthorities.SoftDelete(id);
@@ -110,7 +110,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("Error_Delete"), ex.Message, 500, ex.Message);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("Error_Delete"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -123,7 +123,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("Error_Exists"), ex.Message, 500, ex.Message);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("Error_Exists"), ex.Message ?? string.Empty, 500);
             }
         }
     }

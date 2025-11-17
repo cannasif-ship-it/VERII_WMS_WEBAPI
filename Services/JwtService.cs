@@ -49,7 +49,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("TokenGenerationError"), ex.Message, 500, _localizationService.GetLocalizedString("TokenGenerationFailedMessage"));
+                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("TokenGenerationError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

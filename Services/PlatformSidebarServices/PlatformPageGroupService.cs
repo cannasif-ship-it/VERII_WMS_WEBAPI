@@ -31,7 +31,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WMS_WEBAPI.Services
                 if (group == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<PlatformPageGroupDto>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<PlatformPageGroupDto>.ErrorResult(notFoundMessage, "Record not found", 404);
                 }
 
                 var groupDto = _mapper.Map<PlatformPageGroupDto>(group);
@@ -52,7 +52,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -70,7 +70,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorCreatingData");
-                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500, "Error creating record");
+                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -82,7 +82,7 @@ namespace WMS_WEBAPI.Services
                 if (existingGroup == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<PlatformPageGroupDto>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<PlatformPageGroupDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 if (updateDto.GroupName != null)
@@ -106,7 +106,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorUpdatingData");
-                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500, "Error updating record");
+                return ApiResponse<PlatformPageGroupDto>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -118,7 +118,7 @@ namespace WMS_WEBAPI.Services
                 if (group == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<bool>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 await _unitOfWork.PlatformPageGroups.SoftDelete(id);
@@ -128,7 +128,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorDeletingData");
-                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, "Error deleting record");
+                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -142,9 +142,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorOccurred"),
-                    ex.Message,
-                    500);
+                    _localizationService.GetLocalizedString("ErrorOccurred"),ex.Message,500);
             }
         }
 
@@ -159,7 +157,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -174,7 +172,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -189,7 +187,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -208,7 +206,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500, "Bir hata oluştu");
+                return ApiResponse<IEnumerable<PlatformPageGroupDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
     }

@@ -45,7 +45,7 @@ namespace WMS_WEBAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return StatusCode(400, ApiResponse<GrImportDocumentDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400, default));
+                return StatusCode(400, ApiResponse<GrImportDocumentDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400));
             }
 
             var result = await _grImportDocumentService.CreateAsync(createDto);
@@ -57,7 +57,7 @@ namespace WMS_WEBAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return StatusCode(400, ApiResponse<GrImportDocumentDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400, default));
+                return StatusCode(400, ApiResponse<GrImportDocumentDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400));
             }
 
             var result = await _grImportDocumentService.UpdateAsync(id, updateDto);

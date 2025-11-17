@@ -38,44 +38,19 @@ namespace WMS_WEBAPI.DTOs
             };
         }
 
-        public static ApiResponse<T> ErrorResult(string message, List<string>? errors, int statusCode, string? exceptionMessage = null)
+        public static ApiResponse<T> ErrorResult(string message, string? exceptionMessage = null, int statusCode = 500, string? error = null)
         {
             return new ApiResponse<T>
             {
                 Success = false,
                 Message = message,
-                Errors = errors ?? new List<string>(),
                 ExceptionMessage = exceptionMessage ?? string.Empty,
+                Errors = error != null ? new List<string> { error } : new List<string>(),
                 StatusCode = statusCode,
                 ClassName = $"ApiResponse<{GetGenericTypeDisplayName(typeof(T))}>"
             };
         }
 
-        public static ApiResponse<T> ErrorResult(string message, string error, int statusCode, string? exceptionMessage = null)
-        {
-            return new ApiResponse<T>
-            {
-                Success = false,
-                Message = message,
-                ExceptionMessage = exceptionMessage ?? error,
-                StatusCode = statusCode,
-                ClassName = $"ApiResponse<{GetGenericTypeDisplayName(typeof(T))}>"
-            };
-        }
-
-        public static ApiResponse<T> ErrorResult(string message, int statusCode, T? data, string error, string? exceptionMessage = null)
-        {
-            return new ApiResponse<T>
-            {
-                Success = false,
-                Message = message,
-                Data = data,
-                ExceptionMessage = exceptionMessage ?? string.Empty,
-                StatusCode = statusCode,
-                Errors = new List<string> { error },
-                ClassName = $"ApiResponse<{GetGenericTypeDisplayName(typeof(T))}>"
-            };
-        }
     }
 
     public class PagedResponse<T>

@@ -89,7 +89,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -101,7 +101,7 @@ namespace WMS_WEBAPI.Services
                 if (header == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
                 }
 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(header);
@@ -110,7 +110,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -128,7 +128,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorCreatingData");
-                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message, 500, "Error creating record");
+                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -140,7 +140,7 @@ namespace WMS_WEBAPI.Services
                 if (existingHeader == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
                 }
 
                 if (updateDto.MenuKey != null)
@@ -182,7 +182,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorUpdatingData");
-                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message, 500, "Error updating record");
+                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -194,7 +194,7 @@ namespace WMS_WEBAPI.Services
                 if (header == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<bool>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(notFoundMessage, "Record not found", 404);
                 }
 
                 await _unitOfWork.SidebarmenuHeaders.SoftDelete(id);
@@ -220,7 +220,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, "Error deleting record");
+                return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -232,7 +232,7 @@ namespace WMS_WEBAPI.Services
                 if (header == null)
                 {
                     var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404, "Record not found");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
                 }
 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(header);
@@ -241,7 +241,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -256,7 +256,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message, 500);
             }
         }
 
@@ -269,7 +269,7 @@ namespace WMS_WEBAPI.Services
             {
                 return ApiResponse<List<SidebarmenuHeader>>.ErrorResult(
                     _localizationService.GetLocalizedString("UserNotFound"),
-                    "Record not found",
+                    _localizationService.GetLocalizedString("UserNotFound"),
                     404
                 );
             }
@@ -307,7 +307,7 @@ namespace WMS_WEBAPI.Services
         catch (Exception ex)
         {
             var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-            return ApiResponse<List<SidebarmenuHeader>>.ErrorResult(message, ex.Message, 500, message);
+            return ApiResponse<List<SidebarmenuHeader>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
         }
     }
 

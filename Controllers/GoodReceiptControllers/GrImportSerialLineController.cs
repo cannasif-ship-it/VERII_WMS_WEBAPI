@@ -64,7 +64,7 @@ namespace WMS_WEBAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return StatusCode(400, ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400, default));
+                return StatusCode(400, ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400));
             }
 
             var result = await _grImportSerialLineService.CreateAsync(createDto);
@@ -82,7 +82,7 @@ namespace WMS_WEBAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return StatusCode(400, ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400, default));
+                return StatusCode(400, ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidModelState"), ModelState?.ToString() ?? string.Empty, 400));
             }
 
             var result = await _grImportSerialLineService.UpdateAsync(id, updateDto);

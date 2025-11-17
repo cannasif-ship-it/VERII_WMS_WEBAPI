@@ -35,7 +35,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.ErrorResult("Bir hata oluştu",ex.Message,500);
+                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.ErrorResult("Bir hata oluştu", ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -54,7 +54,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<List<GoodsOpenOrdersLineDto>>.ErrorResult("Bir hata oluştu",ex.Message,500);
+                return ApiResponse<List<GoodsOpenOrdersLineDto>>.ErrorResult("Bir hata oluştu", ex.Message ?? string.Empty, 500);
             }
         }
     }

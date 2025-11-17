@@ -525,7 +525,7 @@ namespace WMS_WEBAPI.Services
             {
                 var inner = ex.InnerException?.Message ?? string.Empty;
                 var combined = string.IsNullOrWhiteSpace(inner) ? ex.Message : ($"{ex.Message} | Inner: {inner}");
-                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + combined, ex.Message, 500, inner);
+                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + combined, ex.Message ?? string.Empty, 500);
             }
         }
     }

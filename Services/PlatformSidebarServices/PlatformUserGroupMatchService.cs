@@ -82,7 +82,7 @@ namespace WMS_WEBAPI.Services
                 var existingMatch = await _unitOfWork.PlatformUserGroupMatches.GetByIdAsync(id);
                 if (existingMatch == null)
                 {
-                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), "Record not found", 404, "Record not found");
+                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
 
                 if (updateDto.UserId.HasValue)
@@ -99,7 +99,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorUpdatingRecord"), ex.Message, 500, "Error updating record");
+                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorUpdatingRecord"), ex.Message, 500);
             }
         }
 
@@ -110,7 +110,7 @@ namespace WMS_WEBAPI.Services
                 var match = await _unitOfWork.PlatformUserGroupMatches.GetByIdAsync(id);
                 if (match == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
                 }
 
                 await _unitOfWork.PlatformUserGroupMatches.SoftDelete(id);
@@ -120,7 +120,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorDeletingRecord"), ex.Message, 500, "Error deleting record");
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorDeletingRecord"), ex.Message, 500);
             }
         }
 
@@ -133,7 +133,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorCheckingExistence"), ex.Message, 500, "Error checking existence");
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorCheckingExistence"), ex.Message, 500);
             }
         }
 
@@ -147,7 +147,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500);
             }
         }
 
@@ -161,7 +161,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500, "Error retrieving data");
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500);
             }
         }
 

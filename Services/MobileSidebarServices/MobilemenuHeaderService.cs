@@ -31,7 +31,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 var dto = _mapper.Map<MobilemenuHeaderDto>(entity);
@@ -52,7 +52,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -66,7 +66,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 var dto = _mapper.Map<MobilemenuHeaderDto>(entity);
@@ -75,7 +75,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -90,7 +90,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -105,7 +105,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobilemenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -125,7 +125,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -137,7 +137,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -152,7 +152,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -164,7 +164,7 @@ namespace WMS_WEBAPI.Services
                 if (!exists)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404);
                 }
 
                 await _unitOfWork.MobilemenuHeaders.SoftDelete(id);
@@ -175,7 +175,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 

@@ -31,7 +31,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -43,7 +43,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404, default);
+                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 var dto = _mapper.Map<MobileUserGroupMatchDto>(entity);
@@ -52,7 +52,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -67,7 +67,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -82,7 +82,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -102,7 +102,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -114,7 +114,7 @@ namespace WMS_WEBAPI.Services
                 if (entity == null)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404, default);
+                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -129,7 +129,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message, 500, default);
+                return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -141,7 +141,7 @@ namespace WMS_WEBAPI.Services
                 if (!exists)
                 {
                     var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404, "Record not found");
+                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404);
                 }
 
                 await _unitOfWork.MobileUserGroupMatches.SoftDelete(id);
@@ -152,7 +152,7 @@ namespace WMS_WEBAPI.Services
             catch (Exception ex)
             {
                 var message = _localizationService.GetLocalizedString("ErrorOccurred");
-                return ApiResponse<bool>.ErrorResult(message, ex.Message, 500, "Error occurred");
+                return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
     }

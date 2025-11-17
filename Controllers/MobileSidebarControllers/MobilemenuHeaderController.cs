@@ -60,7 +60,7 @@ namespace WMS_WEBAPI.Controllers
             if (!ModelState.IsValid)
             {
                 var message = _localizationService.GetLocalizedString("InvalidModelState");
-                var errorResult = ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Model validation failed", 400, default);
+                var errorResult = ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Model validation failed", 400);
                 return StatusCode(errorResult.StatusCode, errorResult);
             }
 
@@ -74,7 +74,7 @@ namespace WMS_WEBAPI.Controllers
             if (!ModelState.IsValid)
             {
                 var message = _localizationService.GetLocalizedString("InvalidModelState");
-                var errorResult = ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Model validation failed", 400, default);
+                var errorResult = ApiResponse<MobilemenuHeaderDto>.ErrorResult(message, "Model validation failed", 400);
                 return StatusCode(errorResult.StatusCode, errorResult);
             }
 

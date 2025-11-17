@@ -29,14 +29,14 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404, default);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404);
                 }
 
                 return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, 500, ex.Message);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -48,14 +48,14 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404, default);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404);
                 }
 
                 return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, 500, ex.Message);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -67,7 +67,7 @@ namespace WMS_WEBAPI.Services
                 var existingUserResponse = await GetUserByUsernameAsync(registerDto.Username);
                 if (existingUserResponse.Success)
                 {
-                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserAlreadyExists"), "User already exists", 400, default);
+                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserAlreadyExists"), "User already exists", 400);
                 }
 
                 // Create new user
@@ -87,7 +87,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("RegistrationFailed"), ex.Message, 500, "Registration failed");
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("RegistrationFailed"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -101,25 +101,25 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401, default);
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401);
                 }
                 
                 if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
                 {
-                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401, default);
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401);
                 }
 
                 var tokenResponse = _jwtService.GenerateToken(user);
                 if (!tokenResponse.Success)
                 {
-                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), tokenResponse.Message, 500, "Token generation failed");
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), tokenResponse.Message ?? string.Empty, 500);
                 }
                 
                 return ApiResponse<string>.SuccessResult(tokenResponse.Data!, _localizationService.GetLocalizedString("Success.User.LoginSuccessful"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), ex.Message, 500, ex.Message);
+                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), ex.Message ?? string.Empty, 500);
             }
         }
     }
