@@ -1,0 +1,15 @@
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.AssemblyInfoInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.AssemblyInfo.cs
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.csproj.CoreCompileInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.sourcelink.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\bin\Debug\net8.0\ControllerToTs.exe
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\bin\Debug\net8.0\ControllerToTs.deps.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\bin\Debug\net8.0\ControllerToTs.runtimeconfig.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\bin\Debug\net8.0\ControllerToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\bin\Debug\net8.0\ControllerToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\refint\ControllerToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ControllerToTs.genruntimeconfig.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ControllerToTs\obj\Debug\net8.0\ref\ControllerToTs.dll

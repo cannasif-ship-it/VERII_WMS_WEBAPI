@@ -1,3 +1,3 @@
-import { AuthService } from "../Services/AuthService";
+import { AuthService } from '../Services/AuthService';
 
 export const AuthHelper = new AuthService();

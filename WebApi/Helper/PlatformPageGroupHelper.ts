@@ -1,3 +1,3 @@
-import { PlatformPageGroupService } from "../Services/PlatformPageGroupService";
+import { PlatformPageGroupService } from '../Services/PlatfomSidebarControllers/PlatformPageGroupService';
 
 export const PlatformPageGroupHelper = new PlatformPageGroupService();

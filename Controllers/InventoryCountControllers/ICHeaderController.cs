@@ -8,12 +8,12 @@ namespace WMS_WEBAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class ICHeaderController : ControllerBase
+    public class IcHeaderController : ControllerBase
     {
         private readonly IICHeaderService _service;
         private readonly ILocalizationService _localizationService;
 
-        public ICHeaderController(IICHeaderService service, ILocalizationService localizationService)
+        public IcHeaderController(IIcHeaderService service, ILocalizationService localizationService)
         {
             _service = service;
             _localizationService = localizationService;

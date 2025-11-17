@@ -1,0 +1,15 @@
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.AssemblyInfoInputs.cache
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.AssemblyInfo.cs
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.csproj.CoreCompileInputs.cache
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.sourcelink.json
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\bin\Debug\net8.0\ServicesToHelper.exe
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\bin\Debug\net8.0\ServicesToHelper.deps.json
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\bin\Debug\net8.0\ServicesToHelper.runtimeconfig.json
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\bin\Debug\net8.0\ServicesToHelper.dll
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\bin\Debug\net8.0\ServicesToHelper.pdb
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.dll
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\refint\ServicesToHelper.dll
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.pdb
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ServicesToHelper.genruntimeconfig.cache
+c:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\ServicesToHelper\obj\Debug\net8.0\ref\ServicesToHelper.dll

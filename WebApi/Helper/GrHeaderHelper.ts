@@ -1,3 +1,3 @@
-import { GrHeaderService } from "../Services/GrHeaderService";
+import { GrHeaderService } from '../Services/GoodReceiptControllers/GrHeaderService';
 
 export const GrHeaderHelper = new GrHeaderService();

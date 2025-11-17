@@ -1,6 +1,5 @@
-import { ApiResponse } from '../Models/ApiResponse';
-import { User } from '../Models/User';
-import { RegisterDto, LoginDto } from '../Models/AuthDtos';
+import { LoginDto, RegisterDto, User } from '../Models/index';
+import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface IAuthService {
   getUserByUsername(username: string): Promise<ApiResponse<User>>;

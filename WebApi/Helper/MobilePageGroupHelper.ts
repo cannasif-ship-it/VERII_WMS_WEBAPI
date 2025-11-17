@@ -1,3 +1,3 @@
-import { MobilePageGroupService } from "../Services/MobilePageGroupService";
+import { MobilePageGroupService } from '../Services/MobileSidebarControllers/MobilePageGroupService';
 
 export const MobilePageGroupHelper = new MobilePageGroupService();

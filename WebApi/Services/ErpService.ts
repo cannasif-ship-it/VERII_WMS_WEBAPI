@@ -1,56 +1,31 @@
+import { any, CariDto, DepoDto, OnHandQuantityDto, OpenGoodsForOrderByCustomerDto, OpenGoodsForOrderDetailDto, ProjeDto, StokDto } from '../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
-import { IErpService } from '../Interfaces/IErpService';
-import { ApiResponse } from '../Models/ApiResponse';
-import { 
-  OnHandQuantityDto, 
-  CariDto, 
-  StokDto, 
-  DepoDto, 
-  ProjeDto, 
-  OpenGoodsForOrderByCustomerDto, 
-  OpenGoodsForOrderDetailDto 
-} from '../Models/ErpTypes';
+import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import { IErpService } from '../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/Erp",
   timeout: DEFAULT_TIMEOUT,
-  headers: { 
-    'Content-Type': 'application/json', 
-    Accept: 'application/json',
-    'X-Language': CURRENTLANGUAGE 
-  },
+  headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-Language': CURRENTLANGUAGE },
 });
 
-// Request interceptor to add auth token
-api.interceptors.request.use((config : any) => {
-  const token = getAuthToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+api.interceptors.request.use((config : any) => { const token = getAuthToken(); if (token) { config.headers.Authorization = `Bearer ${token}`; } return config; });
 
 export class ErpService implements IErpService {
-  async getOnHandQuantityById(depoKodu?: number, stokKodu?: string, seriNo?: string, projeKodu?: string): Promise<ApiResponse<OnHandQuantityDto | null>> {
+  async getOnHandQuantityById(depoKodu: number, stokKodu: string, seriNo: string, projeKodu: string): Promise<ApiResponse<OnHandQuantityDto>> {
     try {
-      const params = new URLSearchParams();
-      if (depoKodu !== undefined) params.append('depoKodu', depoKodu.toString());
-      if (stokKodu) params.append('stokKodu', stokKodu);
-      if (seriNo) params.append('seriNo', seriNo);
-      if (projeKodu) params.append('projeKodu', projeKodu);
-
-      const response = await api.get<ApiResponse<OnHandQuantityDto | null>>(`/get-onhand-quantity-by-id/${depoKodu}/${stokKodu}/${seriNo}/${projeKodu}?${params.toString()}`);
+      const response = await api.get<ApiResponse<OnHandQuantityDto>>(`/get-onhand-quantity-by-id/${depoKodu}/${stokKodu}/${seriNo}/${projeKodu}`, { params: { depoKodu: depoKodu, stokKodu: stokKodu, seriNo: seriNo, projeKodu: projeKodu } });
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<OnHandQuantityDto | null>(error);
+      return ApiResponseErrorHelper.create<OnHandQuantityDto>(error);
     }
   }
 
   async getCaris(): Promise<ApiResponse<CariDto[]>> {
     try {
-      const response = await api.get<ApiResponse<CariDto[]>>('/getCari');
+      const response = await api.get<ApiResponse<CariDto[]>>(`/getCari`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<CariDto[]>(error);
@@ -59,7 +34,7 @@ export class ErpService implements IErpService {
 
   async getStoks(): Promise<ApiResponse<StokDto[]>> {
     try {
-      const response = await api.get<ApiResponse<StokDto[]>>('/getStoks');
+      const response = await api.get<ApiResponse<StokDto[]>>(`/getStoks`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<StokDto[]>(error);
@@ -68,7 +43,7 @@ export class ErpService implements IErpService {
 
   async getDepos(): Promise<ApiResponse<DepoDto[]>> {
     try {
-      const response = await api.get<ApiResponse<DepoDto[]>>('/getDepos');
+      const response = await api.get<ApiResponse<DepoDto[]>>(`/getDepos`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<DepoDto[]>(error);
@@ -77,23 +52,23 @@ export class ErpService implements IErpService {
 
   async getProjeler(): Promise<ApiResponse<ProjeDto[]>> {
     try {
-      const response = await api.get<ApiResponse<ProjeDto[]>>('/getProjeler');
+      const response = await api.get<ApiResponse<ProjeDto[]>>(`/getProjeler`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<ProjeDto[]>(error);
     }
   }
 
-  async getOpenGoodsForOrderByCustomerById(cariKodu: string): Promise<ApiResponse<OpenGoodsForOrderByCustomerDto | null>> {
+  async getOpenGoodsForOrderByCustomerById(cariKodu: string): Promise<ApiResponse<OpenGoodsForOrderByCustomerDto>> {
     try {
-      const response = await api.get<ApiResponse<OpenGoodsForOrderByCustomerDto | null>>(`/get-open-goods-for-order-by-customer-by-id/${cariKodu}`);
+      const response = await api.get<ApiResponse<OpenGoodsForOrderByCustomerDto>>(`/get-open-goods-for-order-by-customer-by-id/${cariKodu}`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<OpenGoodsForOrderByCustomerDto | null>(error);
+      return ApiResponseErrorHelper.create<OpenGoodsForOrderByCustomerDto>(error);
     }
   }
 
-  async getOpenGoodsForOrderDetailsByOrderNumber(orderNumber: string): Promise<ApiResponse<OpenGoodsForOrderDetailDto[]>> {
+  async getOpenGoodsForOrderDetailsByOrderNumbers(orderNumber: string): Promise<ApiResponse<OpenGoodsForOrderDetailDto[]>> {
     try {
       const response = await api.get<ApiResponse<OpenGoodsForOrderDetailDto[]>>(`/get-open-goods-for-order-details-by-order-number/${orderNumber}`);
       return response.data;
@@ -102,14 +77,13 @@ export class ErpService implements IErpService {
     }
   }
 
-  async healthCheck(): Promise<boolean> {
+  async healthCheck(): Promise<ApiResponse<any>> {
     try {
-      const response = await api.get<boolean>('/health-check');
+      const response = await api.get<ApiResponse<any>>(`/health-check`);
       return response.data;
     } catch (error) {
-      return ApiResponseErrorHelper.create<boolean>(error);
+      return ApiResponseErrorHelper.create<any>(error);
     }
   }
 
 }
-

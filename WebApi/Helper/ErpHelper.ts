@@ -1,3 +1,3 @@
-import { ErpService } from "../Services/ErpService";
+import { ErpService } from '../Services/ErpService';
 
 export const ErpHelper = new ErpService();

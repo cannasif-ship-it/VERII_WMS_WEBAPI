@@ -1,3 +1,3 @@
-import { GoodReciptFunctionsService } from "../Services/GoodReciptFunctionsService";
+import { GoodReciptFunctionsService } from '../Services/GoodReceiptControllers/GoodReciptFunctionsService';
 
 export const GoodReciptFunctionsHelper = new GoodReciptFunctionsService();

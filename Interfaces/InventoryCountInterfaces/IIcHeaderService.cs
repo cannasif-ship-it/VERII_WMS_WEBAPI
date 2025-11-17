@@ -2,7 +2,7 @@ using WMS_WEBAPI.DTOs;
 
 namespace WMS_WEBAPI.Interfaces
 {
-    public interface IICHeaderService
+    public interface IIcHeaderService
     {
         Task<ApiResponse<IEnumerable<IcHeaderDto>>> GetAllAsync();
         Task<ApiResponse<IcHeaderDto>> GetByIdAsync(long id);

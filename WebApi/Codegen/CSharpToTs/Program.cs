@@ -92,6 +92,15 @@ class Program
             }
 
             Console.WriteLine("TypeScript interfaces generated under WebApi/Models.");
+            try
+            {
+                GenerateIndex(outRoot);
+                Console.WriteLine("index.ts generated under WebApi/Models.");
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+            }
             return 0;
         }
         catch (Exception ex)
@@ -99,6 +108,24 @@ class Program
             Console.Error.WriteLine(ex);
             return 1;
         }
+    }
+
+    static void GenerateIndex(string modelsRoot)
+    {
+        var files = Directory.GetFiles(modelsRoot, "*.ts", SearchOption.AllDirectories)
+            .Where(f => !string.Equals(Path.GetFileName(f), "index.ts", StringComparison.OrdinalIgnoreCase))
+            .OrderBy(f => f)
+            .ToList();
+        var sb = new StringBuilder();
+        foreach (var file in files)
+        {
+            var rel = Path.GetRelativePath(modelsRoot, file).Replace("\\", "/");
+            if (rel.EndsWith(".ts")) rel = rel[..^3];
+            sb.Append("export * from './");
+            sb.Append(rel);
+            sb.AppendLine("';");
+        }
+        File.WriteAllText(Path.Combine(modelsRoot, "index.ts"), sb.ToString());
     }
 
     static string FindRepoRoot()

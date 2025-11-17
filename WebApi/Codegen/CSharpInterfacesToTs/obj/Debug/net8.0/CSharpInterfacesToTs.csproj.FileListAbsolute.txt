@@ -1,0 +1,15 @@
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.AssemblyInfoInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.AssemblyInfo.cs
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.csproj.CoreCompileInputs.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.sourcelink.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\bin\Debug\net8.0\CSharpInterfacesToTs.exe
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\bin\Debug\net8.0\CSharpInterfacesToTs.deps.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\bin\Debug\net8.0\CSharpInterfacesToTs.runtimeconfig.json
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\bin\Debug\net8.0\CSharpInterfacesToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\bin\Debug\net8.0\CSharpInterfacesToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\refint\CSharpInterfacesToTs.dll
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.pdb
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\CSharpInterfacesToTs.genruntimeconfig.cache
+C:\Users\veriiadmin\Documents\GitHub\VERII_WMS_WEBAPI\WebApi\Codegen\CSharpInterfacesToTs\obj\Debug\net8.0\ref\CSharpInterfacesToTs.dll

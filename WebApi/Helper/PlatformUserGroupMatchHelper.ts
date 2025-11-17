@@ -1,3 +1,3 @@
-import { PlatformUserGroupMatchService } from "../Services/PlatformUserGroupMatchService";
+import { PlatformUserGroupMatchService } from '../Services/PlatfomSidebarControllers/PlatformUserGroupMatchService';
 
 export const PlatformUserGroupMatchHelper = new PlatformUserGroupMatchService();

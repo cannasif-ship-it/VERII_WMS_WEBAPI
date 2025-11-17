@@ -1,38 +1,12 @@
-import { ApiResponse } from '../Models/ApiResponse';
-import { 
-  OnHandQuantityDto, 
-  CariDto, 
-  StokDto, 
-  DepoDto, 
-  ProjeDto, 
-  OpenGoodsForOrderByCustomerDto, 
-  OpenGoodsForOrderDetailDto 
-} from '../Models/ErpDtos';
+import { CariDto, DepoDto, OnHandQuantityDto, OpenGoodsForOrderByCustomerDto, OpenGoodsForOrderDetailDto, ProjeDto, StokDto } from '../Models/index';
+import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface IErpService {
-  // OnHandQuantity işlemleri
-  getOnHandQuantityById(
-    depoKodu?: number | null, 
-    stokKodu?: string | null, 
-    seriNo?: string | null, 
-    projeKodu?: string | null
-  ): Promise<ApiResponse<OnHandQuantityDto | null>>;
-
-  // Cari işlemleri
+  getOnHandQuantityById(depoKodu: number, stokKodu: string, seriNo: string, projeKodu: string): Promise<ApiResponse<OnHandQuantityDto>>;
   getCaris(): Promise<ApiResponse<CariDto[]>>;
-
-  // Stok işlemleri
   getStoks(): Promise<ApiResponse<StokDto[]>>;
-
-  // Depo işlemleri
   getDepos(): Promise<ApiResponse<DepoDto[]>>;
-
-  // Proje işlemleri
   getProjeler(): Promise<ApiResponse<ProjeDto[]>>;
-
-  // Müşteri siparişi işlemleri
-  getOpenGoodsForOrderByCustomerById(cariKodu: string): Promise<ApiResponse<OpenGoodsForOrderByCustomerDto | null>>;
-
-  // Sipariş detay işlemleri
+  getOpenGoodsForOrderByCustomerById(cariKodu: string): Promise<ApiResponse<OpenGoodsForOrderByCustomerDto>>;
   getOpenGoodsForOrderDetailsByOrderNumbers(orderNumber: string): Promise<ApiResponse<OpenGoodsForOrderDetailDto[]>>;
 }

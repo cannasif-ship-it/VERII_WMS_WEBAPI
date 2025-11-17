@@ -1,6 +1,4 @@
-import { ApiResponse } from '../Models/ApiResponse';
-import { User } from '../Models/User';
+import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface IJwtService {
-  generateToken(user: User): ApiResponse<string>;
 }
