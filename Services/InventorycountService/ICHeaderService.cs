@@ -7,13 +7,13 @@ using WMS_WEBAPI.UnitOfWork;
 
 namespace WMS_WEBAPI.Services
 {
-    public class ICHeaderService : IIcHeaderService
+    public class IcHeaderService : IIcHeaderService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILocalizationService _localizationService;
 
-        public ICHeaderService(IUnitOfWork unitOfWork, IMapper mapper, ILocalizationService localizationService)
+        public IcHeaderService(IUnitOfWork unitOfWork, IMapper mapper, ILocalizationService localizationService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

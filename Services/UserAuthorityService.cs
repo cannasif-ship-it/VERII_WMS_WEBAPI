@@ -103,7 +103,7 @@ namespace WMS_WEBAPI.Services
                     return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404, default);
                 }
 
-                _unitOfWork.UserAuthorities.SoftDelete(id);
+                await _unitOfWork.UserAuthorities.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
 
                 return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Deleted"));
