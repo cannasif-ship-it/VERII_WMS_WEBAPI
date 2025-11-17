@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var lines = await _unitOfWork.SidebarmenuLines.GetAllAsync();
                 var lineDtos = _mapper.Map<IEnumerable<SidebarmenuLineDto>>(lines);
-                return ApiResponse<IEnumerable<SidebarmenuLineDto>>.SuccessResult(lineDtos, _localizationService.GetLocalizedString("DataRetrievedSuccessfully"));
+                return ApiResponse<IEnumerable<SidebarmenuLineDto>>.SuccessResult(lineDtos, _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError");
                 return ApiResponse<IEnumerable<SidebarmenuLineDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -81,13 +81,13 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<PagedResponse<SidebarmenuLineDto>>.SuccessResult(
                     result,
-                    _localizationService.GetLocalizedString("Success"));
+                    _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<PagedResponse<SidebarmenuLineDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message,
-                    ex.Message,
+                    _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError"),
+                    ex.Message ?? string.Empty,
                     500);
             }
         }
@@ -99,16 +99,16 @@ namespace WMS_WEBAPI.Services
                 var line = await _unitOfWork.SidebarmenuLines.GetByIdAsync(id);
                 if (line == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuLineNotFound");
+                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 var lineDto = _mapper.Map<SidebarmenuLineDto>(line);
-                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("DataRetrievedSuccessfully"));
+                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError");
                 return ApiResponse<SidebarmenuLineDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -122,11 +122,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 
                 var lineDto = _mapper.Map<SidebarmenuLineDto>(createdLine);
-                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("DataCreatedSuccessfully"));
+                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("SidebarmenuLineCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorCreatingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineCreationError");
                 return ApiResponse<SidebarmenuLineDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -138,8 +138,8 @@ namespace WMS_WEBAPI.Services
                 var existingLine = await _unitOfWork.SidebarmenuLines.GetByIdAsync(id);
                 if (existingLine == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuLineNotFound");
+                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 if (updateDto.HeaderId.HasValue)
@@ -161,11 +161,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var lineDto = _mapper.Map<SidebarmenuLineDto>(existingLine);
-                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("DataUpdatedSuccessfully"));
+                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("SidebarmenuLineUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorUpdatingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineUpdateError");
                 return ApiResponse<SidebarmenuLineDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -177,18 +177,18 @@ namespace WMS_WEBAPI.Services
                 var line = await _unitOfWork.SidebarmenuLines.GetByIdAsync(id);
                 if (line == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<bool>.ErrorResult(notFoundMessage, _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuLineNotFound");
+                    return ApiResponse<bool>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 await _unitOfWork.SidebarmenuLines.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("DataDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SidebarmenuLineDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorOccurred"),
+                    _localizationService.GetLocalizedString("SidebarmenuLineDeletionError"),
                     ex.Message ?? string.Empty,
                     500);
             }
@@ -199,11 +199,11 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var exists = await _unitOfWork.SidebarmenuLines.ExistsAsync(id);
-                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("DataRetrievedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError");
                 return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -214,11 +214,11 @@ namespace WMS_WEBAPI.Services
             {
                 var lines = await _unitOfWork.SidebarmenuLines.FindAsync(l => l.HeaderId == headerId);
                 var lineDtos = _mapper.Map<IEnumerable<SidebarmenuLineDto>>(lines);
-                return ApiResponse<IEnumerable<SidebarmenuLineDto>>.SuccessResult(lineDtos, _localizationService.GetLocalizedString("DataRetrievedSuccessfully"));
+                return ApiResponse<IEnumerable<SidebarmenuLineDto>>.SuccessResult(lineDtos, _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError");
                 return ApiResponse<IEnumerable<SidebarmenuLineDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -230,16 +230,16 @@ namespace WMS_WEBAPI.Services
                 var line = await _unitOfWork.SidebarmenuLines.GetFirstOrDefaultAsync(l => l.Page == page);
                 if (line == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, _localizationService.GetLocalizedString("RecordNotFound"), 404, _localizationService.GetLocalizedString("RecordNotFound"));
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuLineNotFound");
+                    return ApiResponse<SidebarmenuLineDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 var lineDto = _mapper.Map<SidebarmenuLineDto>(line);
-                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("DataRetrievedSuccessfully"));
+                return ApiResponse<SidebarmenuLineDto>.SuccessResult(lineDto, _localizationService.GetLocalizedString("SidebarmenuLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuLineRetrievalError");
                 return ApiResponse<SidebarmenuLineDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }

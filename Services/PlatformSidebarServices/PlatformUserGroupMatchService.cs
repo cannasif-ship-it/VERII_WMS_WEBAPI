@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var matches = await _unitOfWork.PlatformUserGroupMatches.GetAllAsync();
                 var result = _mapper.Map<IEnumerable<PlatformUserGroupMatchDto>>(matches);
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyRetrieved"));
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500);
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,19 +41,19 @@ namespace WMS_WEBAPI.Services
                 var match = await _unitOfWork.PlatformUserGroupMatches.GetByIdAsync(id);
                 if (match == null)
                 {
-                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), "Record not found", 404, "Record not found");
+                    var nf = _localizationService.GetLocalizedString("PlatformUserGroupMatchNotFound");
+                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(nf, nf, 404);
                 }
                 
                 var result = _mapper.Map<PlatformUserGroupMatchDto>(match);
-                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyRetrieved"));
+                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(
-                    _localizationService.GetLocalizedString("PlatformUserGroupMatchNotFound"), 
-                    "Record not found", 
-                    404, 
-                    ex.Message
+                    _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievalError"),
+                    ex.Message ?? string.Empty,
+                    500
                 );
             }
         }
@@ -67,11 +67,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 
                 var result = _mapper.Map<PlatformUserGroupMatchDto>(createdMatch);
-                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyCreated"));
+                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorCreatingRecord"), ex.Message, 500, "Error creating record");
+                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchCreationError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -82,7 +82,8 @@ namespace WMS_WEBAPI.Services
                 var existingMatch = await _unitOfWork.PlatformUserGroupMatches.GetByIdAsync(id);
                 if (existingMatch == null)
                 {
-                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var nf = _localizationService.GetLocalizedString("PlatformUserGroupMatchNotFound");
+                    return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(nf, nf, 404);
                 }
 
                 if (updateDto.UserId.HasValue)
@@ -95,11 +96,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var result = _mapper.Map<PlatformUserGroupMatchDto>(existingMatch);
-                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyUpdated"));
+                return ApiResponse<PlatformUserGroupMatchDto>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorUpdatingRecord"), ex.Message, 500);
+                return ApiResponse<PlatformUserGroupMatchDto>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchUpdateError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -110,17 +111,18 @@ namespace WMS_WEBAPI.Services
                 var match = await _unitOfWork.PlatformUserGroupMatches.GetByIdAsync(id);
                 if (match == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var nf = _localizationService.GetLocalizedString("PlatformUserGroupMatchNotFound");
+                    return ApiResponse<bool>.ErrorResult(nf, nf, 404);
                 }
 
                 await _unitOfWork.PlatformUserGroupMatches.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
                 
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SuccessfullyDeleted"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("PlatformUserGroupMatchDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorDeletingRecord"), ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchDeletionError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -129,11 +131,11 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var exists = await _unitOfWork.PlatformUserGroupMatches.ExistsAsync(id);
-                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("SuccessfullyRetrieved"));
+                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorCheckingExistence"), ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchExistenceCheckError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -143,11 +145,11 @@ namespace WMS_WEBAPI.Services
             {
                 var matches = await _unitOfWork.PlatformUserGroupMatches.FindAsync(m => m.UserId == userId);
                 var result = _mapper.Map<IEnumerable<PlatformUserGroupMatchDto>>(matches);
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyRetrieved"));
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500);
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -157,11 +159,11 @@ namespace WMS_WEBAPI.Services
             {
                 var matches = await _unitOfWork.PlatformUserGroupMatches.FindAsync(m => m.GroupCode == groupCode);
                 var result = _mapper.Map<IEnumerable<PlatformUserGroupMatchDto>>(matches);
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("SuccessfullyRetrieved"));
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.SuccessResult(result, _localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorRetrievingData"), ex.Message, 500);
+                return ApiResponse<IEnumerable<PlatformUserGroupMatchDto>>.ErrorResult(_localizationService.GetLocalizedString("PlatformUserGroupMatchRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 

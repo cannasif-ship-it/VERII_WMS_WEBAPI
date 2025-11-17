@@ -105,12 +105,8 @@ namespace WMS_WEBAPI.Services
                 var grHeader = await _unitOfWork.GrHeaders.GetByIdAsync(id);
                 if (grHeader == null)
                 {
-                    return ApiResponse<GrHeaderDto?>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        404,
-                        _localizationService.GetLocalizedString("GrHeaderNotFound")
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrHeaderNotFound");
+                    return ApiResponse<GrHeaderDto?>.ErrorResult(nf, nf, 404);
                 }
                 var grHeaderDto = _mapper.Map<GrHeaderDto>(grHeader);
                 return ApiResponse<GrHeaderDto?>.SuccessResult(grHeaderDto,_localizationService.GetLocalizedString("GrHeaderRetrievedSuccessfully"));
@@ -152,12 +148,8 @@ namespace WMS_WEBAPI.Services
                 var grHeader = await _unitOfWork.GrHeaders.GetByIdAsync(id);
                 if (grHeader == null)
                 {
-                    return ApiResponse<GrHeaderDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        "Record not found",
-                        404,
-                        "GrHeader not found"
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrHeaderNotFound");
+                    return ApiResponse<GrHeaderDto>.ErrorResult(nf, nf, 404);
                 }
 
                 // Map updateDto to grHeader
@@ -186,7 +178,8 @@ namespace WMS_WEBAPI.Services
                 var grHeader = await _unitOfWork.GrHeaders.GetByIdAsync(id);
                 if (grHeader == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderNotFound"),"Record not found",404,"GrHeader not found");
+                    var nf = _localizationService.GetLocalizedString("GrHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(nf, nf, 404);
                 }
 
                 await _unitOfWork.GrHeaders.SoftDelete(grHeader.Id);
@@ -474,12 +467,12 @@ namespace WMS_WEBAPI.Services
                     }
 
                     scope.Complete();
-                    return ApiResponse<int>.SuccessResult(1, _localizationService.GetLocalizedString("Success"));
+                    return ApiResponse<int>.SuccessResult(1, _localizationService.GetLocalizedString("GrHeaderCreatedSuccessfully"));
                 }
             }
             catch (Exception ex)
             {
-                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<int>.ErrorResult(_localizationService.GetLocalizedString("GrHeaderCreationError"), ex.Message, 500);
             }
         }
 
@@ -490,11 +483,8 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.GrHeaders.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrHeaderNotFound"),
-                        "Record not found",
-                        404,
-                        "GrHeader not found");
+                    var nf = _localizationService.GetLocalizedString("GrHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(nf, nf, 404);
                 }
 
                 entity.IsCompleted = true;

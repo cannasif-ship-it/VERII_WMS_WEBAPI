@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SrtTerminalLines.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SrtTerminalLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,14 +41,14 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SrtTerminalLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineNotFound"), _localizationService.GetLocalizedString("SrtTerminalLineNotFound"), 404);
                 }
                 var dto = _mapper.Map<SrtTerminalLineDto>(entity);
-                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SrtTerminalLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -58,11 +58,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SrtTerminalLines.FindAsync(x => x.HeaderId == headerId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SrtTerminalLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -72,11 +72,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SrtTerminalLines.FindAsync(x => x.TerminalUserId == userId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SrtTerminalLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -86,11 +86,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SrtTerminalLines.FindAsync(x => x.CreatedDate >= startDate && x.CreatedDate <= endDate && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SrtTerminalLineDto>>(entities);
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SrtTerminalLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SrtTerminalLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -103,11 +103,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SrtTerminalLines.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SrtTerminalLineDto>(entity);
-                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SrtTerminalLineCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -118,17 +118,17 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SrtTerminalLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineNotFound"), _localizationService.GetLocalizedString("SrtTerminalLineNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 _unitOfWork.SrtTerminalLines.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SrtTerminalLineDto>(entity);
-                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<SrtTerminalLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SrtTerminalLineUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SrtTerminalLineDto>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -138,11 +138,11 @@ namespace WMS_WEBAPI.Services
             {
                 await _unitOfWork.SrtTerminalLines.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SrtTerminalLineDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SrtTerminalLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
     }

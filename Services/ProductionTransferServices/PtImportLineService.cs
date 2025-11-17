@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtImportLines.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtImportLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,14 +41,14 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtImportLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineNotFound"), _localizationService.GetLocalizedString("PtImportLineNotFound"), 404);
                 }
                 var dto = _mapper.Map<PtImportLineDto>(entity);
-                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtImportLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -58,11 +58,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtImportLines.FindAsync(x => x.HeaderId == headerId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtImportLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -72,11 +72,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtImportLines.FindAsync(x => x.LineId == lineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtImportLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -87,11 +87,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtImportLines.FindAsync(x => x.StockCode == stockCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtImportLineDto>>(entities);
-                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtImportLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtImportLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -107,11 +107,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.PtImportLines.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtImportLineDto>(entity);
-                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtImportLineCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -122,18 +122,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtImportLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineNotFound"), _localizationService.GetLocalizedString("PtImportLineNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.PtImportLines.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtImportLineDto>(entity);
-                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<PtImportLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtImportLineUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -144,15 +144,15 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.PtImportLines.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineNotFound"), _localizationService.GetLocalizedString("PtImportLineNotFound"), 404);
                 }
                 await _unitOfWork.PtImportLines.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("PtImportLineDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
     }

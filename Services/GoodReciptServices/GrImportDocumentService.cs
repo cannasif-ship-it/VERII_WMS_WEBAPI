@@ -63,12 +63,12 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<PagedResponse<GrImportDocumentDto>>.SuccessResult(
                     result,
-                    _localizationService.GetLocalizedString("Success"));
+                    _localizationService.GetLocalizedString("GrImportDocumentRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<PagedResponse<GrImportDocumentDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_GetAll"),
+                    _localizationService.GetLocalizedString("GrImportDocumentGetAllError"),
                     ex.Message,
                     500);
             }
@@ -83,13 +83,13 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<IEnumerable<GrImportDocumentDto>>.SuccessResult(
                     documentDtos,
-                    _localizationService.GetLocalizedString("Success")
+                    _localizationService.GetLocalizedString("GrImportDocumentRetrievedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<IEnumerable<GrImportDocumentDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_GetAll"),
+                    _localizationService.GetLocalizedString("GrImportDocumentGetAllError"),
                     ex.Message,
                     500
                 );
@@ -104,7 +104,7 @@ namespace WMS_WEBAPI.Services
                 if (document == null)
                 {
                     return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("Error_NotFound"),
+                        _localizationService.GetLocalizedString("GrImportDocumentNotFound"),
                         "Record not found",
                         404,
                         "GrImportDocument not found"
@@ -114,13 +114,13 @@ namespace WMS_WEBAPI.Services
                 var documentDto = _mapper.Map<GrImportDocumentDto>(document);
                 return ApiResponse<GrImportDocumentDto>.SuccessResult(
                     documentDto,
-                    _localizationService.GetLocalizedString("Success")
+                    _localizationService.GetLocalizedString("GrImportDocumentRetrievedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_GetById"),
+                    _localizationService.GetLocalizedString("GrImportDocumentGetByIdError"),
                     ex.Message,
                     500
                 );
@@ -136,13 +136,13 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<IEnumerable<GrImportDocumentDto>>.SuccessResult(
                     documentDtos,
-                    _localizationService.GetLocalizedString("Success")
+                    _localizationService.GetLocalizedString("GrImportDocumentRetrievedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<IEnumerable<GrImportDocumentDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_GetByHeaderId"),
+                    _localizationService.GetLocalizedString("GrImportDocumentGetByHeaderIdError"),
                     ex.Message,
                     500
                 );
@@ -158,7 +158,7 @@ namespace WMS_WEBAPI.Services
                 if (!headerExists)
                 {
                     return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("Error_InvalidHeaderId"),
+                        _localizationService.GetLocalizedString("GrImportDocumentInvalidHeaderId"),
                         "Invalid header ID",
                         404,
                         "Header not found"
@@ -172,13 +172,13 @@ namespace WMS_WEBAPI.Services
                 var documentDto = _mapper.Map<GrImportDocumentDto>(createdDocument);
                 return ApiResponse<GrImportDocumentDto>.SuccessResult(
                     documentDto,
-                    _localizationService.GetLocalizedString("Success_Created")
+                    _localizationService.GetLocalizedString("GrImportDocumentCreatedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_Create"),
+                    _localizationService.GetLocalizedString("GrImportDocumentCreateError"),
                     ex.Message,
                     500
                 );
@@ -193,7 +193,7 @@ namespace WMS_WEBAPI.Services
                 if (document == null)
                 {
                     return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("Error_NotFound"),
+                        _localizationService.GetLocalizedString("GrImportDocumentNotFound"),
                         "Record not found",
                         404,
                         "GrImportDocument not found"
@@ -205,7 +205,7 @@ namespace WMS_WEBAPI.Services
                 if (!headerExists)
                 {
                     return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("Error_InvalidHeaderId"),
+                        _localizationService.GetLocalizedString("GrImportDocumentInvalidHeaderId"),
                         "Invalid header ID",
                         404,
                         "Header not found"
@@ -219,13 +219,13 @@ namespace WMS_WEBAPI.Services
                 var documentDto = _mapper.Map<GrImportDocumentDto>(document);
                 return ApiResponse<GrImportDocumentDto>.SuccessResult(
                     documentDto,
-                    _localizationService.GetLocalizedString("Success_Updated")
+                    _localizationService.GetLocalizedString("GrImportDocumentUpdatedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<GrImportDocumentDto>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_Update"),
+                    _localizationService.GetLocalizedString("GrImportDocumentUpdateError"),
                     ex.Message,
                     500
                 );
@@ -240,7 +240,7 @@ namespace WMS_WEBAPI.Services
                 if (document == null)
                 {
                     return ApiResponse<bool>.ErrorResult(
-                        _localizationService.GetLocalizedString("Error_NotFound"),
+                        _localizationService.GetLocalizedString("GrImportDocumentNotFound"),
                         "Record not found",
                         404,
                         "GrImportDocument not found"
@@ -252,13 +252,13 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<bool>.SuccessResult(
                     true,
-                    _localizationService.GetLocalizedString("Success_Deleted")
+                    _localizationService.GetLocalizedString("GrImportDocumentDeletedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_Delete"),
+                    _localizationService.GetLocalizedString("GrImportDocumentDeleteError"),
                     ex.Message,
                     500
                 );
@@ -272,13 +272,13 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.GrImportDocuments.ExistsAsync((int)id);
                 return ApiResponse<bool>.SuccessResult(
                     exists,
-                    _localizationService.GetLocalizedString("Success")
+                    _localizationService.GetLocalizedString("GrImportDocumentExistsCheckCompleted")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
-                    _localizationService.GetLocalizedString("Error_Exists"),
+                    _localizationService.GetLocalizedString("GrImportDocumentExistsCheckError"),
                     ex.Message,
                     500
                 );

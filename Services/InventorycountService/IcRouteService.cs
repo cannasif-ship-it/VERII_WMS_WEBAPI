@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.IcRoutes.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<IcRouteDto>>(entities);
-                return ApiResponse<IEnumerable<IcRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<IcRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("IcRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<IcRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<IcRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,14 +41,14 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.IcRoutes.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("IcRouteNotFound"), _localizationService.GetLocalizedString("IcRouteNotFound"), 404);
                 }
                 var dto = _mapper.Map<IcRouteDto>(entity);
-                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -58,11 +58,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.IcRoutes.FindAsync(x => x.ImportLineId == importLineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<IcRouteDto>>(entities);
-                return ApiResponse<IEnumerable<IcRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<IcRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("IcRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<IcRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<IcRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -77,11 +77,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.IcRoutes.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<IcRouteDto>(entity);
-                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcRouteCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -92,18 +92,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.IcRoutes.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("IcRouteNotFound"), _localizationService.GetLocalizedString("IcRouteNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.IcRoutes.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<IcRouteDto>(entity);
-                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<IcRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcRouteUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcRouteDto>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -114,15 +114,15 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.IcRoutes.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("IcRouteNotFound"), _localizationService.GetLocalizedString("IcRouteNotFound"), 404);
                 }
                 await _unitOfWork.IcRoutes.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("IcRouteDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("IcRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
     }

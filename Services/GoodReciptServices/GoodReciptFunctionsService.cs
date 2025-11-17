@@ -31,11 +31,11 @@ namespace WMS_WEBAPI.Services
 
                 var headerDtos = _mapper.Map<List<GoodsOpenOrdersHeaderDto>>(headers);
 
-                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.SuccessResult(headerDtos,"Açık siparişler başarıyla getirildi");
+                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.SuccessResult(headerDtos, _localizationService.GetLocalizedString("GoodReciptFunctionsHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.ErrorResult("Bir hata oluştu", ex.Message ?? string.Empty, 500);
+                return ApiResponse<List<GoodsOpenOrdersHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("GoodReciptFunctionsHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -50,11 +50,11 @@ namespace WMS_WEBAPI.Services
 
                 var lineDtos = _mapper.Map<List<GoodsOpenOrdersLineDto>>(lines);
 
-                return ApiResponse<List<GoodsOpenOrdersLineDto>>.SuccessResult(lineDtos,"Sipariş detayları başarıyla getirildi");
+                return ApiResponse<List<GoodsOpenOrdersLineDto>>.SuccessResult(lineDtos, _localizationService.GetLocalizedString("GoodReciptFunctionsLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<List<GoodsOpenOrdersLineDto>>.ErrorResult("Bir hata oluştu", ex.Message ?? string.Empty, 500);
+                return ApiResponse<List<GoodsOpenOrdersLineDto>>.ErrorResult(_localizationService.GetLocalizedString("GoodReciptFunctionsLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

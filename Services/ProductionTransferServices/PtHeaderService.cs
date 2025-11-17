@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtHeaders.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred"), ex.Message, 500);
+                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -64,11 +64,11 @@ namespace WMS_WEBAPI.Services
                 var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
                 var dtos = _mapper.Map<List<PtHeaderDto>>(items);
                 var result = new PagedResponse<PtHeaderDto>(dtos, totalCount, pageNumber, pageSize);
-                return ApiResponse<PagedResponse<PtHeaderDto>>.SuccessResult(result, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PagedResponse<PtHeaderDto>>.SuccessResult(result, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PagedResponse<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PagedResponse<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -79,14 +79,15 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtHeaderNotFound");
+                    return ApiResponse<PtHeaderDto>.ErrorResult(notFound, notFound, 404);
                 }
                 var dto = _mapper.Map<PtHeaderDto>(entity);
-                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -96,11 +97,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.BranchCode == branchCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -110,11 +111,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -125,11 +126,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.CustomerCode == customerCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -139,11 +140,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtHeaders.FindAsync(x => x.DocumentType == documentType && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -158,11 +159,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.PtHeaders.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtHeaderDto>(entity);
-                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtHeaderCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderCreationError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -173,18 +174,19 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtHeaderNotFound");
+                    return ApiResponse<PtHeaderDto>.ErrorResult(notFound, notFound, 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.PtHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtHeaderDto>(entity);
-                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<PtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtHeaderUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderUpdateError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -195,15 +197,16 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.PtHeaders.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(notFound, notFound, 404);
                 }
                 await _unitOfWork.PtHeaders.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("PtHeaderDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderDeletionError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -214,17 +217,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(notFound, notFound, 404);
                 }
                 entity.IsCompleted = true;
                 entity.CompletionDate = DateTime.UtcNow;
                 _unitOfWork.PtHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("PtHeaderCompletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PtHeaderCompletionError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

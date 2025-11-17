@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.ICHeaders.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<IcHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<IcHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<IcHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("IcHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<IcHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<IcHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,14 +41,14 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.ICHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderNotFound"), _localizationService.GetLocalizedString("IcHeaderNotFound"), 404);
                 }
                 var dto = _mapper.Map<IcHeaderDto>(entity);
-                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderErrorOccurred"), ex.Message, 500);
             }
         }
 
@@ -62,11 +62,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.ICHeaders.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<IcHeaderDto>(entity);
-                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcHeaderCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderErrorOccurred"), ex.Message, 500);
             }
         }
 
@@ -77,18 +77,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.ICHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderNotFound"), _localizationService.GetLocalizedString("IcHeaderNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.ICHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<IcHeaderDto>(entity);
-                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<IcHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("IcHeaderUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IcHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderErrorOccurred"), ex.Message, 500);
             }
         }
 
@@ -99,15 +99,15 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.ICHeaders.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderNotFound"), _localizationService.GetLocalizedString("IcHeaderNotFound"), 404);
                 }
                 await _unitOfWork.ICHeaders.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("IcHeaderDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("IcHeaderErrorOccurred"), ex.Message, 500);
             }
         }
     }

@@ -98,7 +98,8 @@ namespace WMS_WEBAPI.Services
                 var serialLine = await _unitOfWork.GrImportSerialLines.GetByIdAsync(id);
                 if (serialLine == null)
                 {
-                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(_localizationService.GetLocalizedString("GrImportSerialLineNotFound"),"Record not found",404,"GrImportSerialLine not found");
+                    var nf = _localizationService.GetLocalizedString("GrImportSerialLineNotFound");
+                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(nf, nf, 404);
                 }
 
                 var serialLineDto = _mapper.Map<GrImportSerialLineDto>(serialLine);
@@ -147,12 +148,8 @@ namespace WMS_WEBAPI.Services
                 var importLineExists = await _unitOfWork.GrImportLines.ExistsAsync(createDto.ImportLineId);
                 if (!importLineExists)
                 {
-                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportLNotFound"),
-                        "Import line not found",
-                        400,
-                        "GrImportL not found"
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrImportLNotFound");
+                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(nf, nf, 400);
                 }
 
                 var serialLine = _mapper.Map<GrImportSerialLine>(createDto);
@@ -183,24 +180,16 @@ namespace WMS_WEBAPI.Services
                 var serialLine = await _unitOfWork.GrImportSerialLines.GetByIdAsync(id);
                 if (serialLine == null)
                 {
-                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportSerialLineNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportSerialLine not found"
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrImportSerialLineNotFound");
+                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(nf, nf, 404);
                 }
 
                 // ImportLine'ın var olup olmadığını kontrol et
                 var importLineExists = await _unitOfWork.GrImportLines.ExistsAsync(updateDto.ImportLineId);
                 if (!importLineExists)
                 {
-                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportLNotFound"),
-                        "Import line not found",
-                        400,
-                        "GrImportL not found"
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrImportLNotFound");
+                    return ApiResponse<GrImportSerialLineDto>.ErrorResult(nf, nf, 400);
                 }
 
                 _mapper.Map(updateDto, serialLine);
@@ -231,12 +220,8 @@ namespace WMS_WEBAPI.Services
                 var serialLine = await _unitOfWork.GrImportSerialLines.GetByIdAsync(id);
                 if (serialLine == null)
                 {
-                    return ApiResponse<bool>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportSerialLineNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportSerialLine not found"
-                    );
+                    var nf = _localizationService.GetLocalizedString("GrImportSerialLineNotFound");
+                    return ApiResponse<bool>.ErrorResult(nf, nf, 404);
                 }
 
                 await _unitOfWork.GrImportSerialLines.SoftDelete(id);
@@ -251,9 +236,8 @@ namespace WMS_WEBAPI.Services
             {
                 return ApiResponse<bool>.ErrorResult(
                     _localizationService.GetLocalizedString("GrImportSerialLineDeleteError"),
-                    "Error deleting data",
-                    500,
-                    ex.Message
+                    ex.Message ?? string.Empty,
+                    500
                 );
             }
         }

@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -41,14 +41,15 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtRoutes.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtRouteNotFound");
+                    return ApiResponse<PtRouteDto>.ErrorResult(notFound, notFound, 404);
                 }
                 var dto = _mapper.Map<PtRouteDto>(entity);
-                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -58,11 +59,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.ImportLineId == importLineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -72,11 +73,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.SerialNo == serialNo && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -86,11 +87,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.SourceWarehouse == sourceWarehouse && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -100,11 +101,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.TargetWarehouse == targetWarehouse && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -115,11 +116,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.PtRoutes.FindAsync(x => x.Quantity >= minQuantity && x.Quantity <= maxQuantity && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<PtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<PtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("PtRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<PtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("PtRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -133,11 +134,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.PtRoutes.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtRouteDto>(entity);
-                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtRouteCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("PtRouteCreationError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -148,18 +149,19 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.PtRoutes.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtRouteNotFound");
+                    return ApiResponse<PtRouteDto>.ErrorResult(notFound, notFound, 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.PtRoutes.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<PtRouteDto>(entity);
-                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<PtRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("PtRouteUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PtRouteDto>.ErrorResult(_localizationService.GetLocalizedString("PtRouteUpdateError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -170,15 +172,16 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.PtRoutes.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var notFound = _localizationService.GetLocalizedString("PtRouteNotFound");
+                    return ApiResponse<bool>.ErrorResult(notFound, notFound, 404);
                 }
                 await _unitOfWork.PtRoutes.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("PtRouteDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("PtRouteDeletionError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

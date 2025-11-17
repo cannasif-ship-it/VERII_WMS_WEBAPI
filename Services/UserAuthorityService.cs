@@ -26,7 +26,7 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.UserAuthorities.GetAllAsync();
                 var dtos = _mapper.Map<IEnumerable<UserAuthorityDto>>(entities);
-                return ApiResponse<IEnumerable<UserAuthorityDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<UserAuthorityDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("UserAuthorityRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -41,11 +41,11 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.UserAuthorities.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("UserAuthorityNotFound"), _localizationService.GetLocalizedString("UserAuthorityNotFound"), 404);
                 }
 
                 var dto = _mapper.Map<UserAuthorityDto>(entity);
-                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("UserAuthorityRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<UserAuthorityDto>(entity);
-                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Created"));
+                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("UserAuthorityCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.UserAuthorities.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<UserAuthorityDto>.ErrorResult(_localizationService.GetLocalizedString("UserAuthorityNotFound"), _localizationService.GetLocalizedString("UserAuthorityNotFound"), 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -85,7 +85,7 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<UserAuthorityDto>(entity);
-                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Updated"));
+                return ApiResponse<UserAuthorityDto>.SuccessResult(dto, _localizationService.GetLocalizedString("UserAuthorityUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -100,13 +100,13 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.UserAuthorities.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("UserAuthorityNotFound"), _localizationService.GetLocalizedString("UserAuthorityNotFound"), 404);
                 }
 
                 await _unitOfWork.UserAuthorities.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Deleted"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("UserAuthorityDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var exists = await _unitOfWork.UserAuthorities.ExistsAsync(id);
-                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("UserAuthorityRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {

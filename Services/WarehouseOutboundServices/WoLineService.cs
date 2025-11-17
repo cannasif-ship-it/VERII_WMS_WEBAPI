@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoLines.GetAllAsync();
                 var dtos = _mapper.Map<IEnumerable<WoLineDto>>(entities);
-                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -55,11 +55,11 @@ namespace WMS_WEBAPI.Services
                 var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
                 var dtos = _mapper.Map<List<WoLineDto>>(items);
                 var result = new PagedResponse<WoLineDto>(dtos, totalCount, pageNumber, pageSize);
-                return ApiResponse<PagedResponse<WoLineDto>>.SuccessResult(result, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PagedResponse<WoLineDto>>.SuccessResult(result, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PagedResponse<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PagedResponse<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -68,13 +68,13 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var entity = await _unitOfWork.WoLines.GetByIdAsync(id);
-                if (entity == null) return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("NotFound"), 404);
+                if (entity == null) return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("WoLineNotFound"), _localizationService.GetLocalizedString("WoLineNotFound"), 404);
                 var dto = _mapper.Map<WoLineDto>(entity);
-                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -84,11 +84,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoLines.FindAsync(x => x.HeaderId == headerId);
                 var dtos = _mapper.Map<IEnumerable<WoLineDto>>(entities);
-                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -98,11 +98,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoLines.FindAsync(x => x.StockCode == stockCode);
                 var dtos = _mapper.Map<IEnumerable<WoLineDto>>(entities);
-                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -112,11 +112,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoLines.FindAsync(x => x.ErpOrderNo == erpOrderNo);
                 var dtos = _mapper.Map<IEnumerable<WoLineDto>>(entities);
-                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -127,11 +127,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoLines.FindAsync(x => x.Quantity >= minQuantity && x.Quantity <= maxQuantity);
                 var dtos = _mapper.Map<IEnumerable<WoLineDto>>(entities);
-                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WoLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -143,11 +143,11 @@ namespace WMS_WEBAPI.Services
                 var created = await _unitOfWork.WoLines.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<WoLineDto>(created);
-                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Created"));
+                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoLineCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("WoLineCreationError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -156,16 +156,16 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var existing = await _unitOfWork.WoLines.GetByIdAsync(id);
-                if (existing == null) return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("NotFound"), 404);
+                if (existing == null) return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("WoLineNotFound"), _localizationService.GetLocalizedString("WoLineNotFound"), 404);
                 var entity = _mapper.Map(updateDto, existing);
                 _unitOfWork.WoLines.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<WoLineDto>(entity);
-                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Updated"));
+                return ApiResponse<WoLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoLineUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoLineDto>.ErrorResult(_localizationService.GetLocalizedString("WoLineUpdateError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -175,11 +175,11 @@ namespace WMS_WEBAPI.Services
             {
                 await _unitOfWork.WoLines.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Deleted"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("WoLineDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("WoLineDeletionError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

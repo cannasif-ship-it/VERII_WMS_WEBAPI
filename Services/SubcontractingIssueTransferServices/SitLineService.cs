@@ -53,11 +53,11 @@ namespace WMS_WEBAPI.Services
                 var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
                 var dtos = _mapper.Map<List<SitLineDto>>(items);
                 var result = new PagedResponse<SitLineDto>(dtos, totalCount, pageNumber, pageSize);
-                return ApiResponse<PagedResponse<SitLineDto>>.SuccessResult(result, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PagedResponse<SitLineDto>>.SuccessResult(result, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PagedResponse<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PagedResponse<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -67,11 +67,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitLines.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -82,14 +82,14 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SitLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("SitLineNotFound"), _localizationService.GetLocalizedString("SitLineNotFound"), 404);
                 }
                 var dto = _mapper.Map<SitLineDto>(entity);
-                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -99,11 +99,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitLines.FindAsync(x => x.HeaderId == headerId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -113,11 +113,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitLines.FindAsync(x => x.StockCode == stockCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -127,11 +127,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitLines.FindAsync(x => x.ErpOrderNo == erpOrderNo && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -142,11 +142,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitLines.FindAsync(x => x.Quantity >= minQuantity && x.Quantity <= maxQuantity && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitLineDto>>(entities);
-                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitLineDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitLineRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitLineDto>>.ErrorResult(_localizationService.GetLocalizedString("SitLineRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -160,11 +160,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SitLines.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SitLineDto>(entity);
-                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitLineCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -175,18 +175,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SitLines.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("SitLineNotFound"), _localizationService.GetLocalizedString("SitLineNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.SitLines.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SitLineDto>(entity);
-                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<SitLineDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitLineUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitLineDto>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -197,15 +197,15 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.SitLines.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SitLineNotFound"), _localizationService.GetLocalizedString("SitLineNotFound"), 404);
                 }
                 await _unitOfWork.SitLines.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SitLineDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SitLineErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
     }

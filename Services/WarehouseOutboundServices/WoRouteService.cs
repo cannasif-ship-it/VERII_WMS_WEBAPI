@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.GetAllAsync();
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -39,13 +39,13 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var entity = await _unitOfWork.WoRoutes.GetByIdAsync(id);
-                if (entity == null) return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("NotFound"), 404);
+                if (entity == null) { var nf = _localizationService.GetLocalizedString("WoRouteNotFound"); return ApiResponse<WoRouteDto>.ErrorResult(nf, nf, 404); }
                 var dto = _mapper.Map<WoRouteDto>(entity);
-                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -55,11 +55,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.ImportLineId == lineId);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -70,11 +70,11 @@ namespace WMS_WEBAPI.Services
                 var query = _unitOfWork.WoRoutes.AsQueryable().Where(r => r.ImportLine.StockCode == stockCode);
                 var entities = await query.ToListAsync();
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -84,11 +84,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.SerialNo == serialNo || x.SerialNo2 == serialNo);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -98,11 +98,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.SourceWarehouse == sourceWarehouse);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -112,11 +112,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.TargetWarehouse == targetWarehouse);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -127,11 +127,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.WoRoutes.FindAsync(x => x.Quantity >= minQuantity && x.Quantity <= maxQuantity);
                 var dtos = _mapper.Map<IEnumerable<WoRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<WoRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WoRouteRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<WoRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WoRouteRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -143,11 +143,11 @@ namespace WMS_WEBAPI.Services
                 var created = await _unitOfWork.WoRoutes.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<WoRouteDto>(created);
-                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Created"));
+                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoRouteCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("WoRouteCreationError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -156,16 +156,16 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var existing = await _unitOfWork.WoRoutes.GetByIdAsync(id);
-                if (existing == null) return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("NotFound"), 404);
+                if (existing == null) { var nf = _localizationService.GetLocalizedString("WoRouteNotFound"); return ApiResponse<WoRouteDto>.ErrorResult(nf, nf, 404); }
                 var entity = _mapper.Map(updateDto, existing);
                 _unitOfWork.WoRoutes.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<WoRouteDto>(entity);
-                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Updated"));
+                return ApiResponse<WoRouteDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WoRouteUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<WoRouteDto>.ErrorResult(_localizationService.GetLocalizedString("WoRouteUpdateError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -175,11 +175,11 @@ namespace WMS_WEBAPI.Services
             {
                 await _unitOfWork.WoRoutes.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Deleted"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("WoRouteDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("WoRouteDeletionError"), ex.Message ?? string.Empty, 500);
             }
         }
     }

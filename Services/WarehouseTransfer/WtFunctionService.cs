@@ -33,14 +33,14 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<List<TransferOpenOrderHeaderDto>>.SuccessResult(
                     headerDtos,
-                    _localizationService.GetLocalizedString("DataRetrievedSuccessfully")
+                    _localizationService.GetLocalizedString("WtFunctionTransferOpenOrderHeaderRetrievedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<List<TransferOpenOrderHeaderDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorRetrievingData"),
-                    ex.Message,
+                    _localizationService.GetLocalizedString("WtFunctionTransferOpenOrderHeaderRetrievalError"),
+                    ex.Message ?? string.Empty,
                     500
                 );
             }
@@ -59,14 +59,14 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<List<TransferOpenOrderLineDto>>.SuccessResult(
                     lineDtos,
-                    _localizationService.GetLocalizedString("DataRetrievedSuccessfully")
+                    _localizationService.GetLocalizedString("WtFunctionTransferOpenOrderLineRetrievedSuccessfully")
                 );
             }
             catch (Exception ex)
             {
                 return ApiResponse<List<TransferOpenOrderLineDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorRetrievingData"),
-                    ex.Message,
+                    _localizationService.GetLocalizedString("WtFunctionTransferOpenOrderLineRetrievalError"),
+                    ex.Message ?? string.Empty,
                     500
                 );
             }

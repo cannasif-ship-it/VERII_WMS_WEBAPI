@@ -29,14 +29,15 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404);
+                    var nf = _localizationService.GetLocalizedString("AuthUserNotFound");
+                    return ApiResponse<User>.ErrorResult(nf, nf, 404);
                 }
 
-                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("AuthUserRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message ?? string.Empty, 500);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("AuthErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -48,14 +49,15 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404);
+                    var nf = _localizationService.GetLocalizedString("AuthUserNotFound");
+                    return ApiResponse<User>.ErrorResult(nf, nf, 404);
                 }
 
-                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("AuthUserRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message ?? string.Empty, 500);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("AuthErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -67,7 +69,8 @@ namespace WMS_WEBAPI.Services
                 var existingUserResponse = await GetUserByUsernameAsync(registerDto.Username);
                 if (existingUserResponse.Success)
                 {
-                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserAlreadyExists"), "User already exists", 400);
+                    var msg = _localizationService.GetLocalizedString("AuthUserAlreadyExists");
+                    return ApiResponse<User>.ErrorResult(msg, msg, 400);
                 }
 
                 // Create new user
@@ -83,11 +86,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.Users.AddAsync(user);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("UserRegisteredSuccessfully"));
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("AuthUserRegisteredSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("RegistrationFailed"), ex.Message ?? string.Empty, 500);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("AuthRegistrationFailed"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -101,12 +104,14 @@ namespace WMS_WEBAPI.Services
                 
                 if (user == null)
                 {
-                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401);
+                    var msg = _localizationService.GetLocalizedString("Error.User.InvalidCredentials");
+                    return ApiResponse<string>.ErrorResult(msg, msg, 401);
                 }
                 
                 if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
                 {
-                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401);
+                    var msg = _localizationService.GetLocalizedString("Error.User.InvalidCredentials");
+                    return ApiResponse<string>.ErrorResult(msg, msg, 401);
                 }
 
                 var tokenResponse = _jwtService.GenerateToken(user);

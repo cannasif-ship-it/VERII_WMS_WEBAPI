@@ -26,11 +26,18 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(
+                    dtos,
+                    _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully")
+                );
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("SitHeaderErrorOccurred"),
+                    ex.Message ?? string.Empty,
+                    500
+                );
             }
         }
 
@@ -64,11 +71,11 @@ namespace WMS_WEBAPI.Services
                 var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
                 var dtos = _mapper.Map<List<SitHeaderDto>>(items);
                 var result = new PagedResponse<SitHeaderDto>(dtos, totalCount, pageNumber, pageSize);
-                return ApiResponse<PagedResponse<SitHeaderDto>>.SuccessResult(result, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<PagedResponse<SitHeaderDto>>.SuccessResult(result, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<PagedResponse<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<PagedResponse<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -79,14 +86,15 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SitHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var nf = _localizationService.GetLocalizedString("SitHeaderNotFound");
+                    return ApiResponse<SitHeaderDto>.ErrorResult(nf, nf, 404);
                 }
                 var dto = _mapper.Map<SitHeaderDto>(entity);
-                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -96,11 +104,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => x.BranchCode == branchCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -110,11 +118,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => x.PlannedDate >= startDate && x.PlannedDate <= endDate && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -125,11 +133,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => x.CustomerCode == customerCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? String.Empty, 500);
             }
         }
 
@@ -139,11 +147,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => x.DocumentType == documentType && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -153,11 +161,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.SitHeaders.FindAsync(x => x.ERPReferenceNumber == documentNo && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<SitHeaderDto>>(entities);
-                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<IEnumerable<SitHeaderDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("SitHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<IEnumerable<SitHeaderDto>>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderRetrievalError"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -171,11 +179,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SitHeaders.AddAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SitHeaderDto>(entity);
-                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordCreatedSuccessfully"));
+                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitHeaderCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -186,18 +194,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SitHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderNotFound"), _localizationService.GetLocalizedString("SitHeaderNotFound"), 404);
                 }
                 _mapper.Map(updateDto, entity);
                 entity.UpdatedDate = DateTime.UtcNow;
                 _unitOfWork.SitHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
                 var dto = _mapper.Map<SitHeaderDto>(entity);
-                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("RecordUpdatedSuccessfully"));
+                return ApiResponse<SitHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("SitHeaderUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<SitHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -208,15 +216,15 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.SitHeaders.ExistsAsync(id);
                 if (!exists)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderNotFound"), _localizationService.GetLocalizedString("SitHeaderNotFound"), 404);
                 }
                 await _unitOfWork.SitHeaders.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("RecordDeletedSuccessfully"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SitHeaderDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -227,17 +235,18 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.SitHeaders.GetByIdAsync(id);
                 if (entity == null || entity.IsDeleted)
                 {
-                    return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("RecordNotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404);
+                    var nf = _localizationService.GetLocalizedString("SitHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(nf, nf, 404);
                 }
                 entity.IsCompleted = true;
                 entity.CompletionDate = DateTime.UtcNow;
                 _unitOfWork.SitHeaders.Update(entity);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Success"));
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SitHeaderCompletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message, ex.Message, 500);
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("SitHeaderErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
     }

@@ -67,13 +67,13 @@ namespace WMS_WEBAPI.Services
 
                 return ApiResponse<PagedResponse<SidebarmenuHeaderDto>>.SuccessResult(
                     result,
-                    _localizationService.GetLocalizedString("Success"));
+                    _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<PagedResponse<SidebarmenuHeaderDto>>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorOccurred") + ": " + ex.Message,
-                    ex.Message,
+                    _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError"),
+                    ex.Message ?? string.Empty,
                     500);
             }
         }
@@ -84,11 +84,11 @@ namespace WMS_WEBAPI.Services
             {
                 var headers = await _unitOfWork.SidebarmenuHeaders.GetAllAsync();
                 var headerDtos = _mapper.Map<IEnumerable<SidebarmenuHeaderDto>>(headers);
-                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.SuccessResult(headerDtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.SuccessResult(headerDtos, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
                 return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -100,16 +100,16 @@ namespace WMS_WEBAPI.Services
                 var header = await _unitOfWork.SidebarmenuHeaders.GetByIdAsync(id);
                 if (header == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuHeaderNotFound");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(header);
-                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, "Data retrieved successfully");
+                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
                 return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -123,11 +123,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(createdHeader);
-                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, "Data created successfully");
+                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, _localizationService.GetLocalizedString("SidebarmenuHeaderCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorCreatingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderCreationError");
                 return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -139,8 +139,8 @@ namespace WMS_WEBAPI.Services
                 var existingHeader = await _unitOfWork.SidebarmenuHeaders.GetByIdAsync(id);
                 if (existingHeader == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuHeaderNotFound");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 if (updateDto.MenuKey != null)
@@ -177,11 +177,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(existingHeader);
-                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, "Data updated successfully");
+                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, _localizationService.GetLocalizedString("SidebarmenuHeaderUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorUpdatingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderUpdateError");
                 return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -193,19 +193,19 @@ namespace WMS_WEBAPI.Services
                 var header = await _unitOfWork.SidebarmenuHeaders.GetByIdAsync(id);
                 if (header == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<bool>.ErrorResult(notFoundMessage, "Record not found", 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuHeaderNotFound");
+                    return ApiResponse<bool>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 await _unitOfWork.SidebarmenuHeaders.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
-                return ApiResponse<bool>.SuccessResult(true, "Data deleted successfully");
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("SidebarmenuHeaderDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(
-                    _localizationService.GetLocalizedString("ErrorOccurred"),
-                    ex.Message,
+                    _localizationService.GetLocalizedString("SidebarmenuHeaderDeletionError"),
+                    ex.Message ?? string.Empty,
                     500);
             }
         }
@@ -215,11 +215,11 @@ namespace WMS_WEBAPI.Services
             try
             {
                 var exists = await _unitOfWork.SidebarmenuHeaders.ExistsAsync(id);
-                return ApiResponse<bool>.SuccessResult(exists, "Data retrieved successfully");
+                return ApiResponse<bool>.SuccessResult(exists, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
                 return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -231,16 +231,16 @@ namespace WMS_WEBAPI.Services
                 var header = await _unitOfWork.SidebarmenuHeaders.GetFirstOrDefaultAsync(h => h.MenuKey == menuKey);
                 if (header == null)
                 {
-                    var notFoundMessage = _localizationService.GetLocalizedString("DataNotFound");
-                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, "Record not found", 404);
+                    var notFoundMessage = _localizationService.GetLocalizedString("SidebarmenuHeaderNotFound");
+                    return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(notFoundMessage, notFoundMessage, 404);
                 }
 
                 var headerDto = _mapper.Map<SidebarmenuHeaderDto>(header);
-                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, "Data retrieved successfully");
+                return ApiResponse<SidebarmenuHeaderDto>.SuccessResult(headerDto, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
                 return ApiResponse<SidebarmenuHeaderDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -251,12 +251,12 @@ namespace WMS_WEBAPI.Services
             {
                 var headers = await _unitOfWork.SidebarmenuHeaders.FindAsync(h => h.RoleLevel <= roleLevel);
                 var headerDtos = _mapper.Map<IEnumerable<SidebarmenuHeaderDto>>(headers);
-                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.SuccessResult(headerDtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.SuccessResult(headerDtos, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
-                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message, 500);
+                var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
+                return ApiResponse<IEnumerable<SidebarmenuHeaderDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -302,11 +302,11 @@ namespace WMS_WEBAPI.Services
             }
 
             var result = await query.ToListAsync();
-            return ApiResponse<List<SidebarmenuHeader>>.SuccessResult(result, "Data retrieved successfully");
+            return ApiResponse<List<SidebarmenuHeader>>.SuccessResult(result, _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievedSuccessfully"));
         }
         catch (Exception ex)
         {
-            var message = _localizationService.GetLocalizedString("ErrorRetrievingData");
+            var message = _localizationService.GetLocalizedString("SidebarmenuHeaderRetrievalError");
             return ApiResponse<List<SidebarmenuHeader>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
         }
     }

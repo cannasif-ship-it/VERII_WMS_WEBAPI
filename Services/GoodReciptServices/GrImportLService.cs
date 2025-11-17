@@ -107,11 +107,11 @@ namespace WMS_WEBAPI.Services
                 
                 if (grImportL == null)
                 {
+                    var nf = _localizationService.GetLocalizedString("GrImportLNotFound");
                     return ApiResponse<GrImportLDto?>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportLNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportL not found"
+                        nf,
+                        nf,
+                        404
                     );
                 }
 
@@ -233,11 +233,11 @@ namespace WMS_WEBAPI.Services
                 
                 if (existingGrImportL == null)
                 {
+                    var nf = _localizationService.GetLocalizedString("GrImportLNotFound");
                     return ApiResponse<GrImportLDto>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportLNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportL not found"
+                        nf,
+                        nf,
+                        404
                     );
                 }
 
@@ -271,11 +271,11 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.GrImportLines.ExistsAsync(id);
                 if (!exists)
                 {
+                    var nf = _localizationService.GetLocalizedString("GrImportLNotFound");
                     return ApiResponse<bool>.ErrorResult(
-                        _localizationService.GetLocalizedString("GrImportLNotFound"),
-                        "Record not found",
-                        404,
-                        "GrImportL not found"
+                        nf,
+                        nf,
+                        404
                     );
                 }
 

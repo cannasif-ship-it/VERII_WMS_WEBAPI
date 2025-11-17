@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobileUserGroupMatches.GetAllAsync();
                 var dtos = _mapper.Map<IEnumerable<MobileUserGroupMatchDto>>(entities);
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievalError");
                 return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -42,16 +42,16 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.MobileUserGroupMatches.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobileUserGroupMatchNotFound");
+                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, message, 404);
                 }
 
                 var dto = _mapper.Map<MobileUserGroupMatchDto>(entity);
-                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, "Data retrieved successfully");
+                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievalError");
                 return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -62,11 +62,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobileUserGroupMatches.FindAsync(x => x.UserId == userId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<MobileUserGroupMatchDto>>(entities);
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievalError");
                 return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -77,11 +77,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobileUserGroupMatches.FindAsync(x => x.GroupCode == groupCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<MobileUserGroupMatchDto>>(entities);
-                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchRetrievalError");
                 return ApiResponse<IEnumerable<MobileUserGroupMatchDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -97,11 +97,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<MobileUserGroupMatchDto>(entity);
-                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, "Data created successfully");
+                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobileUserGroupMatchCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchCreationError");
                 return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -113,8 +113,8 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.MobileUserGroupMatches.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobileUserGroupMatchNotFound");
+                    return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, message, 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -124,11 +124,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<MobileUserGroupMatchDto>(entity);
-                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, "Data updated successfully");
+                return ApiResponse<MobileUserGroupMatchDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobileUserGroupMatchUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchUpdateError");
                 return ApiResponse<MobileUserGroupMatchDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -140,18 +140,18 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.MobileUserGroupMatches.ExistsAsync(id);
                 if (!exists)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobileUserGroupMatchNotFound");
+                    return ApiResponse<bool>.ErrorResult(message, message, 404);
                 }
 
                 await _unitOfWork.MobileUserGroupMatches.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ApiResponse<bool>.SuccessResult(true, "Data deleted successfully");
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("MobileUserGroupMatchDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobileUserGroupMatchDeletionError");
                 return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }

@@ -26,11 +26,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobilePageGroups.GetAllAsync();
                 var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(entities);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -42,16 +42,16 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.MobilePageGroups.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobilePageGroupNotFound");
+                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, _localizationService.GetLocalizedString("MobilePageGroupNotFound"), 404);
                 }
 
                 var dto = _mapper.Map<MobilePageGroupDto>(entity);
-                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, "Data retrieved successfully");
+                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -62,11 +62,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobilePageGroups.FindAsync(x => x.GroupCode == groupCode && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(entities);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -77,11 +77,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobilePageGroups.FindAsync(x => x.MenuHeaderId == menuHeaderId);
                 var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(entities);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -92,11 +92,11 @@ namespace WMS_WEBAPI.Services
             {
                 var entities = await _unitOfWork.MobilePageGroups.FindAsync(x => x.MenuLineId == menuLineId && !x.IsDeleted);
                 var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(entities);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Data retrieved successfully");
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -112,11 +112,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<MobilePageGroupDto>(entity);
-                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, "Data created successfully");
+                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobilePageGroupCreatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -128,8 +128,8 @@ namespace WMS_WEBAPI.Services
                 var entity = await _unitOfWork.MobilePageGroups.GetByIdAsync(id);
                 if (entity == null)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobilePageGroupNotFound");
+                    return ApiResponse<MobilePageGroupDto>.ErrorResult(message, _localizationService.GetLocalizedString("MobilePageGroupNotFound"), 404);
                 }
 
                 _mapper.Map(updateDto, entity);
@@ -139,11 +139,11 @@ namespace WMS_WEBAPI.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<MobilePageGroupDto>(entity);
-                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, "Data updated successfully");
+                return ApiResponse<MobilePageGroupDto>.SuccessResult(dto, _localizationService.GetLocalizedString("MobilePageGroupUpdatedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<MobilePageGroupDto>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -155,18 +155,18 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.MobilePageGroups.ExistsAsync(id);
                 if (!exists)
                 {
-                    var message = _localizationService.GetLocalizedString("RecordNotFound");
-                    return ApiResponse<bool>.ErrorResult(message, "Record not found", 404);
+                    var message = _localizationService.GetLocalizedString("MobilePageGroupNotFound");
+                    return ApiResponse<bool>.ErrorResult(message, _localizationService.GetLocalizedString("MobilePageGroupNotFound"), 404);
                 }
 
                 await _unitOfWork.MobilePageGroups.SoftDelete(id);
                 await _unitOfWork.SaveChangesAsync();
 
-                return ApiResponse<bool>.SuccessResult(true, "Data deleted successfully");
+                return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("MobilePageGroupDeletedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<bool>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }
@@ -182,11 +182,11 @@ namespace WMS_WEBAPI.Services
                     .ToListAsync();
 
                 var dtos = _mapper.Map<IEnumerable<MobilePageGroupDto>>(groupedByGroupCode);
-                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, "Sayfa grupları başarıyla getirildi");
+                return ApiResponse<IEnumerable<MobilePageGroupDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("MobilePageGroupRetrievedSuccessfully"));
             }
             catch (Exception ex)
             {
-                var message = _localizationService.GetLocalizedString("ErrorOccurred");
+                var message = _localizationService.GetLocalizedString("MobilePageGroupErrorOccurred");
                 return ApiResponse<IEnumerable<MobilePageGroupDto>>.ErrorResult(message, ex.Message ?? string.Empty, 500);
             }
         }

@@ -277,7 +277,7 @@ namespace WMS_WEBAPI.Services
                 var exists = await _unitOfWork.GrLines.ExistsAsync((int)id);
                 return ApiResponse<bool>.SuccessResult(
                     exists,
-                    _localizationService.GetLocalizedString("Success")
+                    _localizationService.GetLocalizedString("GrLineExistsCheckCompleted")
                 );
             }
             catch (Exception ex)
