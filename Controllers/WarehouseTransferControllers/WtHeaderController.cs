@@ -90,5 +90,16 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
         
+        [HttpPost("generate")]
+        public async Task<ActionResult<ApiResponse<WtHeaderDto>>> GenerateWarehouseTransferOrder([FromBody] GenerateWarehouseTransferOrderRequestDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return StatusCode(400, ModelState);
+            }
+
+            var result = await _wtHeaderService.GenerateWarehouseTransferOrderAsync(request);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

@@ -758,6 +758,12 @@
   <data name="WtHeaderRouteGroupGuidNotFound" xml:space="preserve">
     <value>RouteGroupGuid not found</value>
   </data>
+  <data name="WtHeaderGenerateCompletedSuccessfully" xml:space="preserve">
+    <value>Warehouse Transfer generated successfully</value>
+  </data>
+  <data name="WtHeaderGenerateError" xml:space="preserve">
+    <value>Error occurred while generating Warehouse Transfer</value>
+  </data>
   <data name="PtHeaderRetrievedSuccessfully" xml:space="preserve">
     <value>Production Transfer Header information retrieved successfully</value>
   </data>

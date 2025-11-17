@@ -74,4 +74,24 @@ namespace WMS_WEBAPI.DTOs
         public List<CreateWtRouteWithLineKeyDto>? Routes { get; set; }
         public List<CreateWtImportLineWithKeysDto>? ImportLines { get; set; }
     }
+
+    // Tek depo transferi oluşturma isteği
+    public class CreateWtLineSerialWithLineKeyDto : BaseLineSerialCreateDto
+    {
+        public string? LineClientKey { get; set; }
+        public Guid? LineGroupGuid { get; set; }
+    }
+
+    public class CreateWtTerminalLineWithUserDto
+    {
+        public long TerminalUserId { get; set; }
+    }
+
+    public class GenerateWarehouseTransferOrderRequestDto
+    {
+        public CreateWtHeaderDto Header { get; set; } = null!;
+        public List<CreateWtLineWithKeyDto>? Lines { get; set; }
+        public List<CreateWtLineSerialWithLineKeyDto>? LineSerials { get; set; }
+        public List<CreateWtTerminalLineWithUserDto>? TerminalLines { get; set; }
+    }
 }

@@ -343,6 +343,137 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<WtHeaderDto>> GenerateWarehouseTransferOrderAsync(GenerateWarehouseTransferOrderRequestDto request)
+        {
+            try
+            {
+                using (var scope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var header = _mapper.Map<WtHeader>(request.Header);
+                    await _unitOfWork.WtHeaders.AddAsync(header);
+                    await _unitOfWork.SaveChangesAsync();
+
+                    var lineKeyToId = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                    var lineGuidToId = new Dictionary<Guid, long>();
+
+                    if (request.Lines != null && request.Lines.Count > 0)
+                    {
+                        var lines = new List<WtLine>(request.Lines.Count);
+                        foreach (var l in request.Lines)
+                        {
+                            var line = new WtLine
+                            {
+                                HeaderId = header.Id,
+                                StockCode = l.StockCode,
+                                Quantity = l.Quantity,
+                                Unit = l.Unit,
+                                ErpOrderNo = l.ErpOrderNo,
+                                ErpOrderLineNo = l.ErpOrderLineNo,
+                                Description = l.Description
+                            };
+                            lines.Add(line);
+                        }
+                        await _unitOfWork.WtLines.AddRangeAsync(lines);
+                        await _unitOfWork.SaveChangesAsync();
+
+                        for (int i = 0; i < request.Lines.Count; i++)
+                        {
+                            var key = request.Lines[i].ClientKey;
+                            var guid = request.Lines[i].ClientGuid;
+                            var id = lines[i].Id;
+                            if (!string.IsNullOrWhiteSpace(key))
+                            {
+                                lineKeyToId[key!] = id;
+                            }
+                            if (guid.HasValue)
+                            {
+                                lineGuidToId[guid.Value] = id;
+                            }
+                        }
+                    }
+
+                    if (request.LineSerials != null && request.LineSerials.Count > 0)
+                    {
+                        var serials = new List<WtLineSerial>(request.LineSerials.Count);
+                        foreach (var s in request.LineSerials)
+                        {
+                            long lineId = 0;
+                            if (s.LineGroupGuid.HasValue)
+                            {
+                                var lg = s.LineGroupGuid.Value;
+                                if (!lineGuidToId.TryGetValue(lg, out lineId))
+                                {
+                                    return ApiResponse<WtHeaderDto>.ErrorResult(
+                                        _localizationService.GetLocalizedString("WtHeaderInvalidCorrelationKey"),
+                                        _localizationService.GetLocalizedString("WtHeaderLineGroupGuidNotFound"),
+                                        400
+                                    );
+                                }
+                            }
+                            else if (!string.IsNullOrWhiteSpace(s.LineClientKey))
+                            {
+                                if (!lineKeyToId.TryGetValue(s.LineClientKey!, out lineId))
+                                {
+                                    return ApiResponse<WtHeaderDto>.ErrorResult(
+                                        _localizationService.GetLocalizedString("WtHeaderInvalidCorrelationKey"),
+                                        _localizationService.GetLocalizedString("WtHeaderLineClientKeyNotFound"),
+                                        400
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                return ApiResponse<WtHeaderDto>.ErrorResult(
+                                    _localizationService.GetLocalizedString("WtHeaderInvalidCorrelationKey"),
+                                    _localizationService.GetLocalizedString("WtHeaderLineReferenceMissing"),
+                                    400
+                                );
+                            }
+
+                            var serial = new WtLineSerial
+                            {
+                                LineId = lineId,
+                                Quantity = s.Quantity,
+                                SerialNo = s.SerialNo,
+                                SerialNo2 = s.SerialNo2,
+                                SerialNo3 = s.SerialNo3,
+                                SerialNo4 = s.SerialNo4,
+                                SourceCellCode = s.SourceCellCode,
+                                TargetCellCode = s.TargetCellCode
+                            };
+                            serials.Add(serial);
+                        }
+                        await _unitOfWork.WtLineSerials.AddRangeAsync(serials);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    if (request.TerminalLines != null && request.TerminalLines.Count > 0)
+                    {
+                        var tlines = new List<WtTerminalLine>(request.TerminalLines.Count);
+                        foreach (var t in request.TerminalLines)
+                        {
+                            tlines.Add(new WtTerminalLine
+                            {
+                                HeaderId = header.Id,
+                                TerminalUserId = t.TerminalUserId
+                            });
+                        }
+                        await _unitOfWork.WtTerminalLines.AddRangeAsync(tlines);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    scope.Complete();
+
+                    var dto = _mapper.Map<WtHeaderDto>(header);
+                    return ApiResponse<WtHeaderDto>.SuccessResult(dto, _localizationService.GetLocalizedString("WtHeaderGenerateCompletedSuccessfully"));
+                }
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<WtHeaderDto>.ErrorResult(_localizationService.GetLocalizedString("WtHeaderGenerateError"), ex.Message ?? string.Empty, 500);
+            }
+        }
+
         // Korelasyon anahtarlarıyla toplu Wt oluşturma: temp ID -> gerçek ID eşleme
         public async Task<ApiResponse<int>> BulkCreateInterWarehouseTransferAsync(BulkCreateWtRequestDto request)
         {

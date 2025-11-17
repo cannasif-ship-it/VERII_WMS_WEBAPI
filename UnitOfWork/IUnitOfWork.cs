@@ -39,6 +39,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<WtRoute> WtRoutes { get; }
         IGenericRepository<WtTerminalLine> WtTerminalLines { get; }
         IGenericRepository<WtImportLine> WtImportLines { get; }
+        IGenericRepository<WtLineSerial> WtLineSerials { get; }
 
         // ProductTransfer repositories
         IGenericRepository<PtHeader> PtHeaders { get; }

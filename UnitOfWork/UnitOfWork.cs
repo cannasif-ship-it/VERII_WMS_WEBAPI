@@ -47,6 +47,7 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<WtRoute>? _wtRoutes;
         private IGenericRepository<WtTerminalLine>? _wtTerminalLines;
         private IGenericRepository<WtImportLine>? _wtImportLines;
+        private IGenericRepository<WtLineSerial>? _wtLineSerials;
 
         // ProductTransfer repository instances
         private IGenericRepository<PtHeader>? _ptHeaders;
@@ -165,6 +166,9 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<WtImportLine> WtImportLines =>
             _wtImportLines ??= new GenericRepository<WtImportLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WtLineSerial> WtLineSerials =>
+            _wtLineSerials ??= new GenericRepository<WtLineSerial>(_context, _httpContextAccessor);
 
         // ProductTransfer repository properties
         public IGenericRepository<PtHeader> PtHeaders =>

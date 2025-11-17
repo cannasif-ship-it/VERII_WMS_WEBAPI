@@ -127,6 +127,12 @@
   <data name="DepoRetrievalError" xml:space="preserve">
     <value>Depo bilgileri getirilirken hata oluştu</value>
   </data>
+  <data name="WtHeaderGenerateCompletedSuccessfully" xml:space="preserve">
+    <value>Depo Transferi başarıyla oluşturuldu</value>
+  </data>
+  <data name="WtHeaderGenerateError" xml:space="preserve">
+    <value>Depo Transferi oluşturulurken hata oluştu</value>
+  </data>
   <data name="ProjeRetrievedSuccessfully" xml:space="preserve">
     <value>Proje bilgileri başarıyla getirildi</value>
   </data>
