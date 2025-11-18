@@ -48,6 +48,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<PtImportLine> PtImportLines { get; }
         IGenericRepository<PtRoute> PtRoutes { get; }
         IGenericRepository<PtTerminalLine> PtTerminalLines { get; }
+        IGenericRepository<PtLineSerial> PtLineSerials { get; }
 
         // SubcontractingIssueTransfer repositories
         IGenericRepository<SitHeader> SitHeaders { get; }
@@ -55,6 +56,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<SitImportLine> SitImportLines { get; }
         IGenericRepository<SitRoute> SitRoutes { get; }
         IGenericRepository<SitTerminalLine> SitTerminalLines { get; }
+        IGenericRepository<SitLineSerial> SitLineSerials { get; }
 
         // SubcontractingReceiptTransfer repositories
         IGenericRepository<SrtHeader> SrtHeaders { get; }
@@ -62,6 +64,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<SrtImportLine> SrtImportLines { get; }
         IGenericRepository<SrtRoute> SrtRoutes { get; }
         IGenericRepository<SrtTerminalLine> SrtTerminalLines { get; }
+        IGenericRepository<SrtLineSerial> SrtLineSerials { get; }
 
         // WarehouseOutbound repositories
         IGenericRepository<WoHeader> WoHeaders { get; }
@@ -69,6 +72,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<WoImportLine> WoImportLines { get; }
         IGenericRepository<WoRoute> WoRoutes { get; }
         IGenericRepository<WoTerminalLine> WoTerminalLines { get; }
+        IGenericRepository<WoLineSerial> WoLineSerials { get; }
 
         // WarehouseInbound repositories
         IGenericRepository<WiHeader> WiHeaders { get; }
@@ -76,6 +80,7 @@ namespace WMS_WEBAPI.UnitOfWork
         IGenericRepository<WiImportLine> WiImportLines { get; }
         IGenericRepository<WiRoute> WiRoutes { get; }
         IGenericRepository<WiTerminalLine> WiTerminalLines { get; }
+        IGenericRepository<WiLineSerial> WiLineSerials { get; }
 
         // InventoryCount repositories
         IGenericRepository<IcHeader> ICHeaders { get; }

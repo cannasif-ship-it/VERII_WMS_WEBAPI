@@ -100,6 +100,7 @@ builder.Services.AddScoped<IWtFunctionService,WtFunctionService>();
 builder.Services.AddScoped<IWtHeaderService,WtHeaderService>();
 builder.Services.AddScoped<IWtLineService, WtLineService>();
 builder.Services.AddScoped<IWtImportLineService, WtImportLineService>();
+builder.Services.AddScoped<IWtLineSerialService, WtLineSerialService>();
 builder.Services.AddScoped<IWtRouteService, WtRouteService>();
 builder.Services.AddScoped<IWtTerminalLineService, WtTerminalLineService>();
 
@@ -110,6 +111,7 @@ builder.Services.AddScoped<IPtLineService, PtLineService>();
 builder.Services.AddScoped<IPtImportLineService, PtImportLineService>();
 builder.Services.AddScoped<IPtRouteService, PtRouteService>();
 builder.Services.AddScoped<IPtTerminalLineService, PtTerminalLineService>();
+builder.Services.AddScoped<IPtLineSerialService, PtLineSerialService>();
 
 // Register Subcontracting Issue Transfer Services
 builder.Services.AddScoped<ISitHeaderService, SitHeaderService>();
@@ -117,6 +119,7 @@ builder.Services.AddScoped<ISitLineService, SitLineService>();
 builder.Services.AddScoped<ISitImportLineService, SitImportLineService>();
 builder.Services.AddScoped<ISitRouteService, SitRouteService>();
 builder.Services.AddScoped<ISitTerminalLineService, SitTerminalLineService>();
+builder.Services.AddScoped<ISitLineSerialService, SitLineSerialService>();
 
 // Register Subcontracting Receipt Transfer Services
 builder.Services.AddScoped<ISrtHeaderService, SrtHeaderService>();
@@ -124,6 +127,7 @@ builder.Services.AddScoped<ISrtLineService, SrtLineService>();
 builder.Services.AddScoped<ISrtImportLineService, SrtImportLineService>();
 builder.Services.AddScoped<ISrtRouteService, SrtRouteService>();
 builder.Services.AddScoped<ISrtTerminalLineService, SrtTerminalLineService>();
+builder.Services.AddScoped<ISrtLineSerialService, SrtLineSerialService>();
 
 // Register Warehouse Outbound Services
 builder.Services.AddScoped<IWoHeaderService, WoHeaderService>();
@@ -131,6 +135,7 @@ builder.Services.AddScoped<IWoLineService, WoLineService>();
 builder.Services.AddScoped<IWoImportLineService, WoImportLineService>();
 builder.Services.AddScoped<IWoRouteService, WoRouteService>();
 builder.Services.AddScoped<IWoTerminalLineService, WoTerminalLineService>();
+builder.Services.AddScoped<IWoLineSerialService, WoLineSerialService>();
 
 // Register Warehouse Inbound Services
 builder.Services.AddScoped<IWiHeaderService, WiHeaderService>();
@@ -138,6 +143,7 @@ builder.Services.AddScoped<IWiLineService, WiLineService>();
 builder.Services.AddScoped<IWiImportLineService, WiImportLineService>();
 builder.Services.AddScoped<IWiRouteService, WiRouteService>();
 builder.Services.AddScoped<IWiTerminalLineService, WiTerminalLineService>();
+builder.Services.AddScoped<IWiLineSerialService, WiLineSerialService>();
 
 // Register Inventory Count Services (temporarily disabled)
 

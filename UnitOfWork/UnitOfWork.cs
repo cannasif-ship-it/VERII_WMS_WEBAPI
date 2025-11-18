@@ -56,6 +56,7 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<PtImportLine>? _ptImportLines;
         private IGenericRepository<PtRoute>? _ptRoutes;
         private IGenericRepository<PtTerminalLine>? _ptTerminalLines;
+        private IGenericRepository<PtLineSerial>? _ptLineSerials;
 
         // SubcontractingIssueTransfer repository instances
         private IGenericRepository<SitHeader>? _sitHeaders;
@@ -63,6 +64,7 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<SitImportLine>? _sitImportLines;
         private IGenericRepository<SitRoute>? _sitRoutes;
         private IGenericRepository<SitTerminalLine>? _sitTerminalLines;
+        private IGenericRepository<SitLineSerial>? _sitLineSerials;
 
         // SubcontractingReceiptTransfer repository instances
         private IGenericRepository<SrtHeader>? _srtHeaders;
@@ -70,16 +72,19 @@ namespace WMS_WEBAPI.UnitOfWork
         private IGenericRepository<SrtImportLine>? _srtImportLines;
         private IGenericRepository<SrtRoute>? _srtRoutes;
         private IGenericRepository<SrtTerminalLine>? _srtTerminalLines;
+        private IGenericRepository<SrtLineSerial>? _srtLineSerials;
         private IGenericRepository<WoHeader>? _woHeaders;
         private IGenericRepository<WoLine>? _woLines;
         private IGenericRepository<WoImportLine>? _woImportLines;
         private IGenericRepository<WoRoute>? _woRoutes;
         private IGenericRepository<WoTerminalLine>? _woTerminalLines;
+        private IGenericRepository<WoLineSerial>? _woLineSerials;
         private IGenericRepository<WiHeader>? _wiHeaders;
         private IGenericRepository<WiLine>? _wiLines;
         private IGenericRepository<WiImportLine>? _wiImportLines;
         private IGenericRepository<WiRoute>? _wiRoutes;
         private IGenericRepository<WiTerminalLine>? _wiTerminalLines;
+        private IGenericRepository<WiLineSerial>? _wiLineSerials;
 
         // InventoryCount repository instances
         private IGenericRepository<IcHeader>? _icHeaders;
@@ -190,6 +195,9 @@ namespace WMS_WEBAPI.UnitOfWork
         public IGenericRepository<PtTerminalLine> PtTerminalLines =>
             _ptTerminalLines ??= new GenericRepository<PtTerminalLine>(_context, _httpContextAccessor);
 
+        public IGenericRepository<PtLineSerial> PtLineSerials =>
+            _ptLineSerials ??= new GenericRepository<PtLineSerial>(_context, _httpContextAccessor);
+
         // SubcontractingIssueTransfer repository properties
         public IGenericRepository<SitHeader> SitHeaders =>
             _sitHeaders ??= new GenericRepository<SitHeader>(_context, _httpContextAccessor);
@@ -205,6 +213,9 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<SitTerminalLine> SitTerminalLines =>
             _sitTerminalLines ??= new GenericRepository<SitTerminalLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<SitLineSerial> SitLineSerials =>
+            _sitLineSerials ??= new GenericRepository<SitLineSerial>(_context, _httpContextAccessor);
 
         // SubcontractingReceiptTransfer repository properties
         public IGenericRepository<SrtHeader> SrtHeaders =>
@@ -222,6 +233,9 @@ namespace WMS_WEBAPI.UnitOfWork
         public IGenericRepository<SrtTerminalLine> SrtTerminalLines =>
             _srtTerminalLines ??= new GenericRepository<SrtTerminalLine>(_context, _httpContextAccessor);
 
+        public IGenericRepository<SrtLineSerial> SrtLineSerials =>
+            _srtLineSerials ??= new GenericRepository<SrtLineSerial>(_context, _httpContextAccessor);
+
         // WarehouseOutbound repository properties
         public IGenericRepository<WoHeader> WoHeaders =>
             _woHeaders ??= new GenericRepository<WoHeader>(_context, _httpContextAccessor);
@@ -237,6 +251,9 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<WoTerminalLine> WoTerminalLines =>
             _woTerminalLines ??= new GenericRepository<WoTerminalLine>(_context, _httpContextAccessor);
+
+        public IGenericRepository<WoLineSerial> WoLineSerials =>
+            _woLineSerials ??= new GenericRepository<WoLineSerial>(_context, _httpContextAccessor);
 
         // WarehouseInbound repository properties
         public IGenericRepository<WiHeader> WiHeaders =>
@@ -254,6 +271,9 @@ namespace WMS_WEBAPI.UnitOfWork
         public IGenericRepository<WiTerminalLine> WiTerminalLines =>
             _wiTerminalLines ??= new GenericRepository<WiTerminalLine>(_context, _httpContextAccessor);
 
+        public IGenericRepository<WiLineSerial> WiLineSerials =>
+            _wiLineSerials ??= new GenericRepository<WiLineSerial>(_context, _httpContextAccessor);
+
         // InventoryCount repository properties
         public IGenericRepository<IcHeader> ICHeaders =>
             _icHeaders ??= new GenericRepository<IcHeader>(_context, _httpContextAccessor);
@@ -266,6 +286,7 @@ namespace WMS_WEBAPI.UnitOfWork
 
         public IGenericRepository<IcTerminalLine> IcTerminalLines =>
             _icTerminalLines ??= new GenericRepository<IcTerminalLine>(_context, _httpContextAccessor);
+
 
         public async Task<long> SaveChangesAsync()
         {
