@@ -1,3 +1,4 @@
+import type { BaseEntity } from './BaseEntity';
 export interface BaseHeaderEntity extends BaseEntity {
   DocumentNo?: string;
   DocumentDate?: string;

@@ -1,5 +1,5 @@
-import { CreateWoLineDto, UpdateWoLineDto, WoLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWoLineDto, UpdateWoLineDto, WoLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWoLineService {
   getAll(): Promise<ApiResponse<WoLineDto[]>>;

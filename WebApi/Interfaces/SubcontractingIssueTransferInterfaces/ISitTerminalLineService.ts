@@ -1,5 +1,5 @@
-import { CreateSitTerminalLineDto, SitTerminalLineDto, UpdateSitTerminalLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateSitTerminalLineDto, SitTerminalLineDto, UpdateSitTerminalLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface ISitTerminalLineService {
   getAll(): Promise<ApiResponse<SitTerminalLineDto[]>>;

@@ -1,5 +1,5 @@
-import { CreatePtImportLineDto, PtImportLineDto, UpdatePtImportLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreatePtImportLineDto, PtImportLineDto, UpdatePtImportLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IPtImportLineService {
   getAll(): Promise<ApiResponse<PtImportLineDto[]>>;

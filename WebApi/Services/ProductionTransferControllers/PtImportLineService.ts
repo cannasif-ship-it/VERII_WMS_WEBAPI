@@ -1,9 +1,9 @@
-import { CreatePtImportLineDto, PtImportLineDto, UpdatePtImportLineDto } from '../../Models/index';
+import type { CreatePtImportLineDto, PtImportLineDto, UpdatePtImportLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IPtImportLineService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IPtImportLineService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/PtImportLine",

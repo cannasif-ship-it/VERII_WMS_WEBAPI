@@ -1,9 +1,9 @@
-import { LoginDto, RegisterDto, User } from '../Models/index';
-import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import type { LoginRequest, RegisterDto, UserDto } from '../Models/index';
+import type { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface IAuthService {
-  getUserByUsername(username: string): Promise<ApiResponse<User>>;
-  getUserById(id: number): Promise<ApiResponse<User>>;
-  registerUser(registerDto: RegisterDto): Promise<ApiResponse<User>>;
-  login(loginDto: LoginDto): Promise<ApiResponse<string>>;
+  getUserById(id: number): Promise<ApiResponse<UserDto>>;
+  getAllUsers(): Promise<ApiResponse<UserDto[]>>;
+  registerUser(registerDto: RegisterDto): Promise<ApiResponse<UserDto>>;
+  login(loginDto: LoginRequest): Promise<ApiResponse<string>>;
 }

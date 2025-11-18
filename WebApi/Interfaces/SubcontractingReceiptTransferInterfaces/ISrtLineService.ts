@@ -1,5 +1,5 @@
-import { CreateSrtLineDto, SrtLineDto, UpdateSrtLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateSrtLineDto, SrtLineDto, UpdateSrtLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface ISrtLineService {
   getAll(): Promise<ApiResponse<SrtLineDto[]>>;

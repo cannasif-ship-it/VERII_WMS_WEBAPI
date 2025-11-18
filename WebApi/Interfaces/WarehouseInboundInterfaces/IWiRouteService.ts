@@ -1,5 +1,5 @@
-import { CreateWiRouteDto, UpdateWiRouteDto, WiRouteDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWiRouteDto, UpdateWiRouteDto, WiRouteDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWiRouteService {
   getAll(): Promise<ApiResponse<WiRouteDto[]>>;

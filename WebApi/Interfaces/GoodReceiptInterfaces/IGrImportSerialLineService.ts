@@ -1,5 +1,5 @@
-import { CreateGrImportSerialLineDto, GrImportSerialLineDto, UpdateGrImportSerialLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateGrImportSerialLineDto, GrImportSerialLineDto, UpdateGrImportSerialLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IGrImportSerialLineService {
   getAll(): Promise<ApiResponse<GrImportSerialLineDto[]>>;

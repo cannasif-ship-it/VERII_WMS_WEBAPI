@@ -30,6 +30,26 @@ export interface CreateGrImportSerialLineWithImportLineKeyDto {
   SerialNo4?: string;
 }
 
+export interface CreateGrRouteWithImportLineKeyDto {
+  ImportLineClientKey: string;
+  ImportLineGroupGuid?: string;
+  ClientKey?: string;
+  ScannedBarcode: string;
+  Quantity: number;
+  StockCode?: string;
+  RouteCode?: string;
+  Priority?: number;
+  Description?: string;
+  SerialNo?: string;
+  SerialNo2?: string;
+  SerialNo3?: string;
+  SerialNo4?: string;
+  SourceWarehouse?: number;
+  TargetWarehouse?: number;
+  SourceCellCode?: string;
+  TargetCellCode?: string;
+}
+
 export interface CreateGrImportDocumentSimpleDto {
   Base64: number[];
 }
@@ -40,5 +60,6 @@ export interface BulkCreateGrRequestDto {
   Lines?: CreateGrLineWithKeyDto[];
   ImportLines?: CreateGrImportLWithLineKeyDto[];
   SerialLines?: CreateGrImportSerialLineWithImportLineKeyDto[];
+  Routes?: CreateGrRouteWithImportLineKeyDto[];
 }
 

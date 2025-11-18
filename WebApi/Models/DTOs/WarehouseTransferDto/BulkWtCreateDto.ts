@@ -1,3 +1,4 @@
+import type { BaseLineSerialCreateDto } from '../Base/BaseLineSerialCreateDto';
 export interface CreateWtLineWithKeyDto {
   ClientKey?: string;
   ClientGuid?: string;
@@ -52,5 +53,21 @@ export interface BulkCreateWtRequestDto {
   Lines?: CreateWtLineWithKeyDto[];
   Routes?: CreateWtRouteWithLineKeyDto[];
   ImportLines?: CreateWtImportLineWithKeysDto[];
+}
+
+export interface CreateWtLineSerialWithLineKeyDto extends BaseLineSerialCreateDto {
+  LineClientKey?: string;
+  LineGroupGuid?: string;
+}
+
+export interface CreateWtTerminalLineWithUserDto {
+  TerminalUserId: number;
+}
+
+export interface GenerateWarehouseTransferOrderRequestDto {
+  Header: CreateWtHeaderDto;
+  Lines?: CreateWtLineWithKeyDto[];
+  LineSerials?: CreateWtLineSerialWithLineKeyDto[];
+  TerminalLines?: CreateWtTerminalLineWithUserDto[];
 }
 

@@ -1,5 +1,5 @@
-import { CreateWtLineDto, UpdateWtLineDto, WtLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWtLineDto, UpdateWtLineDto, WtLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWtLineService {
   getAll(): Promise<ApiResponse<WtLineDto[]>>;

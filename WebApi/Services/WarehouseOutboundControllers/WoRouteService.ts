@@ -1,9 +1,9 @@
-import { CreateWoRouteDto, UpdateWoRouteDto, WoRouteDto } from '../../Models/index';
+import type { CreateWoRouteDto, UpdateWoRouteDto, WoRouteDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IWoRouteService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IWoRouteService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/WoRoute",

@@ -5,9 +5,10 @@ namespace WMS_WEBAPI.Interfaces
 {
     public interface IAuthService
     {
-        Task<ApiResponse<User>> GetUserByUsernameAsync(string username);
-        Task<ApiResponse<User>> GetUserByIdAsync(int id);
-        Task<ApiResponse<User>> RegisterUserAsync(RegisterDto registerDto);
-        Task<ApiResponse<string>> LoginAsync(LoginDto loginDto);
+        Task<ApiResponse<UserDto>> GetUserByUsernameAsync(string username);
+        Task<ApiResponse<UserDto>> GetUserByIdAsync(long id);
+        Task<ApiResponse<IEnumerable<UserDto>>> GetAllUsersAsync();
+        Task<ApiResponse<UserDto>> RegisterUserAsync(RegisterDto registerDto);
+        Task<ApiResponse<string>> LoginAsync(LoginRequest loginDto);
     }
 }

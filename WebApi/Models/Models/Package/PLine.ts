@@ -1,3 +1,4 @@
+import type { BaseEntity } from '../BaseEntity';
 export interface PLine extends BaseEntity {
   PackageCode: string;
   PackageType: string;
@@ -9,5 +10,6 @@ export interface PLine extends BaseEntity {
   NetWeight?: number;
   Volume?: number;
   Description?: string;
+  Lines: PLine[];
 }
 

@@ -78,7 +78,7 @@ class Program
             var apiRel = Path.GetRelativePath(outDir, apiRespTs).Replace("\\", "/");
             if (apiRel.EndsWith(".ts")) apiRel = apiRel[..^3];
             if (!apiRel.StartsWith(".")) apiRel = "./" + apiRel;
-            sb.Insert(0, $"import {{ ApiResponse, PagedResponse }} from '{apiRel}';\n");
+            sb.Insert(0, $"import type {{ ApiResponse, PagedResponse }} from '{apiRel}';\n");
             if (typeImports.Count > 0)
             {
                 var indexTs = Path.Combine(repoRoot, "WebApi", "Models", "index.ts");
@@ -86,7 +86,7 @@ class Program
                 if (rel.EndsWith(".ts")) rel = rel[..^3];
                 if (!rel.StartsWith(".")) rel = "./" + rel;
                 var typesJoined = string.Join(", ", typeImports.OrderBy(t => t));
-                sb.Insert(0, $"import {{ {typesJoined} }} from '{rel}';\n");
+                sb.Insert(0, $"import type {{ {typesJoined} }} from '{rel}';\n");
             }
 
             var outPath = Path.Combine(outDir, iname + ".ts");

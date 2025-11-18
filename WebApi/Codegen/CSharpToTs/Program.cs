@@ -58,15 +58,19 @@ class Program
                 if (classMatches.Count == 0) continue;
 
                 var tsBuilder = new StringBuilder();
+                var baseImports = new HashSet<string>(StringComparer.Ordinal);
+                var typeImports = new HashSet<string>(StringComparer.Ordinal);
                 foreach (Match cm in classMatches)
                 {
                     var className = cm.Groups["name"].Value;
                     var baseRaw = cm.Groups["base"].Success ? cm.Groups["base"].Value.Trim() : null;
                     var extends = ExtractFirstBase(baseRaw);
+                    if (!string.IsNullOrWhiteSpace(extends)) baseImports.Add(extends);
 
                     var bodyStart = cm.Index + cm.Length;
                     var bodyEnd = FindMatchingBrace(text, cm.Index + text.Substring(cm.Index).IndexOf('{'));
                     var body = bodyEnd > bodyStart ? text.Substring(bodyStart, bodyEnd - bodyStart) : string.Empty;
+                    body = Regex.Replace(body, @"\b(virtual|override|static|new|required)\b\s+", "");
 
                     var props = new List<(string name, string type, bool optional)>();
                     foreach (Match pm in PropRegex.Matches(body))
@@ -75,6 +79,11 @@ class Program
                         var rawName = pm.Groups["name"].Value.Trim();
                         var (tsType, optional) = MapType(rawType);
                         props.Add((rawName, tsType, optional));
+                        var baseType = tsType.EndsWith("[]") ? tsType[..^2] : tsType;
+                        if (IsCustomTsType(baseType) && !string.Equals(baseType, className, StringComparison.Ordinal))
+                        {
+                            typeImports.Add(baseType);
+                        }
                     }
 
                     tsBuilder.AppendLine($"export interface {className}{(extends is not null ? " extends " + extends : string.Empty)} {{");
@@ -88,6 +97,31 @@ class Program
 
                 var outFileName = Path.GetFileNameWithoutExtension(file) + ".ts";
                 var outPath = Path.Combine(targetDir, outFileName);
+
+                if (baseImports.Count > 0)
+                {
+                    foreach (var b in baseImports.OrderBy(x => x))
+                    {
+                        var resolved = ResolveBaseImportPath(outRoot, targetDir, b);
+                        if (!string.IsNullOrWhiteSpace(resolved))
+                        {
+                            tsBuilder.Insert(0, $"import type {{ {b} }} from '{resolved}';\n");
+                        }
+                    }
+                }
+
+                if (typeImports.Count > 0)
+                {
+                    foreach (var t in typeImports.OrderBy(x => x))
+                    {
+                        var resolved = ResolveBaseImportPath(outRoot, targetDir, t);
+                        if (!string.IsNullOrWhiteSpace(resolved))
+                        {
+                            tsBuilder.Insert(0, $"import type {{ {t} }} from '{resolved}';\n");
+                        }
+                    }
+                }
+
                 File.WriteAllText(outPath, tsBuilder.ToString());
             }
 
@@ -149,6 +183,8 @@ class Program
         var baseName = parts[0].Trim();
         // remove generic params if any for TS extends (rare)
         baseName = Regex.Replace(baseName, @"<.*>", "");
+        // strip namespace qualifiers
+        if (baseName.Contains('.')) baseName = baseName.Split('.').Last();
         return baseName;
     }
 
@@ -209,6 +245,17 @@ class Program
         return (csType, optional);
     }
 
+    static bool IsCustomTsType(string ts)
+    {
+        var t = ts.Trim();
+        if (t.EndsWith("[]")) t = t[..^2];
+        if (string.IsNullOrWhiteSpace(t)) return false;
+        var primitives = new HashSet<string> { "string", "number", "boolean", "Date" };
+        if (primitives.Contains(t)) return false;
+        if (t.Contains("<") || t.Contains(">")) return false;
+        return char.IsUpper(t[0]);
+    }
+
     static int FindMatchingBrace(string text, int openIndex)
     {
         var depth = 0;
@@ -229,5 +276,20 @@ class Program
     {
         // Keep original casing to match API payloads
         return name;
+    }
+
+    static string ResolveBaseImportPath(string outRoot, string fromDir, string baseTypeName)
+    {
+        try
+        {
+            var candidates = Directory.GetFiles(outRoot, baseTypeName + ".ts", SearchOption.AllDirectories);
+            if (candidates.Length == 0) return string.Empty;
+            var rel = Path.GetRelativePath(fromDir, candidates[0]).Replace("\\", "/");
+            if (rel.EndsWith(".ts")) rel = rel[..^3];
+            if (!rel.StartsWith(".")) rel = "./" + rel;
+            return rel;
+        }
+        catch { }
+        return string.Empty;
     }
 }

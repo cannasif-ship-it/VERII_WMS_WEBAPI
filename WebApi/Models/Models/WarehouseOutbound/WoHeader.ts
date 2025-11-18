@@ -1,3 +1,4 @@
+import type { BaseHeaderEntity } from '../BaseHeaderEntity';
 export interface WoHeader extends BaseHeaderEntity {
   OutboundType: string;
   AccountCode?: string;
@@ -5,5 +6,8 @@ export interface WoHeader extends BaseHeaderEntity {
   SourceWarehouse?: string;
   TargetWarehouse?: string;
   Type: number;
+  Lines: WoLine[];
+  ImportLines: WoImportLine[];
+  TerminalLines: WoTerminalLine[];
 }
 

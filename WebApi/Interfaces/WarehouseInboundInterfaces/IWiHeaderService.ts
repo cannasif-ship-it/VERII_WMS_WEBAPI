@@ -1,5 +1,5 @@
-import { CreateWiHeaderDto, UpdateWiHeaderDto, WiHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWiHeaderDto, UpdateWiHeaderDto, WiHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWiHeaderService {
   getAll(): Promise<ApiResponse<WiHeaderDto[]>>;

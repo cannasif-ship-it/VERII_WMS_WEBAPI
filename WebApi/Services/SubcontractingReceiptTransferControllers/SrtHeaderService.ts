@@ -1,9 +1,9 @@
-import { CreateSrtHeaderDto, SrtHeaderDto, UpdateSrtHeaderDto } from '../../Models/index';
+import type { CreateSrtHeaderDto, SrtHeaderDto, UpdateSrtHeaderDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { ISrtHeaderService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ISrtHeaderService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/SrtHeader",
@@ -50,7 +50,7 @@ export class SrtHeaderService implements ISrtHeaderService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<SrtHeaderDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<SrtHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<SrtHeaderDto[]>>(`/date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;
@@ -115,7 +115,7 @@ export class SrtHeaderService implements ISrtHeaderService {
 
   async complete(id: number): Promise<ApiResponse<boolean>> {
     try {
-      const response = await api.post<ApiResponse<boolean>>(`/${id}/complete`, payload);
+      const response = await api.post<ApiResponse<boolean>>(`/complete/${id}`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);

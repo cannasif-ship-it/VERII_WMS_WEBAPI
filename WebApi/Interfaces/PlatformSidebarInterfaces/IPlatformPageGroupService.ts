@@ -1,5 +1,5 @@
-import { CreatePlatformPageGroupDto, PlatformPageGroupDto, UpdatePlatformPageGroupDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreatePlatformPageGroupDto, PlatformPageGroupDto, UpdatePlatformPageGroupDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IPlatformPageGroupService {
   getAll(): Promise<ApiResponse<PlatformPageGroupDto[]>>;

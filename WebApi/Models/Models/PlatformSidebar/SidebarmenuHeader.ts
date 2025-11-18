@@ -1,3 +1,4 @@
+import type { BaseEntity } from '../BaseEntity';
 export interface SidebarmenuHeader extends BaseEntity {
   MenuKey: string;
   Title: string;
@@ -9,5 +10,6 @@ export interface SidebarmenuHeader extends BaseEntity {
   TextColor?: string;
   DarkTextColor?: string;
   RoleLevel: number;
+  Lines: SidebarmenuLine[];
 }
 

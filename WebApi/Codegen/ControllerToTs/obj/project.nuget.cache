@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jyEWLfoQN9Q=",
+  "dgSpecHash": "r8VVCZWHrl4=",
   "success": true,
-  "projectFilePath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
+  "projectFilePath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

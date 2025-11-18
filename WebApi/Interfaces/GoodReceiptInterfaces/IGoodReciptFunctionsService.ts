@@ -1,5 +1,5 @@
-import { GoodsOpenOrdersHeaderDto, GoodsOpenOrdersLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { GoodsOpenOrdersHeaderDto, GoodsOpenOrdersLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IGoodReciptFunctionsService {
   getGoodsReceiptHeader(customerCode: string): Promise<ApiResponse<GoodsOpenOrdersHeaderDto[]>>;

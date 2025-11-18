@@ -1,3 +1,4 @@
+import type { BaseEntityDto } from '../Base/BaseEntityDto';
 export interface IcTerminalLineDto extends BaseEntityDto {
   HeaderId: number;
   TerminalUserId: number;

@@ -1,3 +1,4 @@
+import type { BaseEntity } from './BaseEntity';
 export interface BaseRouteEntity extends BaseEntity {
   LineId?: number;
   ScannedBarcode: string;

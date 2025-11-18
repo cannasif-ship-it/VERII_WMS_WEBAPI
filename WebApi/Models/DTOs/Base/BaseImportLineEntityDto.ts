@@ -1,3 +1,4 @@
+import type { BaseEntityDto } from './BaseEntityDto';
 export interface BaseImportLineEntityDto extends BaseEntityDto {
   StockCode: string;
   YapKod?: string;

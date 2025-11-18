@@ -1,3 +1,4 @@
+import type { BaseEntityDto } from './BaseEntityDto';
 export interface BaseHeaderEntityDto extends BaseEntityDto {
   YearCode: string;
   BranchCode: string;

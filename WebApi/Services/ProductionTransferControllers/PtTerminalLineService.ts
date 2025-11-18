@@ -1,9 +1,9 @@
-import { CreatePtTerminalLineDto, PtTerminalLineDto, UpdatePtTerminalLineDto } from '../../Models/index';
+import type { CreatePtTerminalLineDto, PtTerminalLineDto, UpdatePtTerminalLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IPtTerminalLineService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IPtTerminalLineService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/PtTerminalLine",
@@ -50,7 +50,7 @@ export class PtTerminalLineService implements IPtTerminalLineService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<PtTerminalLineDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<PtTerminalLineDto[]>> {
     try {
       const response = await api.get<ApiResponse<PtTerminalLineDto[]>>(`/date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;

@@ -1,3 +1,5 @@
+import type { BaseHeaderUpdateDto } from '../Base/BaseHeaderUpdateDto';
+import type { BaseHeaderCreateDto } from '../Base/BaseHeaderCreateDto';
 export interface WtHeaderDto {
   Id: number;
   BranchCode: string;

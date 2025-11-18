@@ -1,5 +1,5 @@
-import { CreateWoTerminalLineDto, UpdateWoTerminalLineDto, WoTerminalLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWoTerminalLineDto, UpdateWoTerminalLineDto, WoTerminalLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWoTerminalLineService {
   getAll(): Promise<ApiResponse<WoTerminalLineDto[]>>;

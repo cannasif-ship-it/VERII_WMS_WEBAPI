@@ -1,3 +1,4 @@
+import type { BaseEntity } from './BaseEntity';
 export interface BaseLineSerialEntity extends BaseEntity {
   Quantity: number;
   SerialNo?: string;

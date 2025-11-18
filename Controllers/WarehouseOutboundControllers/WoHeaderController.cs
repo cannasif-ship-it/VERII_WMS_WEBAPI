@@ -111,8 +111,8 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpPost("{id}/complete")]
-        public async Task<IActionResult> Complete(long id)
+        [HttpPost("complete/{id}")]
+        public async Task<ActionResult<ApiResponse<bool>>> Complete(long id)
         {
             var result = await _service.CompleteAsync(id);
             return StatusCode(result.StatusCode, result);

@@ -1,4 +1,4 @@
-import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface ILocalizationService {
 }

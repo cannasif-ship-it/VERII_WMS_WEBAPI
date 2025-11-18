@@ -1,9 +1,9 @@
-import { CreateMobilemenuLineDto, MobilemenuLineDto, UpdateMobilemenuLineDto } from '../../Models/index';
+import type { CreateMobilemenuLineDto, MobilemenuLineDto, UpdateMobilemenuLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IMobilemenuLineService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IMobilemenuLineService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/MobilemenuLine",

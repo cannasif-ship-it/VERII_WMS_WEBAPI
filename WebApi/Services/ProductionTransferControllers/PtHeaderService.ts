@@ -1,9 +1,9 @@
-import { CreatePtHeaderDto, PtHeaderDto, UpdatePtHeaderDto } from '../../Models/index';
+import type { CreatePtHeaderDto, PtHeaderDto, UpdatePtHeaderDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IPtHeaderService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IPtHeaderService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/PtHeader",
@@ -50,7 +50,7 @@ export class PtHeaderService implements IPtHeaderService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<PtHeaderDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<PtHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<PtHeaderDto[]>>(`/date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;
@@ -106,7 +106,7 @@ export class PtHeaderService implements IPtHeaderService {
 
   async complete(id: number): Promise<ApiResponse<boolean>> {
     try {
-      const response = await api.post<ApiResponse<boolean>>(`/${id}/complete`, payload);
+      const response = await api.post<ApiResponse<boolean>>(`/complete/${id}`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);

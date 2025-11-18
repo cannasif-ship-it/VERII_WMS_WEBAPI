@@ -3,7 +3,7 @@
 import i18n from 'i18next'; 
 
 //export const API_BASE_URL: string = "https://api.v3rii.com/api" 
-export const API_BASE_URL: string = "http://localhost:5102/api"  
+export const API_BASE_URL: string = "http://localhost:5000/api"  
 export const DEFAULT_TIMEOUT: number = 10000; 
 export const CURRENTLANGUAGE = i18n.language || 'tr'; 
 

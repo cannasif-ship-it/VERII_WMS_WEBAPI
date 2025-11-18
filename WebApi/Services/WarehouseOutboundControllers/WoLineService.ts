@@ -1,9 +1,9 @@
-import { CreateWoLineDto, UpdateWoLineDto, WoLineDto } from '../../Models/index';
+import type { CreateWoLineDto, UpdateWoLineDto, WoLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IWoLineService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IWoLineService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/WoLine",

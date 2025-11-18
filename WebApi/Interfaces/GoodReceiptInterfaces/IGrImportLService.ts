@@ -1,5 +1,5 @@
-import { CreateGrImportLDto, GrImportLDto, UpdateGrImportLDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateGrImportLDto, GrImportLDto, UpdateGrImportLDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IGrImportLService {
   getAll(): Promise<ApiResponse<GrImportLDto[]>>;

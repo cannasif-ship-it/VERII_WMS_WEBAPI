@@ -1,9 +1,9 @@
-import { CreateWoTerminalLineDto, UpdateWoTerminalLineDto, WoTerminalLineDto } from '../../Models/index';
+import type { CreateWoTerminalLineDto, UpdateWoTerminalLineDto, WoTerminalLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IWoTerminalLineService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IWoTerminalLineService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/WoTerminalLine",
@@ -50,7 +50,7 @@ export class WoTerminalLineService implements IWoTerminalLineService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<WoTerminalLineDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<WoTerminalLineDto[]>> {
     try {
       const response = await api.get<ApiResponse<WoTerminalLineDto[]>>(`/date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;

@@ -1,9 +1,9 @@
-import { CreateWoHeaderDto, UpdateWoHeaderDto, WoHeaderDto } from '../../Models/index';
+import type { CreateWoHeaderDto, UpdateWoHeaderDto, WoHeaderDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IWoHeaderService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IWoHeaderService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/WoHeader",
@@ -14,6 +14,15 @@ const api = axios.create({
 api.interceptors.request.use((config : any) => { const token = getAuthToken(); if (token) { config.headers.Authorization = `Bearer ${token}`; } return config; });
 
 export class WoHeaderService implements IWoHeaderService {
+  async complete(id: number): Promise<ApiResponse<boolean>> {
+    try {
+      const response = await api.post<ApiResponse<boolean>>(`/complete/${id}`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
+
   async getAll(): Promise<ApiResponse<WoHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<WoHeaderDto[]>>('');
@@ -50,7 +59,7 @@ export class WoHeaderService implements IWoHeaderService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<WoHeaderDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<WoHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<WoHeaderDto[]>>(`/date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;
@@ -125,15 +134,6 @@ export class WoHeaderService implements IWoHeaderService {
   async softDelete(id: number): Promise<ApiResponse<boolean>> {
     try {
       const response = await api.delete<ApiResponse<boolean>>(`/${id}/soft`);
-      return response.data;
-    } catch (error) {
-      return ApiResponseErrorHelper.create<boolean>(error);
-    }
-  }
-
-  async complete(id: number): Promise<ApiResponse<boolean>> {
-    try {
-      const response = await api.post<ApiResponse<boolean>>(`/${id}/complete`, payload);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);

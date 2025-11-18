@@ -1,5 +1,5 @@
-import { CreateWoHeaderDto, UpdateWoHeaderDto, WoHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateWoHeaderDto, UpdateWoHeaderDto, WoHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWoHeaderService {
   getAll(): Promise<ApiResponse<WoHeaderDto[]>>;

@@ -1,5 +1,5 @@
-import { CreateSrtHeaderDto, SrtHeaderDto, UpdateSrtHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateSrtHeaderDto, SrtHeaderDto, UpdateSrtHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface ISrtHeaderService {
   getAll(): Promise<ApiResponse<SrtHeaderDto[]>>;

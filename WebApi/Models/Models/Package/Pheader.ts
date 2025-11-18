@@ -1,3 +1,4 @@
+import type { BaseEntity } from '../BaseEntity';
 export interface PHeader extends BaseEntity {
   PackageCode: string;
   PackageType: string;
@@ -9,5 +10,6 @@ export interface PHeader extends BaseEntity {
   NetWeight?: number;
   Volume?: number;
   Description?: string;
+  Lines: PLine[];
 }
 

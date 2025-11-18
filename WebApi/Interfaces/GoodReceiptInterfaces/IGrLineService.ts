@@ -1,5 +1,5 @@
-import { CreateGrLineDto, GrLineDto, UpdateGrLineDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateGrLineDto, GrLineDto, UpdateGrLineDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IGrLineService {
   getAll(): Promise<ApiResponse<GrLineDto[]>>;

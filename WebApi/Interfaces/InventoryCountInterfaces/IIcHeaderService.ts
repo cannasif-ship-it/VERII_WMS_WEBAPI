@@ -1,5 +1,5 @@
-import { CreateIcHeaderDto, IcHeaderDto, UpdateIcHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateIcHeaderDto, IcHeaderDto, UpdateIcHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IIcHeaderService {
   getAll(): Promise<ApiResponse<IcHeaderDto[]>>;

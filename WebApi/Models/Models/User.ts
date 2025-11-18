@@ -1,3 +1,4 @@
+import type { BaseEntity } from './BaseEntity';
 export interface User extends BaseEntity {
   Username: string;
   Email: string;
@@ -12,5 +13,6 @@ export interface User extends BaseEntity {
   RefreshToken?: string;
   RefreshTokenExpiryTime?: string;
   IsActive: boolean;
+  Sessions: UserSession[];
 }
 

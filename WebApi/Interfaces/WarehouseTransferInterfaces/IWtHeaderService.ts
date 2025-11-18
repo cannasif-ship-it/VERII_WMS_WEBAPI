@@ -1,5 +1,5 @@
-import { BulkCreateWtRequestDto, CreateWtHeaderDto, UpdateWtHeaderDto, WtHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { BulkCreateWtRequestDto, CreateWtHeaderDto, GenerateWarehouseTransferOrderRequestDto, UpdateWtHeaderDto, WtHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IWtHeaderService {
   getAll(): Promise<ApiResponse<WtHeaderDto[]>>;
@@ -15,4 +15,7 @@ export interface IWtHeaderService {
   softDelete(id: number): Promise<ApiResponse<boolean>>;
   complete(id: number): Promise<ApiResponse<boolean>>;
   bulkCreateInterWarehouseTransfer(request: BulkCreateWtRequestDto): Promise<ApiResponse<number>>;
+  getAssignedTransferOrders(userId: number): Promise<ApiResponse<WtHeaderDto[]>>;
+  getCompletedAwaitingErpApproval(): Promise<ApiResponse<WtHeaderDto[]>>;
+  generateWarehouseTransferOrder(request: GenerateWarehouseTransferOrderRequestDto): Promise<ApiResponse<WtHeaderDto>>;
 }

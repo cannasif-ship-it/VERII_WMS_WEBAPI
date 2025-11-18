@@ -1,5 +1,5 @@
-import { CreateSidebarmenuHeaderDto, SidebarmenuHeaderDto, UpdateSidebarmenuHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { CreateSidebarmenuHeaderDto, SidebarmenuHeaderDto, UpdateSidebarmenuHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface ISidebarmenuHeaderService {
   getAll(): Promise<ApiResponse<SidebarmenuHeaderDto[]>>;

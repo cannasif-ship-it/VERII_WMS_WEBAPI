@@ -1,17 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WMS_WEBAPI.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using System.Security.Claims;
-using WMS_WEBAPI.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.SignalR;
-using WMS_WEBAPI.Hubs;
+using System.Security.Claims;
 using WMS_WEBAPI.Interfaces;
 using WMS_WEBAPI.DTOs;
-using System.Security.Cryptography;
 
 namespace WMS_WEBAPI.Controllers
 {
@@ -19,292 +10,57 @@ namespace WMS_WEBAPI.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly WmsDbContext _context;
-        private readonly IConfiguration _config;
-        private readonly IHubContext<AuthHub> _hubContext;
-        private readonly ILocalizationService _localizationService;
         private readonly IAuthService _authService;
 
-        public AuthController(WmsDbContext context, IConfiguration config, IHubContext<AuthHub> hubContext, ILocalizationService localizationService, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _context = context;
-            _config = config;
-            _hubContext = hubContext;
-            _localizationService = localizationService;
             _authService = authService;
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<ActionResult<ApiResponse<string>>> Login([FromBody] LoginRequest request)
         {
-            try
-            {
-                // AuthService'i kullanarak login işlemini gerçekleştir
-                var loginDto = new LoginDto
-                {
-                    Username = request.Email, // Email veya username olarak kullanılacak
-                    Password = request.Password
-                };
-
-                var loginResult = await _authService.LoginAsync(loginDto);
-                
-                if (!loginResult.Success)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = loginResult.Message,
-                        ExceptionMessage = loginResult.ExceptionMessage,
-                        StatusCode = loginResult.StatusCode,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                // Kullanıcıyı bul (token'dan user bilgisini almak için)
-                var user = _context.Users
-                    .FirstOrDefault(u => (u.Email == request.Email || u.Username == request.Email) && u.IsActive);
-
-                if (user == null)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = _localizationService.GetLocalizedString("Error.User.InvalidCredentials"),
-                        ExceptionMessage = "User not found",
-                        StatusCode = 401,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                // Mevcut session varsa iptal et ve SignalR ile kullanıcıyı çıkış yaptır
-                var activeSession = _context.UserSessions
-                    .FirstOrDefault(s => s.UserId == user.Id && s.RevokedAt == null);
-
-                if (activeSession != null)
-                {
-                    activeSession.RevokedAt = DateTime.UtcNow;
-                    _context.SaveChanges();
-                    
-                    // SignalR ile eski kullanıcıyı çıkış yaptır
-                    await AuthHub.ForceLogoutUser(_hubContext, user.Id.ToString());
-                }
-
-                // Yeni session oluştur
-                var session = new UserSession
-                {
-                    UserId = user.Id,
-                    SessionId = Guid.NewGuid(),
-                    CreatedAt = DateTime.UtcNow,
-                    Token = ComputeSha256Hash(loginResult.Data!),
-                    IsDeleted = false,
-                    CreatedDate = DateTime.UtcNow
-                };
-                _context.UserSessions.Add(session);
-                _context.SaveChanges();
-
-                var successResponse = new ApiResponse<object>
-                {
-                    Success = true,
-                    Message = loginResult.Message,
-                    StatusCode = 200,
-                    Data = new { token = loginResult.Data }
-                };
-                return StatusCode(successResponse.StatusCode, successResponse);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = _localizationService.GetLocalizedString("Error.User.LoginFailed"),
-                    ExceptionMessage = ex.InnerException?.Message ?? ex.Message,
-                    StatusCode = 500,
-                    Data = null
-                };
-                return StatusCode(errorResponse.StatusCode, errorResponse);
-            }
+            var result = await _authService.LoginAsync(request);
+            return StatusCode(result.StatusCode, result);
         }
 
         [AllowAnonymous]
         [HttpPost("admin-login")]
-        public async Task<IActionResult> AdminLogin()
+        public async Task<ActionResult<ApiResponse<string>>> AdminLogin()
         {
-            try
+            var loginDto = new LoginRequest
             {
-                // Verii.com admin bilgileri
-                var adminEmail = "admin@v3rii.com";
-                var adminPassword = "Veriipass123!";
-
-                // AuthService'i kullanarak login işlemini gerçekleştir
-                var loginDto = new LoginDto
-                {
-                    Username = adminEmail,
-                    Password = adminPassword
-                };
-
-                var loginResult = await _authService.LoginAsync(loginDto);
-                
-                if (!loginResult.Success)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = loginResult.Message,
-                        ExceptionMessage = loginResult.ExceptionMessage,
-                        StatusCode = loginResult.StatusCode,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                // Kullanıcıyı bul (token'dan user bilgisini almak için)
-                var user = _context.Users
-                    .FirstOrDefault(u => (u.Email == adminEmail || u.Username == adminEmail) && u.IsActive);
-
-                if (user == null)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Admin kullanıcısı bulunamadı",
-                        ExceptionMessage = "Admin user not found",
-                        StatusCode = 401,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                // Mevcut session varsa iptal et ve SignalR ile kullanıcıyı çıkış yaptır
-                var activeSession = _context.UserSessions
-                    .FirstOrDefault(s => s.UserId == user.Id && s.RevokedAt == null);
-
-                if (activeSession != null)
-                {
-                    activeSession.RevokedAt = DateTime.UtcNow;
-                    _context.SaveChanges();
-                    
-                    // SignalR ile eski kullanıcıyı çıkış yaptır
-                    await AuthHub.ForceLogoutUser(_hubContext, user.Id.ToString());
-                }
-
-                // Yeni session oluştur
-                var session = new UserSession
-                {
-                    UserId = user.Id,
-                    SessionId = Guid.NewGuid(),
-                    CreatedAt = DateTime.UtcNow,
-                    Token = ComputeSha256Hash(loginResult.Data!),
-                    IsDeleted = false,
-                    CreatedDate = DateTime.UtcNow
-                };
-                _context.UserSessions.Add(session);
-                _context.SaveChanges();
-
-                var successResponse = new ApiResponse<object>
-                {
-                    Success = true,
-                    Message = "Admin girişi başarılı",
-                    StatusCode = 200,
-                    Data = new { token = loginResult.Data }
-                };
-                return StatusCode(successResponse.StatusCode, successResponse);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = "Admin giriş işlemi başarısız",
-                    ExceptionMessage = ex.InnerException?.Message ?? ex.Message,
-                    StatusCode = 500,
-                    Data = null
-                };
-                return StatusCode(errorResponse.StatusCode, errorResponse);
-            }
+                Email = "admin@v3rii.com",
+                Password = "Veriipass123!"
+            };
+            var result = await _authService.LoginAsync(loginDto);
+            return StatusCode(result.StatusCode, result);
         }
 
         [Authorize]
-        [HttpGet("user")]
-        public IActionResult GetProfile()
+        [HttpGet("users")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<UserDto>>>> GetAllUsers()
         {
-            try
-            {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId == null)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Kullanıcı kimliği bulunamadı.",
-                        ExceptionMessage = "Unauthorized",
-                        StatusCode = 401,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                var user = _context.Users.FirstOrDefault(u => u.Id.ToString() == userId);
-                if (user == null)
-                {
-                    var errorResponse = new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Kullanıcı bulunamadı.",
-                        ExceptionMessage = "NotFound",
-                        StatusCode = 404,
-                        Data = null
-                    };
-                    return StatusCode(errorResponse.StatusCode, errorResponse);
-                }
-
-                var userDto = new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    Role = user.RoleNavigation?.Title ?? "User",
-                    FullName = user.FullName
-                };
-
-                var successResponse = new ApiResponse<UserDto>
-                {
-                    Success = true,
-                    Message = "Profil başarıyla getirildi.",
-                    StatusCode = 200,
-                    Data = userDto
-                };
-                return StatusCode(successResponse.StatusCode, successResponse);
-            }
-            catch (Exception ex)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = "Profil getirme işlemi başarısız.",
-                    ExceptionMessage = ex.Message,
-                    StatusCode = 500,
-                    Data = null
-                };
-                return StatusCode(errorResponse.StatusCode, errorResponse);
-            }
+            var result = await _authService.GetAllUsersAsync();
+            return StatusCode(result.StatusCode, result);
         }
 
-        static string ComputeSha256Hash(string rawData)
+        [Authorize]
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<ApiResponse<UserDto>>> GetUserById(long id)
         {
-            using var sha256Hash = SHA256.Create();
-            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-            var builder = new StringBuilder();
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                builder.Append(bytes[i].ToString("x2"));
-            }
-            return builder.ToString();
+            var result = await _authService.GetUserByIdAsync(id);
+            return StatusCode(result.StatusCode, result);
         }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<ApiResponse<UserDto>>> Register([FromBody] RegisterDto registerDto)
+        {
+            var result = await _authService.RegisterUserAsync(registerDto);
+            return StatusCode(result.StatusCode, result);
+        }
+
     }
 }

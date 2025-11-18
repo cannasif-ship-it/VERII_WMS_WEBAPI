@@ -1,5 +1,5 @@
-import { BulkCreateGrRequestDto, CreateGrHeaderDto, GrHeaderDto, UpdateGrHeaderDto } from '../../Models/index';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { BulkCreateGrRequestDto, CreateGrHeaderDto, GrHeaderDto, UpdateGrHeaderDto } from '../../Models/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
 
 export interface IGrHeaderService {
   getAll(): Promise<ApiResponse<GrHeaderDto[]>>;

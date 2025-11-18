@@ -1,9 +1,9 @@
-import { CreatePtRouteDto, PtRouteDto, UpdatePtRouteDto } from '../../Models/index';
+import type { CreatePtRouteDto, PtRouteDto, UpdatePtRouteDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IPtRouteService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IPtRouteService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/PtRoute",

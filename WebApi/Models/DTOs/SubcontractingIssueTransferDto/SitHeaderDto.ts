@@ -1,3 +1,6 @@
+import type { BaseHeaderUpdateDto } from '../Base/BaseHeaderUpdateDto';
+import type { BaseHeaderEntityDto } from '../Base/BaseHeaderEntityDto';
+import type { BaseHeaderCreateDto } from '../Base/BaseHeaderCreateDto';
 export interface SitHeaderDto extends BaseHeaderEntityDto {
   DocumentNo: string;
   DocumentDate: string;

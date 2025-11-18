@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj": {}
+    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj": {}
   },
   "projects": {
-    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj": {
+    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
+        "projectUniqueName": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
         "projectName": "ControllerToTs",
-        "projectPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
+        "projectPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\ControllerToTs.csproj",
         "packagesPath": "C:\\Users\\veriiadmin\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\obj\\",
+        "outputPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\ControllerToTs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

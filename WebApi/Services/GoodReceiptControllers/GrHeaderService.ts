@@ -1,9 +1,9 @@
-import { BulkCreateGrRequestDto, CreateGrHeaderDto, GrHeaderDto, UpdateGrHeaderDto } from '../../Models/index';
+import type { BulkCreateGrRequestDto, CreateGrHeaderDto, GrHeaderDto, UpdateGrHeaderDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
-import { IGrHeaderService } from '../../Interfaces/index';
+import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { IGrHeaderService } from '../../Interfaces/index';
 
 const api = axios.create({
   baseURL: API_BASE_URL + "/GrHeader",
@@ -70,7 +70,7 @@ export class GrHeaderService implements IGrHeaderService {
 
   async complete(id: number): Promise<ApiResponse<boolean>> {
     try {
-      const response = await api.post<ApiResponse<boolean>>(`/complete/${id}`, payload);
+      const response = await api.post<ApiResponse<boolean>>(`/complete/${id}`);
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);
@@ -95,7 +95,7 @@ export class GrHeaderService implements IGrHeaderService {
     }
   }
 
-  async getByDateRange(startDate: string, endDate: string): Promise<ApiResponse<GrHeaderDto[]>> {
+  async getByDateRange(startDate: Date, endDate: Date): Promise<ApiResponse<GrHeaderDto[]>> {
     try {
       const response = await api.get<ApiResponse<GrHeaderDto[]>>(`/by-date-range`, { params: { startDate: startDate, endDate: endDate } });
       return response.data;

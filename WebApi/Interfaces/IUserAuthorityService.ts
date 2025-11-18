@@ -1,5 +1,5 @@
-import { CreateUserAuthorityDto, UpdateUserAuthorityDto, UserAuthorityDto } from '../Models/index';
-import { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import type { CreateUserAuthorityDto, UpdateUserAuthorityDto, UserAuthorityDto } from '../Models/index';
+import type { ApiResponse, PagedResponse } from '../Models/ApiResponse';
 
 export interface IUserAuthorityService {
   getAll(): Promise<ApiResponse<UserAuthorityDto[]>>;

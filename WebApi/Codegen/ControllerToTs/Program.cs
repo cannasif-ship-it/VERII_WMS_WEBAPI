@@ -24,13 +24,13 @@ class Program
         { "decimal", "number" },
         { "bool", "boolean" },
         { "Guid", "string" },
-        { "DateTime", "string" },
+        { "DateTime", "Date" },
         { "TimeSpan", "string" }
     };
 
     static int Main(string[] args)
     {
-        var repoRoot = Directory.GetCurrentDirectory();
+        var repoRoot = FindRepoRoot();
         var controllersRoot = Path.Combine(repoRoot, "Controllers");
         var outRoot = Path.Combine(repoRoot, "WebApi", "Services");
         Directory.CreateDirectory(outRoot);
@@ -55,8 +55,8 @@ class Program
             var ifaceIndexPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "Interfaces", "index.ts"));
             sb.AppendLine($"import {{ ApiResponseErrorHelper }} from '{helperPath}';");
             sb.AppendLine($"import {{ API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken }} from '{baseUrlPath}';");
-            sb.AppendLine($"import {{ ApiResponse, PagedResponse }} from '{apiRespPath}';");
-            sb.AppendLine($"import {{ I{name}Service }} from '{ifaceIndexPath}';");
+            sb.AppendLine($"import type {{ ApiResponse, PagedResponse }} from '{apiRespPath}';");
+            sb.AppendLine($"import type {{ I{name}Service }} from '{ifaceIndexPath}';");
             var typeImports = new HashSet<string>();
             sb.AppendLine();
             sb.AppendLine("const api = axios.create({");
@@ -122,11 +122,17 @@ class Program
                 }
                 else if (verb == "Post")
                 {
-                    sb.Append($"const response = await api.post<ApiResponse<{retTs}>>({pathLiteral}, {bodyName}{queryConfig});");
+                    if (bodyArg.name == null)
+                        sb.Append($"const response = await api.post<ApiResponse<{retTs}>>({pathLiteral}{queryConfig});");
+                    else
+                        sb.Append($"const response = await api.post<ApiResponse<{retTs}>>({pathLiteral}, {bodyName}{queryConfig});");
                 }
                 else if (verb == "Put")
                 {
-                    sb.Append($"const response = await api.put<ApiResponse<{retTs}>>({pathLiteral}, {bodyName}{queryConfig});");
+                    if (bodyArg.name == null)
+                        sb.Append($"const response = await api.put<ApiResponse<{retTs}>>({pathLiteral}{queryConfig});");
+                    else
+                        sb.Append($"const response = await api.put<ApiResponse<{retTs}>>({pathLiteral}, {bodyName}{queryConfig});");
                 }
                 else if (verb == "Delete")
                 {
@@ -142,7 +148,7 @@ class Program
                 var indexTs = Path.Combine(repoRoot, "WebApi", "Models", "index.ts");
                 var rel = ToRelativeImport(outDir, indexTs);
                 var typesJoined = string.Join(", ", typeList);
-                sb.Insert(0, $"import {{ {typesJoined} }} from '{rel}';\n");
+                sb.Insert(0, $"import type {{ {typesJoined} }} from '{rel}';\n");
             }
 
             sb.AppendLine("}");
@@ -152,6 +158,17 @@ class Program
         }
 
         return 0;
+    }
+
+    static string FindRepoRoot()
+    {
+        var cwd = Directory.GetCurrentDirectory();
+        var repoRoot = Path.GetFullPath(Path.Combine(cwd, "..", "..", ".."));
+        if (Directory.Exists(Path.Combine(repoRoot, "Controllers")) && Directory.Exists(Path.Combine(repoRoot, "WebApi")))
+        {
+            return repoRoot;
+        }
+        return cwd;
     }
 
     static IEnumerable<Match> GetMethodMatches(string text)
@@ -256,7 +273,7 @@ class Program
 
         if (retRaw.EndsWith("?")) retRaw = retRaw.TrimEnd('?');
         var baseTs = MapType(retRaw);
-        if (!TypeMap.ContainsKey(retRaw)) imports.Add(baseTs);
+        if (IsCustomTsType(baseTs)) imports.Add(baseTs);
         return baseTs;
     }
 
@@ -284,7 +301,7 @@ class Program
         var t = ts.Trim();
         if (t.EndsWith("[]")) t = t[..^2];
         if (string.IsNullOrWhiteSpace(t)) return false;
-        var primitives = new HashSet<string> { "string", "number", "boolean" };
+        var primitives = new HashSet<string> { "string", "number", "boolean", "Date" };
         if (primitives.Contains(t)) return false;
         if (t.Contains("<") || t.Contains(">")) return false;
         return char.IsUpper(t[0]);
