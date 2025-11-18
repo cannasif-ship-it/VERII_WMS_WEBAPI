@@ -193,6 +193,49 @@ namespace WMS_WEBAPI.Services
             }
         }
 
+        public async Task<ApiResponse<IEnumerable<WtImportLineWithRoutesDto>>> GetCollectedBarcodesByHeaderIdAsync(long headerId)
+        {
+            try
+            {
+                var header = await _unitOfWork.WtHeaders.GetByIdAsync(headerId);
+                if (header == null || header.IsDeleted)
+                {
+                    return ApiResponse<IEnumerable<WtImportLineWithRoutesDto>>.ErrorResult(
+                        _localizationService.GetLocalizedString("WtHeaderNotFound"),
+                        _localizationService.GetLocalizedString("WtHeaderNotFound"),
+                        404
+                    );
+                }
+
+                var importLines = await _unitOfWork.WtImportLines.FindAsync(x => x.HeaderId == headerId && !x.IsDeleted);
+                var items = new List<WtImportLineWithRoutesDto>();
+
+                foreach (var il in importLines)
+                {
+                    var routes = await _unitOfWork.WtRoutes.FindAsync(r => r.ImportLineId == il.Id && !r.IsDeleted);
+                    var dto = new WtImportLineWithRoutesDto
+                    {
+                        ImportLine = _mapper.Map<WtImportLineDto>(il),
+                        Routes = _mapper.Map<List<WtRouteDto>>(routes)
+                    };
+                    items.Add(dto);
+                }
+
+                return ApiResponse<IEnumerable<WtImportLineWithRoutesDto>>.SuccessResult(
+                    items,
+                    _localizationService.GetLocalizedString("WtImportLineRetrievedSuccessfully")
+                );
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<IEnumerable<WtImportLineWithRoutesDto>>.ErrorResult(
+                    _localizationService.GetLocalizedString("WtImportLineErrorOccurred"),
+                    ex.Message ?? string.Empty,
+                    500
+                );
+            }
+        }
+
         public async Task<ApiResponse<IEnumerable<WtImportLineDto>>> GetByErpOrderNoAsync(string erpOrderNo)
         {
             try

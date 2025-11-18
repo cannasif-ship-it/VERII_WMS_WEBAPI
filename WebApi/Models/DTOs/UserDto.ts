@@ -1,4 +1,4 @@
-
+import { AuditedEntityDto, UserDto } from '../index';
 export interface UserDto extends AuditedEntityDto {
   Username: string;
   Email: string;

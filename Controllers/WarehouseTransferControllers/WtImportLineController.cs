@@ -163,5 +163,12 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("warehouseTransferOrderCollectedBarcodes/{headerId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<WtImportLineWithRoutesDto>>>> WarehouseTransferOrderCollectedBarcodes(long headerId)
+        {
+            var result = await _wtImportLineService.GetCollectedBarcodesByHeaderIdAsync(headerId);
+            return StatusCode(result.StatusCode, result);
+        }
+
     }
 }

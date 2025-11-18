@@ -1,4 +1,4 @@
-import type { CreateWtImportLineDto, UpdateWtImportLineDto, WtImportLineDto } from '../../Models/index';
+import type { AddWtImportBarcodeRequestDto, CreateWtImportLineDto, UpdateWtImportLineDto, WtImportLineDto, WtImportLineWithRoutesDto } from '../../Models/index';
 import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IWtImportLineService {
@@ -13,4 +13,6 @@ export interface IWtImportLineService {
   create(createDto: CreateWtImportLineDto): Promise<ApiResponse<WtImportLineDto>>;
   update(id: number, updateDto: UpdateWtImportLineDto): Promise<ApiResponse<WtImportLineDto>>;
   softDelete(id: number): Promise<ApiResponse<boolean>>;
+  addBarcodeBasedonAssignedOrder(request: AddWtImportBarcodeRequestDto): Promise<ApiResponse<WtImportLineDto>>;
+  getCollectedBarcodesByHeaderId(headerId: number): Promise<ApiResponse<WtImportLineWithRoutesDto[]>>;
 }
