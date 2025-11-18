@@ -1,7 +1,4 @@
-import type { GrLineSerial } from './GrLineSerial';
-import type { GrImportLine } from './GrImportLine';
-import type { GrHeader } from './GrHeader';
-import type { BaseLineEntity } from '../BaseLineEntity';
+import { BaseLineEntity, GrHeader, GrImportLine, GrLineSerial } from '../../index';
 export interface GrLine extends BaseLineEntity {
   HeaderId: number;
   Header: GrHeader;

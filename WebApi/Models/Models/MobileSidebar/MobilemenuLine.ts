@@ -1,5 +1,4 @@
-import type { MobilemenuHeader } from './MobilemenuHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, MobilemenuHeader } from '../../index';
 export interface MobilemenuLine extends BaseEntity {
   ItemId: string;
   Title: string;

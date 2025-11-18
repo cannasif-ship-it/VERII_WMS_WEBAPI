@@ -1,6 +1,4 @@
-import type { SidebarmenuLine } from './SidebarmenuLine';
-import type { SidebarmenuHeader } from './SidebarmenuHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, SidebarmenuHeader, SidebarmenuLine } from '../../index';
 export interface PlatformPageGroup extends BaseEntity {
   GroupName: string;
   GroupCode: string;

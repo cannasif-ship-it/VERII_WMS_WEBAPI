@@ -1,6 +1,4 @@
-import type { User } from '../User';
-import type { SitHeader } from './SitHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, SitHeader, User } from '../../index';
 export interface SitTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: SitHeader;

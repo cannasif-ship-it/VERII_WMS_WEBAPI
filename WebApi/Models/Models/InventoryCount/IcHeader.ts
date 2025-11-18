@@ -1,6 +1,4 @@
-import type { IcTerminalLine } from './IcTerminalLine';
-import type { IcImportLine } from './IcImportLine';
-import type { BaseHeaderEntity } from '../BaseHeaderEntity';
+import { BaseHeaderEntity, IcImportLine, IcTerminalLine } from '../../index';
 export interface IcHeader extends BaseHeaderEntity {
   WarehouseCode?: string;
   ProductCode?: string;

@@ -1,6 +1,4 @@
-import type { User } from '../User';
-import type { MobilePageGroup } from './MobilePageGroup';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, MobilePageGroup, User } from '../../index';
 export interface MobileUserGroupMatch extends BaseEntity {
   UserId: number;
   GroupCode: string;

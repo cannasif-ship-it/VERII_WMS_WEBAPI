@@ -1,6 +1,4 @@
-import type { WiHeader } from './WiHeader';
-import type { User } from '../User';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, User, WiHeader } from '../../index';
 export interface WiTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: WiHeader;

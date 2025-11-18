@@ -1,5 +1,4 @@
-import type { GrImportLine } from './GrImportLine';
-import type { BaseRouteEntity } from '../BaseRouteEntity';
+import { BaseRouteEntity, GrImportLine } from '../../index';
 export interface GrRoute extends BaseRouteEntity {
   ImportLineId: number;
   ImportLine: GrImportLine;

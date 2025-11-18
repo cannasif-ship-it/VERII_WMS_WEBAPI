@@ -23,6 +23,15 @@ export class AuthService implements IAuthService {
     }
   }
 
+  async login(): Promise<ApiResponse<string>> {
+    try {
+      const response = await api.post<ApiResponse<string>>(`/admin-login`);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<string>(error);
+    }
+  }
+
   async getAllUsers(): Promise<ApiResponse<UserDto[]>> {
     try {
       const response = await api.get<ApiResponse<UserDto[]>>(`/users`);

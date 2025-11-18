@@ -1,4 +1,4 @@
-import type { BaseLineSerialCreateDto } from '../Base/BaseLineSerialCreateDto';
+import { BaseLineSerialCreateDto, CreateWtHeaderDto, CreateWtImportLineWithKeysDto, CreateWtLineSerialWithLineKeyDto, CreateWtLineWithKeyDto, CreateWtRouteWithLineKeyDto, CreateWtTerminalLineWithUserDto } from '../../index';
 export interface CreateWtLineWithKeyDto {
   ClientKey?: string;
   ClientGuid?: string;

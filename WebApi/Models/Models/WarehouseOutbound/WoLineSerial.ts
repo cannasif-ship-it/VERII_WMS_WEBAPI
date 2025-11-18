@@ -1,5 +1,4 @@
-import type { WoLine } from './WoLine';
-import type { BaseLineSerialEntity } from '../BaseLineSerialEntity';
+import { BaseLineSerialEntity, WoLine } from '../../index';
 export interface WoLineSerial extends BaseLineSerialEntity {
   LineId: number;
   Line: WoLine;

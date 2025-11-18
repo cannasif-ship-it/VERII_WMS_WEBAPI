@@ -1,5 +1,4 @@
-import type { IcImportLine } from './IcImportLine';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, IcImportLine } from '../../index';
 export interface IcRoute extends BaseEntity {
   ImportLineId: number;
   ImportLine: IcImportLine;

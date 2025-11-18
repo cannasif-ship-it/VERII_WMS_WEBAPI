@@ -1,5 +1,4 @@
-import type { SrtImportLine } from './SRTImportLine';
-import type { BaseRouteEntity } from '../BaseRouteEntity';
+import { BaseRouteEntity, SrtImportLine } from '../../index';
 export interface SrtRoute extends BaseRouteEntity {
   ImportLineId: number;
   ImportLine: SrtImportLine;

@@ -1,6 +1,4 @@
-import type { BaseHeaderUpdateDto } from '../Base/BaseHeaderUpdateDto';
-import type { BaseHeaderEntityDto } from '../Base/BaseHeaderEntityDto';
-import type { BaseHeaderCreateDto } from '../Base/BaseHeaderCreateDto';
+import { BaseHeaderCreateDto, BaseHeaderEntityDto, BaseHeaderUpdateDto } from '../../index';
 export interface WoHeaderDto extends BaseHeaderEntityDto {
   DocumentNo: string;
   DocumentDate: string;

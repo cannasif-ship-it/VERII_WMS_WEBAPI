@@ -1,4 +1,4 @@
-import type { User } from './User';
+import { User } from '../index';
 export interface BaseEntity {
   Id: number;
   CreatedDate?: string;

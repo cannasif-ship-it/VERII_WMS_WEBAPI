@@ -1,6 +1,4 @@
-import type { User } from '../User';
-import type { SrtHeader } from './SRTHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, SrtHeader, User } from '../../index';
 export interface SrtTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: SrtHeader;

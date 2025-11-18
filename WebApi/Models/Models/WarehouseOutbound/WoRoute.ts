@@ -1,5 +1,4 @@
-import type { WoImportLine } from './WoImportLine';
-import type { BaseRouteEntity } from '../BaseRouteEntity';
+import { BaseRouteEntity, WoImportLine } from '../../index';
 export interface WoRoute extends BaseRouteEntity {
   ImportLineId: number;
   ImportLine: WoImportLine;

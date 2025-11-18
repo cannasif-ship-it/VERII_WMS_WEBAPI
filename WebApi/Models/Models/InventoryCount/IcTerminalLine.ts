@@ -1,6 +1,4 @@
-import type { User } from '../User';
-import type { IcHeader } from './IcHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, IcHeader, User } from '../../index';
 export interface IcTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: IcHeader;

@@ -1,7 +1,4 @@
-import type { WtTerminalLine } from './WtTerminalLine';
-import type { WtLine } from './WtLine';
-import type { WtImportLine } from './WtImportLine';
-import type { BaseHeaderEntity } from '../BaseHeaderEntity';
+import { BaseHeaderEntity, WtImportLine, WtLine, WtTerminalLine } from '../../index';
 export interface WtHeader extends BaseHeaderEntity {
   CustomerCode?: string;
   SourceWarehouse?: string;

@@ -1,4 +1,4 @@
-import type { BaseEntityDto } from '../Base/BaseEntityDto';
+import { BaseEntityDto } from '../../index';
 export interface WiTerminalLineDto extends BaseEntityDto {
   HeaderId: number;
   TerminalUserId: number;

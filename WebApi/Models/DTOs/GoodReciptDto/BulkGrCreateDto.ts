@@ -1,3 +1,4 @@
+import { CreateGrHeaderDto, CreateGrImportDocumentSimpleDto, CreateGrImportLWithLineKeyDto, CreateGrImportSerialLineWithImportLineKeyDto, CreateGrLineWithKeyDto, CreateGrRouteWithImportLineKeyDto } from '../../index';
 export interface CreateGrLineWithKeyDto {
   ClientKey: string;
   ClientGuid?: string;

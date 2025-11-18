@@ -1,7 +1,4 @@
-import type { WiLineSerial } from './WiLineSerial';
-import type { WiImportLine } from './WiImportLine';
-import type { WiHeader } from './WiHeader';
-import type { BaseLineEntity } from '../BaseLineEntity';
+import { BaseLineEntity, WiHeader, WiImportLine, WiLineSerial } from '../../index';
 export interface WiLine extends BaseLineEntity {
   HeaderId: number;
   Header: WiHeader;

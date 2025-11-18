@@ -1,6 +1,4 @@
-import type { PtLine } from './PtLine';
-import type { PtHeader } from './PtHeader';
-import type { BaseImportLineEntity } from '../BaseImportLineEntity';
+import { BaseImportLineEntity, PtHeader, PtLine } from '../../index';
 export interface PtImportLine extends BaseImportLineEntity {
   HeaderId: number;
   Header: PtHeader;

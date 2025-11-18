@@ -1,6 +1,4 @@
-import type { User } from '../User';
-import type { PtHeader } from './PtHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, PtHeader, User } from '../../index';
 export interface PtTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: PtHeader;

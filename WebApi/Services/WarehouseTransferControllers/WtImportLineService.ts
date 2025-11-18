@@ -1,4 +1,4 @@
-import type { CreateWtImportLineDto, UpdateWtImportLineDto, WtImportLineDto } from '../../Models/index';
+import type { AddWtImportBarcodeRequestDto, CreateWtImportLineDto, UpdateWtImportLineDto, WtImportLineDto } from '../../Models/index';
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
@@ -110,6 +110,15 @@ export class WtImportLineService implements IWtImportLineService {
       return response.data;
     } catch (error) {
       return ApiResponseErrorHelper.create<boolean>(error);
+    }
+  }
+
+  async addBarcodeBasedonAssignedOrder(request: AddWtImportBarcodeRequestDto): Promise<ApiResponse<WtImportLineDto>> {
+    try {
+      const response = await api.post<ApiResponse<WtImportLineDto>>(`/addBarcodeBasedonAssignedOrder`, request);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<WtImportLineDto>(error);
     }
   }
 

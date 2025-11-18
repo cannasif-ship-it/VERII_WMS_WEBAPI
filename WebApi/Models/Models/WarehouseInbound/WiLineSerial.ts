@@ -1,5 +1,4 @@
-import type { WiLine } from './WiLine';
-import type { BaseLineSerialEntity } from '../BaseLineSerialEntity';
+import { BaseLineSerialEntity, WiLine } from '../../index';
 export interface WiLineSerial extends BaseLineSerialEntity {
   LineId: number;
   Line: WiLine;

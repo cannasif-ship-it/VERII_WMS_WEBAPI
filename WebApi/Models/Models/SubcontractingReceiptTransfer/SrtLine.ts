@@ -1,7 +1,4 @@
-import type { SrtLineSerial } from './SrtLineSerial';
-import type { SrtImportLine } from './SRTImportLine';
-import type { SrtHeader } from './SRTHeader';
-import type { BaseLineEntity } from '../BaseLineEntity';
+import { BaseLineEntity, SrtHeader, SrtImportLine, SrtLineSerial } from '../../index';
 export interface SrtLine extends BaseLineEntity {
   HeaderId: number;
   Header: SrtHeader;

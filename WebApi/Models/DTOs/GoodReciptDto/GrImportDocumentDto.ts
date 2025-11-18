@@ -1,4 +1,4 @@
-import type { BaseEntityDto } from '../Base/BaseEntityDto';
+import { BaseEntityDto } from '../../index';
 export interface GrImportDocumentDto extends BaseEntityDto {
   HeaderId: number;
   Base64: number[];

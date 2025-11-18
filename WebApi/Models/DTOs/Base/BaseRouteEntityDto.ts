@@ -1,4 +1,4 @@
-import type { BaseEntityDto } from './BaseEntityDto';
+import { BaseEntityDto } from '../../index';
 export interface BaseRouteEntityDto extends BaseEntityDto {
   ScannedBarcode: string;
   Quantity: number;

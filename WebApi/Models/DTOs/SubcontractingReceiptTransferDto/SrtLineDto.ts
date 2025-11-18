@@ -1,4 +1,4 @@
-import type { BaseLineEntityDto } from '../Base/BaseLineEntityDto';
+import { BaseLineEntityDto } from '../../index';
 export interface SrtLineDto extends BaseLineEntityDto {
   HeaderId: number;
   OrderId?: number;

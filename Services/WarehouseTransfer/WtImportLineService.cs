@@ -294,6 +294,8 @@ namespace WMS_WEBAPI.Services
                                                     .AnyAsync(r => !r.IsDeleted
                                                     && r.SerialNo == request.SerialNo
                                                     && r.ImportLine.HeaderId == request.HeaderId
+                                                    && r.ImportLine.StockCode == request.StockCode
+                                                    && r.ImportLine.YapKod == request.YapKod
                                                     );
 
                         if (duplicateExists)

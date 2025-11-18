@@ -1,4 +1,4 @@
-import type { BaseEntity } from './BaseEntity';
+import { BaseEntity } from '../index';
 export interface BaseImportLineEntity extends BaseEntity {
   StockCode: string;
   YapKod?: string;

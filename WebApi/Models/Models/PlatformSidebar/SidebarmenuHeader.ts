@@ -1,5 +1,4 @@
-import type { SidebarmenuLine } from './SidebarmenuLine';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, SidebarmenuLine } from '../../index';
 export interface SidebarmenuHeader extends BaseEntity {
   MenuKey: string;
   Title: string;

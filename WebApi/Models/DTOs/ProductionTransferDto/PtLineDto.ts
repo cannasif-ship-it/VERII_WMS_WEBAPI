@@ -1,6 +1,4 @@
-import type { BaseLineUpdateDto } from '../Base/BaseLineUpdateDto';
-import type { BaseLineEntityDto } from '../Base/BaseLineEntityDto';
-import type { BaseLineCreateDto } from '../Base/BaseLineCreateDto';
+import { BaseLineCreateDto, BaseLineEntityDto, BaseLineUpdateDto } from '../../index';
 export interface PtLineDto extends BaseLineEntityDto {
   HeaderId: number;
 }

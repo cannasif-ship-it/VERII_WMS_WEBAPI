@@ -1,6 +1,4 @@
-import type { GrLine } from './GrLine';
-import type { GrImportLine } from './GrImportLine';
-import type { BaseHeaderEntity } from '../BaseHeaderEntity';
+import { BaseHeaderEntity, GrImportLine, GrLine } from '../../index';
 export interface GrHeader extends BaseHeaderEntity {
   CustomerCode: string;
   ElectronicWaybill: boolean;

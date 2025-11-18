@@ -1,4 +1,4 @@
-import type { BaseEntityDto } from './BaseEntityDto';
+import { BaseEntityDto } from '../../index';
 export interface BaseLineSerialEntityDto extends BaseEntityDto {
   Quantity: number;
   SerialNo?: string;

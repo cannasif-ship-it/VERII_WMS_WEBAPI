@@ -1,6 +1,4 @@
-import type { SitLine } from './SitLine';
-import type { SitHeader } from './SitHeader';
-import type { BaseImportLineEntity } from '../BaseImportLineEntity';
+import { BaseImportLineEntity, SitHeader, SitLine } from '../../index';
 export interface SitImportLine extends BaseImportLineEntity {
   HeaderId: number;
   Header: SitHeader;

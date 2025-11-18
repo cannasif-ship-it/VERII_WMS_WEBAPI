@@ -1,5 +1,4 @@
-import type { PLine } from './PLine';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, PLine } from '../../index';
 export interface PHeader extends BaseEntity {
   PackageCode: string;
   PackageType: string;

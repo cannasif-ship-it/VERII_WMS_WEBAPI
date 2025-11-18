@@ -1,4 +1,4 @@
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity } from '../../index';
 export interface PLine extends BaseEntity {
   PackageCode: string;
   PackageType: string;

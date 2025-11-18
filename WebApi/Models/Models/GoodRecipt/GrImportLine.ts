@@ -1,8 +1,4 @@
-import type { GrRoute } from './GrRoute';
-import type { GrLineSerial } from './GrLineSerial';
-import type { GrLine } from './GrLine';
-import type { GrHeader } from './GrHeader';
-import type { BaseImportLineEntity } from '../BaseImportLineEntity';
+import { BaseImportLineEntity, GrHeader, GrLine, GrLineSerial, GrRoute } from '../../index';
 export interface GrImportLine extends BaseImportLineEntity {
   HeaderId: number;
   Header: GrHeader;

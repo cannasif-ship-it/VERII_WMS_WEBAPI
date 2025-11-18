@@ -69,6 +69,7 @@ export * from './DTOs/WarehouseOutboundDto/WoLineDto';
 export * from './DTOs/WarehouseOutboundDto/WoLineSerialDto';
 export * from './DTOs/WarehouseOutboundDto/WoRouteDto';
 export * from './DTOs/WarehouseOutboundDto/WoTerminalLineDto';
+export * from './DTOs/WarehouseTransferDto/AddWtImportBarcodeRequestDto';
 export * from './DTOs/WarehouseTransferDto/BulkWtCreateDto';
 export * from './DTOs/WarehouseTransferDto/WtFunctionsDto';
 export * from './DTOs/WarehouseTransferDto/WtHeaderDto';

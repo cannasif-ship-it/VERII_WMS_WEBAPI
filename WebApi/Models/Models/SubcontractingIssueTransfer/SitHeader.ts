@@ -1,7 +1,4 @@
-import type { SitTerminalLine } from './SitTerminalLine';
-import type { SitLine } from './SitLine';
-import type { SitImportLine } from './SITImportLine';
-import type { BaseHeaderEntity } from '../BaseHeaderEntity';
+import { BaseHeaderEntity, SitImportLine, SitLine, SitTerminalLine } from '../../index';
 export interface SitHeader extends BaseHeaderEntity {
   CustomerCode?: string;
   SourceWarehouse?: string;

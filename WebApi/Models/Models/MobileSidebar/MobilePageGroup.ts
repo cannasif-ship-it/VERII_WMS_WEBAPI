@@ -1,7 +1,4 @@
-import type { MobileUserGroupMatch } from './MobileUserGroupMatch';
-import type { MobilemenuLine } from './MobilemenuLine';
-import type { MobilemenuHeader } from './MobilemenuHeader';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, MobilemenuHeader, MobilemenuLine, MobileUserGroupMatch } from '../../index';
 export interface MobilePageGroup extends BaseEntity {
   GroupName: string;
   GroupCode: string;

@@ -1,5 +1,4 @@
-import type { WtLine } from './WtLine';
-import type { BaseLineSerialEntity } from '../BaseLineSerialEntity';
+import { BaseLineSerialEntity, WtLine } from '../../index';
 export interface WtLineSerial extends BaseLineSerialEntity {
   LineId: number;
   Line: WtLine;

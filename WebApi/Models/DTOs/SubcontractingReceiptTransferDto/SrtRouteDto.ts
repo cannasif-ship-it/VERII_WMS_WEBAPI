@@ -1,6 +1,4 @@
-import type { BaseRouteUpdateDto } from '../Base/BaseRouteUpdateDto';
-import type { BaseRouteEntityDto } from '../Base/BaseRouteEntityDto';
-import type { BaseRouteCreateDto } from '../Base/BaseRouteCreateDto';
+import { BaseRouteCreateDto, BaseRouteEntityDto, BaseRouteUpdateDto } from '../../index';
 export interface SrtRouteDto extends BaseRouteEntityDto {
   LineId: number;
   StockCode: string;

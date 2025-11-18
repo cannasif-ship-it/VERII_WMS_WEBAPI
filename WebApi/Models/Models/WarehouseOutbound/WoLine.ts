@@ -1,7 +1,4 @@
-import type { WoLineSerial } from './WoLineSerial';
-import type { WoImportLine } from './WoImportLine';
-import type { WoHeader } from './WoHeader';
-import type { BaseLineEntity } from '../BaseLineEntity';
+import { BaseLineEntity, WoHeader, WoImportLine, WoLineSerial } from '../../index';
 export interface WoLine extends BaseLineEntity {
   HeaderId: number;
   Header: WoHeader;

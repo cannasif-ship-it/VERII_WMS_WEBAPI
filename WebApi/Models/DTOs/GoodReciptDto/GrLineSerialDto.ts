@@ -1,6 +1,4 @@
-import type { BaseLineSerialUpdateDto } from '../Base/BaseLineSerialUpdateDto';
-import type { BaseLineSerialEntityDto } from '../Base/BaseLineSerialEntityDto';
-import type { BaseLineSerialCreateDto } from '../Base/BaseLineSerialCreateDto';
+import { BaseLineSerialCreateDto, BaseLineSerialEntityDto, BaseLineSerialUpdateDto } from '../../index';
 export interface GrLineSerialDto extends BaseLineSerialEntityDto {
   ImportLineId: number;
 }

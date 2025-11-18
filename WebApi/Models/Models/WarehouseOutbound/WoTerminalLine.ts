@@ -1,6 +1,4 @@
-import type { WoHeader } from './WoHeader';
-import type { User } from '../User';
-import type { BaseEntity } from '../BaseEntity';
+import { BaseEntity, User, WoHeader } from '../../index';
 export interface WoTerminalLine extends BaseEntity {
   HeaderId: number;
   Header: WoHeader;

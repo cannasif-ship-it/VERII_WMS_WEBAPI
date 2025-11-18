@@ -1,6 +1,4 @@
-import type { BaseImportLineUpdateDto } from '../Base/BaseImportLineUpdateDto';
-import type { BaseImportLineEntityDto } from '../Base/BaseImportLineEntityDto';
-import type { BaseImportLineCreateDto } from '../Base/BaseImportLineCreateDto';
+import { BaseImportLineCreateDto, BaseImportLineEntityDto, BaseImportLineUpdateDto } from '../../index';
 export interface WiImportLineDto extends BaseImportLineEntityDto {
   HeaderId: number;
   LineId: number;

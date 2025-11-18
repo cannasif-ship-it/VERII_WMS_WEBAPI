@@ -1,5 +1,9 @@
-import { BaseEntity } from '../index';
-export interface BaseLineSerialEntity extends BaseEntity {
+export interface AddWtImportBarcodeRequestDto {
+  HeaderId: number;
+  LineId?: number;
+  Barcode: string;
+  StockCode: string;
+  YapKod?: string;
   Quantity: number;
   SerialNo?: string;
   SerialNo2?: string;

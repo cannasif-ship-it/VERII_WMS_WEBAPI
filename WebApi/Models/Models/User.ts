@@ -1,6 +1,4 @@
-import type { UserSession } from './UserSession';
-import type { UserAuthority } from './UserAuthority';
-import type { BaseEntity } from './BaseEntity';
+import { BaseEntity, UserAuthority, UserSession } from '../index';
 export interface User extends BaseEntity {
   Username: string;
   Email: string;

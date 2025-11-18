@@ -99,27 +99,13 @@ class Program
                 var outFileName = Path.GetFileNameWithoutExtension(file) + ".ts";
                 var outPath = Path.Combine(targetDir, outFileName);
 
-                if (baseImports.Count > 0)
+                if (baseImports.Count > 0 || typeImports.Count > 0)
                 {
-                    foreach (var b in baseImports.OrderBy(x => x))
+                    var allImports = baseImports.Union(typeImports).OrderBy(x => x).ToArray();
+                    var resolved = ResolveIndexImportPath(outRoot, targetDir);
+                    if (!string.IsNullOrWhiteSpace(resolved) && allImports.Length > 0)
                     {
-                        var resolved = ResolveBaseImportPath(outRoot, targetDir, b);
-                        if (!string.IsNullOrWhiteSpace(resolved))
-                        {
-                            tsBuilder.Insert(0, $"import type {{ {b} }} from '{resolved}';\n");
-                        }
-                    }
-                }
-
-                if (typeImports.Count > 0)
-                {
-                    foreach (var t in typeImports.OrderBy(x => x))
-                    {
-                        var resolved = ResolveBaseImportPath(outRoot, targetDir, t);
-                        if (!string.IsNullOrWhiteSpace(resolved))
-                        {
-                            tsBuilder.Insert(0, $"import type {{ {t} }} from '{resolved}';\n");
-                        }
+                        tsBuilder.Insert(0, $"import {{ {string.Join(", ", allImports)} }} from '{resolved}';\n");
                     }
                 }
 
@@ -279,13 +265,13 @@ class Program
         return name;
     }
 
-    static string ResolveBaseImportPath(string outRoot, string fromDir, string baseTypeName)
+    static string ResolveIndexImportPath(string outRoot, string fromDir)
     {
         try
         {
-            var candidates = Directory.GetFiles(outRoot, baseTypeName + ".ts", SearchOption.AllDirectories);
-            if (candidates.Length == 0) return string.Empty;
-            var rel = Path.GetRelativePath(fromDir, candidates[0]).Replace("\\", "/");
+            var indexTs = Path.Combine(outRoot, "index.ts");
+            if (!File.Exists(indexTs)) return string.Empty;
+            var rel = Path.GetRelativePath(fromDir, indexTs).Replace("\\", "/");
             if (rel.EndsWith(".ts")) rel = rel[..^3];
             if (!rel.StartsWith(".")) rel = "./" + rel;
             return rel;
