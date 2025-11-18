@@ -156,5 +156,12 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpPost("addBarcodeBasedonAssignedOrder")]
+        public async Task<ActionResult<ApiResponse<WtImportLineDto>>> AddBarcodeBasedonAssignedOrder([FromBody] AddWtImportBarcodeRequestDto request)
+        {
+            var result = await _wtImportLineService.AddBarcodeBasedonAssignedOrderAsync(request);
+            return StatusCode(result.StatusCode, result);
+        }
+
     }
 }

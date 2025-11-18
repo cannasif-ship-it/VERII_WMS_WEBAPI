@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj": {}
+    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj": {
+    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj",
+        "projectUniqueName": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj",
         "projectName": "CSharpInterfacesToTs",
-        "projectPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj",
+        "projectPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\CSharpInterfacesToTs.csproj",
         "packagesPath": "C:\\Users\\veriiadmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\obj\\",
+        "outputPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpInterfacesToTs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

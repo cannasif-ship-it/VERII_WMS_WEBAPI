@@ -1,5 +1,7 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using System.Transactions;
 using WMS_WEBAPI.DTOs;
 using WMS_WEBAPI.Interfaces;
 using WMS_WEBAPI.Models;
@@ -52,7 +54,7 @@ namespace WMS_WEBAPI.Services
             }
             catch (Exception ex)
             {
-                return ApiResponse<WtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("WtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500); 
+                return ApiResponse<WtImportLineDto>.ErrorResult(_localizationService.GetLocalizedString("WtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
 
@@ -226,5 +228,159 @@ namespace WMS_WEBAPI.Services
                 return ApiResponse<IEnumerable<WtImportLineDto>>.ErrorResult(_localizationService.GetLocalizedString("WtImportLineErrorOccurred"), ex.Message ?? string.Empty, 500);
             }
         }
+
+        public async Task<ApiResponse<WtImportLineDto>> AddBarcodeBasedonAssignedOrderAsync(AddWtImportBarcodeRequestDto request)
+        {
+            try
+            {
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    // 1) Header kaydı aktiflik kontrolu
+                    var header = await _unitOfWork.WtHeaders.GetByIdAsync(request.HeaderId);
+                    if (header == null || header.IsDeleted)
+                    {
+                        return ApiResponse<WtImportLineDto>.ErrorResult(
+                            _localizationService.GetLocalizedString("WtHeaderNotFound"),
+                            _localizationService.GetLocalizedString("WtHeaderNotFound"),
+                            404
+                        );
+                    }
+
+                    // 2) line stok ve yapkod uyumluluğu kontrolu
+                    var lineControl = await _unitOfWork.WtImportLines
+                        .FindAsync(x => x.HeaderId == request.HeaderId && !x.IsDeleted);
+
+                    if (lineControl != null && lineControl.Any())
+                    {
+                        var lineCounter = lineControl.Count(x =>
+                            x.StockCode == request.StockCode &&
+                            x.YapKod == request.YapKod
+                        );
+
+                        if (lineCounter == 0)
+                        {
+                            return ApiResponse<WtImportLineDto>.ErrorResult(
+                                _localizationService.GetLocalizedString("WtImportLineStokCodeAndYapCodeNotMatch"),
+                                _localizationService.GetLocalizedString("WtImportLineStokCodeAndYapCodeNotMatch"),
+                                404
+                            );
+                        }
+                    }
+                  
+                    
+                    // 3) LineId'lere ait WtLineSerial kayıtlarını kontrol et
+                    // Eğer kayıt varsa SerialNo kontrolü yap
+                    var lineSerialControl = await _unitOfWork.WtLineSerials
+                        .FindAsync(x => !x.IsDeleted && x.Line.HeaderId == request.HeaderId);
+
+                    if (lineSerialControl != null && lineSerialControl.Any())
+                    {
+                        var lineSerialCounter = lineSerialControl.Count(x => x.SerialNo == request.SerialNo);
+                        if (lineSerialCounter == 0)
+                        {
+                            return ApiResponse<WtImportLineDto>.ErrorResult(
+                                _localizationService.GetLocalizedString("WtImportLineSerialNotMatch"),
+                                _localizationService.GetLocalizedString("WtImportLineSerialNotMatch"),
+                                404
+                            );
+                        }
+                    }
+
+                    // 4) duplicate Serial kontrolü
+                    if (!string.IsNullOrWhiteSpace(request.SerialNo))
+                    {
+                        var duplicateExists = await _unitOfWork.WtRoutes
+                                                    .AsQueryable()
+                                                    .AnyAsync(r => !r.IsDeleted
+                                                    && r.SerialNo == request.SerialNo
+                                                    && r.ImportLine.HeaderId == request.HeaderId
+                                                    );
+
+                        if (duplicateExists)
+                        {
+                            var msg = _localizationService.GetLocalizedString("WtImportLineDuplicateSerialFound");
+                            return ApiResponse<WtImportLineDto>.ErrorResult(msg, msg, 409);
+                        }
+                    }
+
+                    // 5) Miktar kontrolü
+                    // Eğer miktar 0 ise hata döndür
+                    if (request.Quantity <= 0)
+                    {
+                        return ApiResponse<WtImportLineDto>.ErrorResult(
+                            _localizationService.GetLocalizedString("WtImportLineQuantityInvalid"),
+                            _localizationService.GetLocalizedString("WtImportLineQuantityInvalid"),
+                            400
+                        );
+                    }
+
+                    // 6) Import line bulma ve miktarı güncelleme işlemi
+                    WtImportLine? importLine = null;
+                    if (request.LineId.HasValue)
+                    {
+                        importLine = await _unitOfWork.WtImportLines.GetByIdAsync(request.LineId.Value);
+                    }
+                    else
+                    {
+                        importLine = (await _unitOfWork.WtImportLines
+                            .FindAsync(x => x.HeaderId == request.HeaderId 
+                                            && x.StockCode == request.StockCode
+                                            && x.YapKod == request.YapKod
+                                            && !x.IsDeleted))
+                            .FirstOrDefault();
+                    }
+
+                    // Kayıt yoksa oluştur
+                    if (importLine == null)
+                    {
+                        importLine = new WtImportLine
+                        {
+                            HeaderId = request.HeaderId,
+                            LineId = request.LineId,
+                            StockCode = request.StockCode,
+                            YapKod = request.YapKod
+                        };
+                        await _unitOfWork.WtImportLines.AddAsync(importLine);
+                        await _unitOfWork.SaveChangesAsync();
+                    }
+
+                    // 6) Route kaydını ekle (barkod, miktar, seri ve raf bilgileri)
+                    var route = new WtRoute
+                    {
+                        ImportLineId = importLine.Id,
+                        ScannedBarcode = request.Barcode,
+                        Quantity = request.Quantity,
+                        StockCode = request.StockCode,
+                        SerialNo = request.SerialNo,
+                        SerialNo2 = request.SerialNo2,
+                        SerialNo3 = request.SerialNo3,
+                        SerialNo4 = request.SerialNo4,
+                        SourceCellCode = request.SourceCellCode,
+                        TargetCellCode = request.TargetCellCode
+                    };
+
+                    await _unitOfWork.WtRoutes.AddAsync(route);
+                    await _unitOfWork.SaveChangesAsync();
+
+                    // 7) Sonucu döndür
+                    var dto = _mapper.Map<WtImportLineDto>(importLine);
+
+                    scope.Complete();
+                    return ApiResponse<WtImportLineDto>.SuccessResult(
+                        dto,
+                        _localizationService.GetLocalizedString("WtImportLineCreatedSuccessfully")
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<WtImportLineDto>.ErrorResult(
+                    _localizationService.GetLocalizedString("WtImportLineErrorOccurred"),
+                    ex.Message ?? string.Empty,
+                    500
+                );
+            }
+        }
+
     }
 }
