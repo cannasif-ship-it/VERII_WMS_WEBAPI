@@ -1,5 +1,5 @@
 import type { CreateIcRouteDto, IcRouteDto, UpdateIcRouteDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IIcRouteService {
   getAll(): Promise<ApiResponse<IcRouteDto[]>>;

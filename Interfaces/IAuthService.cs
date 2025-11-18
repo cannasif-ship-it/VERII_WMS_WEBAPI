@@ -5,7 +5,6 @@ namespace WMS_WEBAPI.Interfaces
 {
     public interface IAuthService
     {
-        Task<ApiResponse<UserDto>> GetUserByUsernameAsync(string username);
         Task<ApiResponse<UserDto>> GetUserByIdAsync(long id);
         Task<ApiResponse<IEnumerable<UserDto>>> GetAllUsersAsync();
         Task<ApiResponse<UserDto>> RegisterUserAsync(RegisterDto registerDto);

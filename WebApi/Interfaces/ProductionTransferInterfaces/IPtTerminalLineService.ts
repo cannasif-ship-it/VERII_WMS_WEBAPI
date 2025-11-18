@@ -1,5 +1,5 @@
 import type { CreatePtTerminalLineDto, PtTerminalLineDto, UpdatePtTerminalLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IPtTerminalLineService {
   getAll(): Promise<ApiResponse<PtTerminalLineDto[]>>;

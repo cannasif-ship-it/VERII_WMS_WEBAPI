@@ -1,3 +1,4 @@
+import type { MobileUserGroupMatch } from './MobileUserGroupMatch';
 import type { MobilemenuLine } from './MobilemenuLine';
 import type { MobilemenuHeader } from './MobilemenuHeader';
 import type { BaseEntity } from '../BaseEntity';

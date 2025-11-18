@@ -1,3 +1,4 @@
+import type { PtLineSerial } from './PtLineSerial';
 import type { PtImportLine } from './PtImportLine';
 import type { PtHeader } from './PtHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

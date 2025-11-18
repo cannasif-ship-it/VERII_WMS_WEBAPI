@@ -1,3 +1,5 @@
+import type { UserSession } from './UserSession';
+import type { UserAuthority } from './UserAuthority';
 import type { BaseEntity } from './BaseEntity';
 export interface User extends BaseEntity {
   Username: string;

@@ -1,5 +1,5 @@
 import type { LoginRequest, RegisterDto, UserDto } from '../Models/index';
-import type { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../ApiResponse';
 
 export interface IAuthService {
   getUserById(id: number): Promise<ApiResponse<UserDto>>;

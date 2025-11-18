@@ -1,3 +1,4 @@
+import type { SrtLineSerial } from './SrtLineSerial';
 import type { SrtImportLine } from './SRTImportLine';
 import type { SrtHeader } from './SRTHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

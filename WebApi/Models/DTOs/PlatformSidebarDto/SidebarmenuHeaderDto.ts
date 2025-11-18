@@ -1,3 +1,4 @@
+import type { SidebarmenuLineDto } from './SidebarmenuLineDto';
 export interface SidebarmenuHeaderDto {
   Id: number;
   MenuKey: string;

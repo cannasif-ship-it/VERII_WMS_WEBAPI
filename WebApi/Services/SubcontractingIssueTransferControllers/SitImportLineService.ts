@@ -2,7 +2,7 @@ import type { CreateSitImportLineDto, SitImportLineDto, UpdateSitImportLineDto }
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 import type { ISitImportLineService } from '../../Interfaces/index';
 
 const api = axios.create({

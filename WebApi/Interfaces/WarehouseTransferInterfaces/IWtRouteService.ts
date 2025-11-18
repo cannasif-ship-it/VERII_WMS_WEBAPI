@@ -1,5 +1,5 @@
 import type { CreateWtRouteDto, UpdateWtRouteDto, WtRouteDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IWtRouteService {
   getAll(): Promise<ApiResponse<WtRouteDto[]>>;

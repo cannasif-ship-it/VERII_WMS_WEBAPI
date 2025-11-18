@@ -51,7 +51,7 @@ class Program
             sb.AppendLine("import axios from 'axios';");
             var helperPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "ApiResponseErrorHelper.ts"));
             var baseUrlPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "baseUrl.ts"));
-            var apiRespPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "Models", "ApiResponse.ts"));
+            var apiRespPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "ApiResponse.ts"));
             var ifaceIndexPath = ToRelativeImport(outDir, Path.Combine(repoRoot, "WebApi", "Interfaces", "index.ts"));
             sb.AppendLine($"import {{ ApiResponseErrorHelper }} from '{helperPath}';");
             sb.AppendLine($"import {{ API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken }} from '{baseUrlPath}';");

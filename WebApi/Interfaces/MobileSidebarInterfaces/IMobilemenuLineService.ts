@@ -1,5 +1,5 @@
 import type { CreateMobilemenuLineDto, MobilemenuLineDto, UpdateMobilemenuLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IMobilemenuLineService {
   getAll(): Promise<ApiResponse<MobilemenuLineDto[]>>;

@@ -1,5 +1,5 @@
 import type { CreateIcTerminalLineDto, IcTerminalLineDto, UpdateIcTerminalLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IIcTerminalLineService {
   getAll(): Promise<ApiResponse<IcTerminalLineDto[]>>;

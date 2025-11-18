@@ -1,5 +1,5 @@
 import type { CariDto, DepoDto, OnHandQuantityDto, OpenGoodsForOrderByCustomerDto, OpenGoodsForOrderDetailDto, ProjeDto, StokDto } from '../Models/index';
-import type { ApiResponse, PagedResponse } from '../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../ApiResponse';
 
 export interface IErpService {
   getOnHandQuantityById(depoKodu: number, stokKodu: string, seriNo: string, projeKodu: string): Promise<ApiResponse<OnHandQuantityDto>>;

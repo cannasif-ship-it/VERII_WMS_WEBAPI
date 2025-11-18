@@ -1,3 +1,4 @@
+import type { GrLineSerial } from './GrLineSerial';
 import type { GrImportLine } from './GrImportLine';
 import type { GrHeader } from './GrHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

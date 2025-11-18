@@ -1,4 +1,3 @@
-export * from './ApiResponse';
 export * from './DTOs/Base/BaseEntityDto';
 export * from './DTOs/Base/BaseHeaderCreateDto';
 export * from './DTOs/Base/BaseHeaderEntityDto';

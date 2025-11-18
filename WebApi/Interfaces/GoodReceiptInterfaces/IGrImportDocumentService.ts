@@ -1,5 +1,5 @@
 import type { CreateGrImportDocumentDto, GrImportDocumentDto, UpdateGrImportDocumentDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IGrImportDocumentService {
   getAll(): Promise<ApiResponse<GrImportDocumentDto[]>>;

@@ -1,5 +1,5 @@
 import type { CreateSidebarmenuLineDto, SidebarmenuLineDto, UpdateSidebarmenuLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface ISidebarmenuLineService {
   getAll(): Promise<ApiResponse<SidebarmenuLineDto[]>>;

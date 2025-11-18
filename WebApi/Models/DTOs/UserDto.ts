@@ -1,3 +1,4 @@
+import type { UserDto } from './UserDto';
 export interface UserDto extends AuditedEntityDto {
   Username: string;
   Email: string;

@@ -1,5 +1,5 @@
 import type { CreatePtHeaderDto, PtHeaderDto, UpdatePtHeaderDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IPtHeaderService {
   getAll(): Promise<ApiResponse<PtHeaderDto[]>>;

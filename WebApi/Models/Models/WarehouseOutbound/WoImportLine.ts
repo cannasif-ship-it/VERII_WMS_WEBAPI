@@ -1,3 +1,5 @@
+import type { WoRoute } from './WoRoute';
+import type { WoLine } from './WoLine';
 import type { WoHeader } from './WoHeader';
 import type { BaseImportLineEntity } from '../BaseImportLineEntity';
 export interface WoImportLine extends BaseImportLineEntity {

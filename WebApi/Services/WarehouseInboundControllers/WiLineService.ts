@@ -2,7 +2,7 @@ import type { CreateWiLineDto, UpdateWiLineDto, WiLineDto } from '../../Models/i
 import axios from 'axios';
 import { ApiResponseErrorHelper } from '../../ApiResponseErrorHelper';
 import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken } from '../../baseUrl';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 import type { IWiLineService } from '../../Interfaces/index';
 
 const api = axios.create({

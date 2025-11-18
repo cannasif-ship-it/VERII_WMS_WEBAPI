@@ -1,3 +1,4 @@
+import type { SidebarmenuLine } from './SidebarmenuLine';
 import type { BaseEntity } from '../BaseEntity';
 export interface SidebarmenuHeader extends BaseEntity {
   MenuKey: string;

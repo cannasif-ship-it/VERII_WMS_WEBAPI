@@ -1,5 +1,5 @@
 import type { CreatePlatformUserGroupMatchDto, PlatformUserGroupMatchDto, UpdatePlatformUserGroupMatchDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IPlatformUserGroupMatchService {
   getAll(): Promise<ApiResponse<PlatformUserGroupMatchDto[]>>;

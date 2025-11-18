@@ -1,5 +1,5 @@
 import type { CreatePtLineDto, PtLineDto, UpdatePtLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IPtLineService {
   getAll(): Promise<ApiResponse<PtLineDto[]>>;

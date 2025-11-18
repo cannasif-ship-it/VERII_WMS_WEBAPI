@@ -1,5 +1,5 @@
 import type { CreateSrtTerminalLineDto, SrtTerminalLineDto, UpdateSrtTerminalLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface ISrtTerminalLineService {
   getAll(): Promise<ApiResponse<SrtTerminalLineDto[]>>;

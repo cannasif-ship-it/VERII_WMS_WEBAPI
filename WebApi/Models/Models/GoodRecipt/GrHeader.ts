@@ -1,3 +1,5 @@
+import type { GrLine } from './GrLine';
+import type { GrImportLine } from './GrImportLine';
 import type { BaseHeaderEntity } from '../BaseHeaderEntity';
 export interface GrHeader extends BaseHeaderEntity {
   CustomerCode: string;

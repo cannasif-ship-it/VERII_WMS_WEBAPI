@@ -1,5 +1,5 @@
 import type { CreateSitImportLineDto, SitImportLineDto, UpdateSitImportLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface ISitImportLineService {
   getAll(): Promise<ApiResponse<SitImportLineDto[]>>;

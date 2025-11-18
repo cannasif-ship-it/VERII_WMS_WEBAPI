@@ -1,5 +1,5 @@
 import type { CreateSitRouteDto, SitRouteDto, UpdateSitRouteDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface ISitRouteService {
   getAll(): Promise<ApiResponse<SitRouteDto[]>>;

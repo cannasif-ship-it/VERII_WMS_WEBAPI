@@ -1,3 +1,4 @@
+import type { WtLineSerial } from './WtLineSerial';
 import type { WtImportLine } from './WtImportLine';
 import type { WtHeader } from './WtHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

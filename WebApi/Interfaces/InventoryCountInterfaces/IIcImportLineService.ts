@@ -1,5 +1,5 @@
 import type { CreateIcImportLineDto, IcImportLineDto, UpdateIcImportLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IIcImportLineService {
   getAll(): Promise<ApiResponse<IcImportLineDto[]>>;

@@ -1,3 +1,4 @@
+import type { WoLineSerial } from './WoLineSerial';
 import type { WoImportLine } from './WoImportLine';
 import type { WoHeader } from './WoHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

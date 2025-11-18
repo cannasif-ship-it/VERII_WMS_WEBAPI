@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj": {}
+    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj": {
+    "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj",
+        "projectUniqueName": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj",
         "projectName": "CSharpToTs",
-        "projectPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj",
+        "projectPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\CSharpToTs.csproj",
         "packagesPath": "C:\\Users\\veriiadmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\obj\\",
+        "outputPath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WebApi\\Codegen\\CSharpToTs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

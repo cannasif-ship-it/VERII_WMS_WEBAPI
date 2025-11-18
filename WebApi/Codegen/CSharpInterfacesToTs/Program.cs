@@ -74,7 +74,7 @@ class Program
             var relDir = Path.GetDirectoryName(relPath) ?? string.Empty;
             var outDir = Path.Combine(outRoot, relDir);
             Directory.CreateDirectory(outDir);
-            var apiRespTs = Path.Combine(repoRoot, "WebApi", "Models", "ApiResponse.ts");
+            var apiRespTs = Path.Combine(repoRoot, "WebApi", "ApiResponse.ts");
             var apiRel = Path.GetRelativePath(outDir, apiRespTs).Replace("\\", "/");
             if (apiRel.EndsWith(".ts")) apiRel = apiRel[..^3];
             if (!apiRel.StartsWith(".")) apiRel = "./" + apiRel;

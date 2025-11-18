@@ -67,8 +67,9 @@ class Program
                     var extends = ExtractFirstBase(baseRaw);
                     if (!string.IsNullOrWhiteSpace(extends)) baseImports.Add(extends);
 
-                    var bodyStart = cm.Index + cm.Length;
-                    var bodyEnd = FindMatchingBrace(text, cm.Index + text.Substring(cm.Index).IndexOf('{'));
+                    var openBraceIndex = cm.Index + cm.Length - 1;
+                    var bodyStart = openBraceIndex + 1;
+                    var bodyEnd = FindMatchingBrace(text, openBraceIndex);
                     var body = bodyEnd > bodyStart ? text.Substring(bodyStart, bodyEnd - bodyStart) : string.Empty;
                     body = Regex.Replace(body, @"\b(virtual|override|static|new|required)\b\s+", "");
 
@@ -201,8 +202,8 @@ class Program
             return ($"{innerTs}[]", optional);
         }
 
-        // List<T>, ICollection<T>, IEnumerable<T>
-        var listMatch = Regex.Match(csType, @"^(List|ICollection|IEnumerable)\s*<\s*(.+)\s*>$");
+        // List<T>, ICollection<T>, IEnumerable<T>, IReadOnlyCollection<T>, IReadOnlyList<T>, ISet<T>, HashSet<T>
+        var listMatch = Regex.Match(csType, @"^(List|ICollection|IEnumerable|IReadOnlyCollection|IReadOnlyList|ISet|HashSet)\s*<\s*(.+)\s*>$");
         if (listMatch.Success)
         {
             var inner = listMatch.Groups[2].Value.Trim();

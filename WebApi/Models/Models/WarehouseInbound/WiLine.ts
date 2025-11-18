@@ -1,3 +1,4 @@
+import type { WiLineSerial } from './WiLineSerial';
 import type { WiImportLine } from './WiImportLine';
 import type { WiHeader } from './WiHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

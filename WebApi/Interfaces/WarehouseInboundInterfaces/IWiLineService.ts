@@ -1,5 +1,5 @@
 import type { CreateWiLineDto, UpdateWiLineDto, WiLineDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IWiLineService {
   getAll(): Promise<ApiResponse<WiLineDto[]>>;

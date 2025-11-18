@@ -1,5 +1,5 @@
 import type { CreateMobileUserGroupMatchDto, MobileUserGroupMatchDto, UpdateMobileUserGroupMatchDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IMobileUserGroupMatchService {
   getAll(): Promise<ApiResponse<MobileUserGroupMatchDto[]>>;

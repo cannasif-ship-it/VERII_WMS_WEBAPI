@@ -1,5 +1,5 @@
 import type { BulkCreateWtRequestDto, CreateWtHeaderDto, GenerateWarehouseTransferOrderRequestDto, UpdateWtHeaderDto, WtHeaderDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IWtHeaderService {
   getAll(): Promise<ApiResponse<WtHeaderDto[]>>;

@@ -1,5 +1,5 @@
 import type { CreateMobilemenuHeaderDto, MobilemenuHeaderDto, UpdateMobilemenuHeaderDto } from '../../Models/index';
-import type { ApiResponse, PagedResponse } from '../../Models/ApiResponse';
+import type { ApiResponse, PagedResponse } from '../../ApiResponse';
 
 export interface IMobilemenuHeaderService {
   getAll(): Promise<ApiResponse<MobilemenuHeaderDto[]>>;

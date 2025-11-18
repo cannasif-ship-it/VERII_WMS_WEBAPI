@@ -1,3 +1,4 @@
+import type { PLine } from './PLine';
 import type { BaseEntity } from '../BaseEntity';
 export interface PHeader extends BaseEntity {
   PackageCode: string;

@@ -1,3 +1,4 @@
+import type { SitLineSerial } from './SitLineSerial';
 import type { SitImportLine } from './SITImportLine';
 import type { SitHeader } from './SitHeader';
 import type { BaseLineEntity } from '../BaseLineEntity';

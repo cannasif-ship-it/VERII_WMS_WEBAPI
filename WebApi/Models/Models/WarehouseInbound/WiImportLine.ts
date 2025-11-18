@@ -1,3 +1,4 @@
+import type { WiLine } from './WiLine';
 import type { WiHeader } from './WiHeader';
 import type { BaseImportLineEntity } from '../BaseImportLineEntity';
 export interface WiImportLine extends BaseImportLineEntity {

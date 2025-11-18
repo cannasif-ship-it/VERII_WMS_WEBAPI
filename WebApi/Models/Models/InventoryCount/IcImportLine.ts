@@ -1,3 +1,4 @@
+import type { IcRoute } from './IcRoute';
 import type { IcHeader } from './IcHeader';
 import type { BaseEntity } from '../BaseEntity';
 export interface IcImportLine extends BaseEntity {
