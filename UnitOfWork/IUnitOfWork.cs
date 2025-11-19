@@ -6,8 +6,7 @@ namespace WMS_WEBAPI.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         // Repository properties
-        IUserRepository Users { get; }
-        IGenericRepository<User> UserEntities { get; }
+        IGenericRepository<User> Users { get; }
         IGenericRepository<BaseEntity> BaseEntities { get; }
         IGenericRepository<BaseHeaderEntity> BaseHeaderEntities { get; }
         

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EcseyHxrGkQ=",
+  "dgSpecHash": "cQrCijlKigI=",
   "success": true,
-  "projectFilePath": "c:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
+  "projectFilePath": "C:\\Users\\veriiadmin\\Documents\\GitHub\\VERII_WMS_WEBAPI\\WMS_WEBAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\veriiadmin\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
     "C:\\Users\\veriiadmin\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",

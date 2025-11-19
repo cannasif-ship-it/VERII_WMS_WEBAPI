@@ -99,39 +99,7 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<OpenGoodsForOrderByCustomerDto?>> GetOpenGoodsForOrderByCustomerByIdAsync(string cariKodu)
-        {
-            try
-            {
-                var result = await _erpContext.CustomerOrders
-                    .Where(x => x.FATIRS_NO == cariKodu)
-                    .FirstOrDefaultAsync();
 
-                var mappedResult = _mapper.Map<OpenGoodsForOrderByCustomerDto?>(result);
 
-                return ApiResponse<OpenGoodsForOrderByCustomerDto?>.SuccessResult(mappedResult, _localizationService.GetLocalizedString("CustomerOrderRetrievedSuccessfully"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<OpenGoodsForOrderByCustomerDto?>.ErrorResult(_localizationService.GetLocalizedString("CustomerOrderRetrievalError"), ex.Message, 500, "Error retrieving customer order data");
-            }
-        }
-
-        // Sipariş detay işlemleri
-        public async Task<ApiResponse<List<OpenGoodsForOrderDetailDto>>> GetOpenGoodsForOrderDetailsByOrderNumbersAsync(string orderNumber)
-        {
-            try
-            {
-                var result = await _erpContext.OrderDetails
-                    .ToListAsync();
-                var mappedResult = _mapper.Map<List<OpenGoodsForOrderDetailDto>>(result);
-
-                return ApiResponse<List<OpenGoodsForOrderDetailDto>>.SuccessResult(mappedResult, _localizationService.GetLocalizedString("OrderDetailRetrievedSuccessfully"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<List<OpenGoodsForOrderDetailDto>>.ErrorResult(_localizationService.GetLocalizedString("OrderDetailRetrievalError"), ex.Message, 500);
-            }
-        }
     }
 }

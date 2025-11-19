@@ -1,4 +1,4 @@
-import { BaseLineSerialCreateDto, CreateWtHeaderDto, CreateWtImportLineWithKeysDto, CreateWtLineSerialWithLineKeyDto, CreateWtLineWithKeyDto, CreateWtRouteWithLineKeyDto, CreateWtTerminalLineWithUserDto } from '../../index';
+import { BaseLineSerialCreateDto, CreateWtHeaderDto } from '../../index';
 export interface CreateWtLineWithKeyDto {
   ClientKey?: string;
   ClientGuid?: string;
@@ -26,7 +26,6 @@ export interface CreateWtRouteWithLineKeyDto {
   TargetWarehouse?: number;
   SourceCellCode?: string;
   TargetCellCode?: string;
-  Priority: number;
   Description?: string;
 }
 

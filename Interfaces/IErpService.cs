@@ -19,10 +19,5 @@ namespace WMS_WEBAPI.Interfaces
         // Proje işlemleri
         Task<ApiResponse<List<ProjeDto>>> GetProjelerAsync();
 
-        // Müşteri siparişi işlemleri
-        Task<ApiResponse<OpenGoodsForOrderByCustomerDto?>> GetOpenGoodsForOrderByCustomerByIdAsync(string cariKodu);
-
-        // Sipariş detay işlemleri
-        Task<ApiResponse<List<OpenGoodsForOrderDetailDto>>> GetOpenGoodsForOrderDetailsByOrderNumbersAsync(string orderNumber);
     }
 }

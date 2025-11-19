@@ -456,7 +456,6 @@ namespace WMS_WEBAPI.Services
                                 Quantity = rDto.Quantity,
                                 StockCode = !string.IsNullOrWhiteSpace(rDto.StockCode) ? rDto.StockCode : (importLineIdToStockCode.TryGetValue(importLineId, out var sc) ? sc : null),
                                 RouteCode = rDto.RouteCode,
-                                Priority = rDto.Priority,
                                 Description = rDto.Description,
                                 SerialNo = rDto.SerialNo,
                                 SerialNo2 = rDto.SerialNo2,

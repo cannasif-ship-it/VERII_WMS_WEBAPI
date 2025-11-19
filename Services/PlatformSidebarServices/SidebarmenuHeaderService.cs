@@ -264,7 +264,7 @@ namespace WMS_WEBAPI.Services
     {
         try
         {
-            var user = await _unitOfWork.UserEntities.AsQueryable().FirstOrDefaultAsync(u => u.Id == userId && !u.IsDeleted);
+            var user = await _unitOfWork.Users.AsQueryable().FirstOrDefaultAsync(u => u.Id == userId && !u.IsDeleted);
             if (user == null)
             {
                 return ApiResponse<List<SidebarmenuHeader>>.ErrorResult(

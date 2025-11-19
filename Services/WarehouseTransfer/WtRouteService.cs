@@ -228,20 +228,7 @@ namespace WMS_WEBAPI.Services
             }
         }
 
-        public async Task<ApiResponse<IEnumerable<WtRouteDto>>> GetByPriorityAsync(short priority)
-        {
-            try
-            {
-                var entities = await _unitOfWork.WtRoutes
-                    .FindAsync(x => x.Priority == priority && !x.IsDeleted);
-                var dtos = _mapper.Map<IEnumerable<WtRouteDto>>(entities);
-                return ApiResponse<IEnumerable<WtRouteDto>>.SuccessResult(dtos, _localizationService.GetLocalizedString("WtRouteRetrievedSuccessfully"));
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<IEnumerable<WtRouteDto>>.ErrorResult(_localizationService.GetLocalizedString("WtRouteErrorOccurred"), ex.Message ?? string.Empty, 500);
-            }
-        }
+        
 
         public async Task<ApiResponse<IEnumerable<WtRouteDto>>> GetByDateRangeAsync(DateTime startDate, DateTime endDate)
         {

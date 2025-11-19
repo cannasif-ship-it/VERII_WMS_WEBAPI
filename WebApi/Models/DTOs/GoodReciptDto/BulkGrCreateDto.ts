@@ -39,7 +39,6 @@ export interface CreateGrRouteWithImportLineKeyDto {
   Quantity: number;
   StockCode?: string;
   RouteCode?: string;
-  Priority?: number;
   Description?: string;
   SerialNo?: string;
   SerialNo2?: string;

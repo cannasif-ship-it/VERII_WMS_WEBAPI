@@ -36,7 +36,6 @@ namespace WMS_WEBAPI.DTOs
         public short? TargetWarehouse { get; set; }
         public string? SourceCellCode { get; set; }
         public string? TargetCellCode { get; set; }
-        public int Priority { get; set; }
         public string? Description { get; set; }
     }
 

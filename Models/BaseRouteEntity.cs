@@ -20,7 +20,6 @@ namespace WMS_WEBAPI.Models
         [MaxLength(50)]
         public string? RouteCode { get; set; }
 
-        public int? Priority { get; set; }
 
         [MaxLength(255)]
         public string? Description { get; set; }

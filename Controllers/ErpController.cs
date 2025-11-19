@@ -28,45 +28,31 @@ namespace WMS_WEBAPI.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("getCari")]
+        [HttpGet("getAllCustomers")]
         public async Task<ActionResult<ApiResponse<List<CariDto>>>> GetCaris()
         {
             var result = await _erpService.GetCarisAsync();
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("getStoks")]
+        [HttpGet("getAllProducts")]
         public async Task<ActionResult<ApiResponse<List<StokDto>>>> GetStoks()
         {
             var result = await _erpService.GetStoksAsync();
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("getDepos")]
+        [HttpGet("getAllWarehouses")]
         public async Task<ActionResult<ApiResponse<List<DepoDto>>>> GetDepos()
         {
             var result = await _erpService.GetDeposAsync();
             return StatusCode(result.StatusCode, result);
         }
 
-        [HttpGet("getProjeler")]
+        [HttpGet("getAllProjects")]
         public async Task<ActionResult<ApiResponse<List<ProjeDto>>>> GetProjeler()
         {
             var result = await _erpService.GetProjelerAsync();
-            return StatusCode(result.StatusCode, result);
-        }
-
-        [HttpGet("get-open-goods-for-order-by-customer-by-id/{cariKodu}")]
-        public async Task<ActionResult<ApiResponse<OpenGoodsForOrderByCustomerDto?>>> GetOpenGoodsForOrderByCustomerById(string cariKodu)
-        {
-            var result = await _erpService.GetOpenGoodsForOrderByCustomerByIdAsync(cariKodu);
-            return StatusCode(result.StatusCode, result);
-        }
-
-        [HttpGet("get-open-goods-for-order-details-by-order-number/{orderNumber}")]
-        public async Task<ActionResult<ApiResponse<List<OpenGoodsForOrderDetailDto>>>> GetOpenGoodsForOrderDetailsByOrderNumber(string orderNumber)
-        {
-            var result = await _erpService.GetOpenGoodsForOrderDetailsByOrderNumbersAsync(orderNumber);
             return StatusCode(result.StatusCode, result);
         }
 
@@ -77,5 +63,6 @@ namespace WMS_WEBAPI.Controllers
             var healthResponse = new { Status = "Healthy", Timestamp = DateTime.UtcNow };
             return StatusCode(200, healthResponse);
         }
+        
     }
 }

@@ -14,8 +14,7 @@ namespace WMS_WEBAPI.UnitOfWork
         private bool _disposed = false;
 
         // Repository instances
-        private IUserRepository? _users;
-        private IGenericRepository<User>? _userEntities;
+        private IGenericRepository<User>? _users;
         private IGenericRepository<BaseEntity>? _baseEntities;
         private IGenericRepository<BaseHeaderEntity>? _baseHeaderEntities;
         
@@ -99,11 +98,9 @@ namespace WMS_WEBAPI.UnitOfWork
         }
 
         // Repository properties
-        public IUserRepository Users =>
-            _users ??= new UserRepository(_context);
 
-        public IGenericRepository<User> UserEntities =>
-            _userEntities ??= new GenericRepository<User>(_context, _httpContextAccessor);
+        public IGenericRepository<User> Users =>
+            _users ??= new GenericRepository<User>(_context, _httpContextAccessor);
 
         public IGenericRepository<BaseEntity> BaseEntities =>
             _baseEntities ??= new GenericRepository<BaseEntity>(_context, _httpContextAccessor);

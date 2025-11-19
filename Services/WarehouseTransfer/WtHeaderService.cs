@@ -579,7 +579,6 @@ namespace WMS_WEBAPI.Services
                                 TargetWarehouse = rDto.TargetWarehouse,
                                 SourceCellCode = rDto.SourceCellCode,
                                 TargetCellCode = rDto.TargetCellCode,
-                                Priority = rDto.Priority,
                                 Description = rDto.Description
                             };
                             routes.Add(route);
